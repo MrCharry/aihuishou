@@ -1,0 +1,29 @@
+/* Mine/wallets/index.wxss */
+.container {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+}
+.myWallet {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.myWallet view {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #cecece;
+  height: 160rpx;
+  align-items: center;
+
+}
+.tips {
+  width: 100%;
+  position: fixed;
+  bottom: 40rpx;
+  text-align: center;
+  font-size: small;
+  color: #999;
+}

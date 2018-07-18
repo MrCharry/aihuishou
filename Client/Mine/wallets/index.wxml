@@ -1,0 +1,14 @@
+<!--Mine/wallets/index.wxml-->
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+  <view class='myWallet'>
+    <view>
+      <text style='padding-left:30rpx;'>您的当前账户余额为</text>
+      <text style='padding-right:30rpx;'>0元</text>
+    </view>
+    <view>
+      <text style='padding-left:30rpx;'>可提现余额为</text>
+      <text style='padding-right:30rpx;'>0元</text>
+    </view>
+  </view>
+  <view class='tips'>提交提现后，将会在2-3个工作日内打到对应账户</view>
+</view>

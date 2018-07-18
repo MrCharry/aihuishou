@@ -1,0 +1,62 @@
+/* Mine/feedback/index.wxss */
+view {
+  margin-top: 30rpx;
+}
+text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+}
+input {
+  background-color: transparent;
+}
+textarea {
+  border: 1px solid #2dbea7;
+  width: 100%;
+  height: 450rpx;
+}
+form input {
+  width: 100%;
+  border: 1px solid #2dbea7;
+  height: 80rpx;
+  margin-top: 30rpx;
+}
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 60rpx;
+  padding-right: 60rpx;
+  background-color: whitesmoke;
+  margin-top: 0;
+}
+.titleRow {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+.titleRow text {
+  margin-top: 20rpx;
+}
+.titleRow input {
+  margin-left: 20rpx;
+  border: 1px solid #2dbea7;
+  width: 85%;
+  height: 80rpx;
+  
+}
+.submitBtn {
+  display: flex;
+  background-color: #2dbea7;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border-radius: 10rpx;
+}
+.contactMe {
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: 20rpx;
+}

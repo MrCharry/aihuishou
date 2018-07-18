@@ -1,0 +1,32 @@
+/* Mine/setting/index.wxss */
+image {
+  width: 16rpx;
+  height: 26rpx;
+  background-size: cover;
+}
+.container {
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  width: 100%;
+}
+.versionNumber {
+  display: flex;
+  align-items: center;
+  padding-left: 30rpx;
+  height: 120rpx;
+  background-color: whitesmoke;
+}
+
+.operationZoom {
+  margin-top: 24rpx;
+  background-color: whitesmoke;
+}
+.operationZoom view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cecece;
+  height: 100rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}

@@ -1,0 +1,10 @@
+<!--Mine/credits/index.wxml-->
+<view class='container'>
+  <view class='curCreditZoom' style='height:{{deviceInfo.windowHeight*0.2}}px'>
+    <text>你现在的总积分为</text>
+    <view class='curCredit'><text>0分</text></view>
+  </view>
+  <view class='creditRecordZoom' style='height:{{deviceInfo.windowHeight*0.8}}px'>
+    <view class='noCredit'>暂无积分纪录</view>
+  </view>
+</view>

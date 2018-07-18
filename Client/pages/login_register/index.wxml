@@ -1,0 +1,27 @@
+<!--pages/login_regisiter/index.wxml-->
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+  <view class='logoIcon'>
+    <image src='/Resources/images/logoIcon.png' />
+  </view>
+  <view class='loginModel'>
+    <view class='row1'>
+      <label>手机</label>
+      <input bindinput='getInput' data-name='phonenum' type='number' placeholder='请输入手机号' placeholder-style='font-size: 14px;' />
+    </view>
+    <view class='row1' hidden='{{!view.showRow1}}'>
+      <label>密码</label>
+      <input bindinput='getInput' data-name='password' password='true' placeholder='请输入密码' placeholder-style='font-size: 14px;' />
+    </view>
+    <view class='row2' hidden='{{!view.showRow2}}'>
+      <label class='verifiedCode'>验证码</label>
+      <input bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码' placeholder-style='font-size: 14px;' />
+      <button bindtap='getVerifiedCode' class='getVerifiedCode' style='opacity:{{view.aOpacity}}'>获取验证码</button>
+    </view>
+    <view class='loginLabel' bindtap='goLogin' hidden='{{!view.showLoginLabel}}'>直接登录</view>
+    <button class='loginBtn' bindtap='clickLogin' style='opacity:{{view.bOpacity}}'>{{view.btnText}}</button>
+  </view>
+  <view class='options' hidden='{{!view.showOptions}}'>
+    <label bindtap='clickLeftLabel' style='padding-left:20rpx; opacity:{{view.cOpacity}}'>{{view.leftLabelText}}</label>
+    <label bindtap='clickRightLabel' style='padding-right:30rpx; opacity:{{view.dOpacity}}'>{{view.rightLabelText}}</label>
+  </view>
+</view>

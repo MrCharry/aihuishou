@@ -1,0 +1,54 @@
+/* Mine/userProfile/index.wxss */
+label {
+  white-space: nowrap;
+}
+image {
+  width: 16rpx;
+  height: 26rpx;
+  background-size: cover;
+  margin-left: 40rpx;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+.row {
+  height: 150rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cecece;
+}
+.row2 {
+  height: 150rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #cecece;
+}
+.row2 .gender {
+  margin-left: 20%;
+}
+.row2 image {
+  width: 42rpx;
+  height: 42rpx;
+  margin-right: 15rpx;
+  margin-left: 0;
+}
+.row2 view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.row2 text {
+  line-height: 150rpx;
+}
+.icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+.nickname {
+  border: 1px solid #cecece;
+}

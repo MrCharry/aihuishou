@@ -1,0 +1,29 @@
+/* Mine/credits/index.wxss */
+.curCreditZoom {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #2dbea7;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30rpx;
+}
+.curCreditZoom .curCredit {
+  padding-top: 40rpx;
+  text-align: center;
+}
+.curCreditZoom text {
+  color: white;
+}
+.curCredit {
+    font-size: xx-large;
+}
+.creditRecordZoom {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+}
+.noCredit {
+  padding-top: 60rpx;
+  text-align: center;
+  color: #a0a0a0;
+}

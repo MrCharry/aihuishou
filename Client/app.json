@@ -1,0 +1,28 @@
+{
+  "pages":[
+    "Home/index",
+    "Mine/index",
+    "Mine/credits/index",
+    "Mine/orders/index",
+    "Mine/wallets/index",
+    "Mine/notification/index",
+    "Mine/feedback/index",
+    "Mine/setting/index",
+    "Mine/setting/modifyPassword/index",
+    "Mine/setting/setPayword/index",
+    "Mine/userProfile/index",
+    "Component/paySix/index",
+    "pages/orderRecords/index",
+    "pages/login_register/index",
+    "pages/modifyPhone/index",
+    "pages/bankcard/index",
+    "pages/modifyAddress/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#2dbea7",
+    "navigationBarTitleText": "慧回收用户首页",
+    "navigationBarTextStyle":"white"
+  }
+}

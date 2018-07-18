@@ -1,0 +1,6 @@
+/* Mine/notification/index.wxss */
+.noNotification {
+  text-align: center;
+  padding-top: 20%;
+  color: #a0a0a0;
+}

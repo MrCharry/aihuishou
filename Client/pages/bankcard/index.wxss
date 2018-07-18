@@ -1,0 +1,21 @@
+/* pages/bankcard/index.wxss */
+.container {
+  background-color: #f6f6f6;
+  margin-top: 10rpx;
+  display: flex;
+  justify-content: space-around;
+}
+image {
+  width: 42rpx;
+  height: 42rpx;
+}
+button {
+  background-color: #2dbea7;
+  color: white;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}

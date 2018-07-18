@@ -1,0 +1,159 @@
+/**index.wxss**/
+.topBar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80rpx;
+  width: 100%;
+  background: #2dbea7;
+  z-index: 2;
+}
+.topBar .left {
+  width: 70rpx;
+  height: 70rpx; 
+  margin-left: 20rpx;
+  border-radius: 50%;
+  /* background-size: 70rpx 70rpx;
+  border: none; */
+  /* background-repeat: no-repeat; */
+}
+.topBar .right {
+  width: 64rpx;
+  height: 56rpx; 
+  padding-right: 30rpx; 
+  /* background-size: 64rpx 56rpx;
+  border: none;
+  background-repeat: no-repeat; 
+  border-radius: 0; */
+}
+.topTitle {
+  background-color: whitesmoke;
+  position: fixed;  
+  padding-top: 80rpx;
+  height: 80rpx;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.7;
+}
+.map {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+.release {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  width: 240rpx;
+  height: 240rpx;
+  background-color: #2dbea7;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}
+.locateIcon {
+  padding-left: 85%;
+}
+.locateIcon image {
+  width: 60rpx;
+  height: 60rpx;
+}
+.menuList {
+  box-sizing: border-box;
+  position: absolute;
+  top: 83rpx;
+  right: 0;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  z-index: 3;
+
+}
+.menuItem {
+  border: 1px solid #ebebeb;
+  height: 80rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.modelCurtain {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.loginModel {
+  position: absolute;
+  display: flex;
+  left: 10rpx;
+  right: 10rpx;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10rpx;
+}
+.closeIcon {  
+  text-align: right;
+} 
+.loginModel image {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 10rpx;
+}
+.loginModel input {
+  border: 1px solid #cecece;
+  margin-left: 30rpx;
+  border-radius: 10rpx;
+  height: 70rpx;
+  padding-left: 20rpx;
+}
+.loginModel label {
+  padding-left: 20rpx;
+  line-height: 70rpx; 
+  white-space: nowrap;
+}
+.row1 {
+  display: flex;
+  height: 70rpx;
+  margin-top: 30rpx;
+  /* justify-content: space-between;  */
+}
+.row1 input {
+  /* padding-left: -100rpx; */
+  width: 76%;
+  margin-left: 60rpx;
+}
+.row2 {
+  display: flex;
+  height: 70rpx;
+  margin-top: 30rpx;
+}
+.getVerifiedCode {
+  margin-left: 10rpx;
+  font-size: 14px;
+  background-color: #1bc3a9;
+  line-height: 70rpx;
+  height: 70rpx;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  color: #fff;
+  margin-right: 20rpx;
+}
+.loginBtn {
+  margin-top: 40rpx;
+  background-color: #1bc3a9;
+  color: #fff;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}

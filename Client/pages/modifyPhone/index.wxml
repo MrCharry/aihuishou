@@ -1,0 +1,25 @@
+<!--pages/modifyPhone/index.wxml-->
+<view class='container'>
+  <form bindsubmit='submit'>
+    <label>请输入当前绑定号码137****6479</label>
+    <view class='row'>
+      <label class='countryNumber'>+86</label>
+      <input type='number' />
+    </view>
+    <view class='row'>
+      <label>输入验证码</label>
+      <input class='verifiedCode' type='number' />
+      <button>获取验证码</button>
+    </view>
+    <label style='margin-top: 60rpx;'>输入新的变更号码</label>
+    <view class='row'>
+      <label class='countryNumber'>+86</label>
+      <input type='number' />
+    </view>
+    <view class='row'>
+      <label>输入验证码</label>
+      <input class='verifiedCode' type='number' />
+      <button>获取验证码</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,10 @@
+<!--pages/orderRecords/index.wxml-->
+<view class='container'>
+  <view class='topBar'>
+    <label bindtap='clickOperatableOrder' style='opacity:{{view.aOpacity}}; color:{{view.aColor}}'>可操作订单</label>
+    <label bindtap='clickUnoperatableOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已操作订单</label>
+  </view>
+  <view class='content'>
+    <text>暂无订单记录</text>
+  </view>
+</view>

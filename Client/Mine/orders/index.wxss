@@ -1,0 +1,11 @@
+/* Mine/orders/index.wxss */
+.container {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+}
+.noRecord {
+  color: #a0a0a0;
+  padding-top: 60rpx;
+  text-align: center;
+}

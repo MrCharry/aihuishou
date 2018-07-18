@@ -1,0 +1,62 @@
+/* Mine/setting/setPayword/index.wxss */
+@import "/Component/paySix/index.wxss";
+label {
+  border-radius: 10rpx;
+}
+.container {
+  box-sizing: border-box;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+.paywordRow {
+  display: flex;
+  padding-top: 30rpx;
+  height: 80rpx;
+}
+.paywordRow input {
+  width: 60rpx;
+  height: 60rpx;
+  text-align: center;
+  margin-left: 20rpx;
+  border: 1px solid #999;
+}
+.paywordRow label {
+  line-height: 80rpx;
+}
+.verifiedCodeRow {
+  margin-top: 30rpx;
+  display: flex;
+  height: 80rpx;
+  align-items: center;
+}
+.verifiedCodeRow label {
+  margin-right: 20rpx;
+  white-space: nowrap;
+} 
+.verifiedCodeRow input {
+
+  height: 80rpx;
+  border: 1px solid #2dbea7;
+  margin-right: 20rpx;
+  
+}
+.getVerifiedCode {
+  width: 40%;
+  height: 80rpx;
+  background-color: #2dbea7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+}
+.confirmBtn {
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120rpx;
+  color: #fff;
+  /* border: 1px solid #2dbea7; */
+  background-color: #2dbea7;
+}

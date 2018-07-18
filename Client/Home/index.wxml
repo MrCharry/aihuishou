@@ -1,0 +1,51 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='topBar'>
+    <image class='left' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' bindtap='clickUserIcon' style='opacity: {{view.bOpacity}};' />
+    <image class='right' src='/Resources/images/menuIcon.png' bindtap='clickMenu' style='opacity: {{view.aOpacity}};' />
+  </view>
+  <view class='menuList' style="display:{{view.showMenu ? 'block':'none'}}">
+    <view class='menuItem' bindtap='clickOrderRecord' style='opacity:{{view.cOpacity}}' hidden='{{!loginStatus}}'>
+      <text>订单记录</text>
+    </view>
+    <view class='menuItem' bindtap='clickRecycleRecord' style='opacity:{{view.dOpacity}}' hidden='{{!loginStatus}}'>
+      <text>回收记录</text>
+    </view>
+    <view class='menuItem' bindtap='clickNotification' style='opacity:{{view.eOpacity}}' hidden='{{!loginStatus}}'>
+      <text>消息提醒</text>
+    </view>
+    <view class='menuItem' bindtap='clickLoginLabel' style='opacity:{{view.cOpacity}}' hidden='{{loginStatus}}'>
+      <text>登录</text>
+    </view>
+  </view>
+  <view class='topTitle'>
+    <text>废品回收</text>
+  </view>
+  <view class='map' style='background-image:url("/Resources/images/bg.png"); height:{{deviceInfo.windowHeight}}px; width:{{deviceInfo.windowWidth}}px;'>
+    <view class='release'>
+      <text>订单发布</text>
+    </view>
+    <view class='locateIcon'>
+      <image src='/Resources/images/dingwei.png' />
+    </view>
+  </view>
+
+  <!--Login Model -->
+  <view class='modelCurtain' style='display:{{view.showLoginModel ? "block":"none"}}'>
+    <view class='loginModel' style='top:{{deviceInfo.windowHeight*0.3}}px;height:{{deviceInfo.windowHeight*0.37}}px'>
+      <view class='closeIcon'>
+        <image src='/Resources/images/closeIcon_01.png' bindtap='clickCloseLoginModel' style='opacity:{{view.fOpacity}}' />
+      </view>
+      <view class='row1'>
+        <label>手机</label>
+        <input bindinput='getInput' data-name='phonenum' type='number' placeholder='请输入手机号' placeholder-style='font-size: 14px;' />
+      </view>
+      <view class='row2'>
+        <label>验证码</label>
+        <input bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码' placeholder-style='font-size: 14px;' />
+        <button bindtap='getVerifiedCode' class='getVerifiedCode' style='opacity:{{view.cOpacity}}'>获取验证码</button>
+      </view>
+      <button class='loginBtn' bindtap='clickLogin' style='opacity:{{view.dOpacity}}'>登录</button>
+    </view>
+  </view>
+</view>

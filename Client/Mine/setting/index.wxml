@@ -1,0 +1,17 @@
+<!--Mine/setting/index.wxml-->
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+  <view class='versionNumber'><text>版本：V1.0.0</text></view>
+  <view class='operationZoom'>
+    <view bindtap='modifyPassword' style='opacity:{{view.aOpacity}}'>
+      <text>修改登录密码</text>
+      <image src='/Resources/images/arrowRight.png'/>
+    </view>
+    <view bindtap='setPayword' style='opacity:{{view.bOpacity}}'>
+      <text>设置支付密码</text>
+      <image src='/Resources/images/arrowRight.png'/>
+    </view>
+    <view bindtap='clickLogout'>
+      <text>退出</text>
+    </view>
+  </view>
+</view>

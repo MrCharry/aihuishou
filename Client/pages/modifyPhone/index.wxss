@@ -1,0 +1,44 @@
+/* pages/modifyPhone/index.wxss */
+label {
+  white-space: nowrap;
+}
+form input {
+  width: 100%;
+  border: 1px solid #2dbea7;
+  height: 80rpx;
+  margin-left: 20rpx;
+  border-radius: 10rpx;
+}
+button {
+  white-space: nowrap;
+  margin-left: 20rpx;
+  background-color: #2dbea7;
+  color: #fff;
+}
+form {
+  padding-top: 60rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  margin-top: 30rpx;
+  display: flex;
+  height: 80rpx;
+  align-items: center;
+  margin-bottom: 30rpx;
+  justify-content: space-between;
+}
+.countryNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80rpx;
+  width: 20%;
+  background-color: #2dbea7;
+
+}
+.verifiedCode {
+  width: 33%;
+}
