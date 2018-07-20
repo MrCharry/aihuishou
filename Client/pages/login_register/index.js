@@ -1,4 +1,4 @@
-var app = getApp()
+  var app = getApp()
 
 Page({
 
@@ -38,6 +38,9 @@ Page({
       inputData: inputData
     })
   },
+  iflegalphone: function(e) {
+    app.iflegalphone(this)
+  },
   getVerifiedCode: function(e) {
     app.getVerifiedCode(this)
   },
@@ -65,7 +68,7 @@ Page({
           var success = res['data']['isSuccess']
 
           if (success == 'TRUE') {
-            if (header['Cookie'] == undefined) {
+            if (header['Cookie'] == '') {
               var sessionid = res['header']['Set-Cookie'].split(';')[0]
               console.log(sessionid)
               app.globalData.header = {
@@ -231,7 +234,7 @@ Page({
     app.adjustCOpacity(this)
     if (view.leftLabelText == '忘记密码') {
       wx.navigateTo({
-        url: '/Mine/setting/modifyPassword/index',
+        url: '/Mine/setting/modifyPassword/index?rowlabel=输入手机号&placeholder=输入手机号&name=phonenum',
         success: function(e) {
           wx.setNavigationBarTitle({
             title: '设置',

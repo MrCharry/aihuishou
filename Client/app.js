@@ -14,9 +14,9 @@ App({
     var sessionid = this.getStorageSync('sessionid')
     
     if (sessionid == undefined) {
-      this.globalData.header = { 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': sessionid }
+      this.globalData.header = { 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': '' }
       this.globalData.loginStatus = false
-      this.globalData.userInfo = this.getStorageSync('userInfo')
+      this.globalData.userInfo = ''
     }else {
       this.globalData.header = { 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': sessionid }
       this.globalData.loginStatus = true
@@ -237,7 +237,7 @@ App({
     }
   },
   getVerifiedCode: function (that) {
-    console.log("获取验证码")
+
     var phonenum = that.data.inputData.phonenum
     console.log(phonenum)
     var header = this.globalData.header
@@ -252,18 +252,86 @@ App({
       header: header,
       success: function (res) {
         console.log(res)
-        if (header['Cookie'] == undefined) {
+        if (header['Cookie'] == '') {
           var sessionid = res['header']['Set-Cookie'].split(';')[0]
           console.log(sessionid)
           self.globalData.header = { 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': sessionid }
           self.setStorageSync('sessionid', sessionid)
-          self.getVerifiedCode()
+          // self.getVerifiedCode()
         }
       },
       fail: function (error) {
         console.log(error)
       }
     })
-    this.adjustCOpacity(that)
+
+    //验证码倒计时函数
+    var currentTime = 60
+    that.setData({
+      time: currentTime + '秒',
+      disabled: true
+    })
+    var interval = setInterval(function () {
+      that.setData({
+        time: (currentTime - 1) + '秒'
+      })
+      currentTime--;
+      if (currentTime <= 0) {
+        clearInterval(interval)
+        that.setData({
+          time: '重新获取',
+          currentTime: 60,
+          disabled: false
+        })
+      }
+    }, 1000)
   },
+  iflegalphone: function(that) {
+    var pattern = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+    var phonenum = that.data.inputData.phonenum == undefined ? '' : that.data.inputData.phonenum
+
+    if (phonenum.length == 0) {
+      wx.showToast({
+        title: '手机号为空',
+        image: '/Resources/images/closeIcon_01.png'
+      })
+      return false;
+    } else if (!pattern.test(phonenum)) {
+      wx.showToast({
+        title: '手机号有误！',
+        image: '/Resources/images/closeIcon_01.png'
+      })
+      return false;
+    } 
+  },
+  iflegalpassword: function(that) {
+
+    var newPassword = that.data.inputData.newPassword == undefined ? '' : that.data.inputData.newPassword
+    // 检测输入密码长度是否合法
+    if (newPassword.length < 6 || newPassword.length > 18) {
+      wx.showToast({
+        title: '密码过短或过长',
+        image: '/Resources/images/closeIcon_01.png'
+      })
+      return;
+    }
+    // 检测输入密码强度是否过弱
+    for (var i = 0; i < newPassword.length - 1; ++i) {
+      if (newPassword[i + 1] - newPassword[i] != 1) {
+        break;
+      }
+    }
+    for (var j = 0; j < newPassword.length - 1; ++j) {
+      if (newPassword[j + 1] - newPassword[j] != -1) {
+        break;
+      }
+    }
+    if (i == newPassword.length - 1 || j == newPassword.length - 1) {
+      wx.showToast({
+        title: '连续的字符',
+        image: '/Resources/images/closeIcon_01.png'
+      })
+      return;
+    }
+  }
 })

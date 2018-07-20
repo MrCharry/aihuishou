@@ -1,4 +1,5 @@
 // pages/modifyPhone/index.js
+var app = getApp()
 Page({
 
   /**
@@ -12,7 +13,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    
+    var userInfo = app.globalData.userInfo
+    userInfo.phonenum = userInfo.phonenum.slice(0,3) + '****' + userInfo.phonenum.slice(7,11)
+    
+    this.setData({
+      userInfo: userInfo
+    })
   },
 
   /**

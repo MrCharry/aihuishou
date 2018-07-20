@@ -38,12 +38,12 @@
       </view>
       <view class='row1'>
         <label>手机</label>
-        <input bindinput='getInput' data-name='phonenum' type='number' placeholder='请输入手机号' placeholder-style='font-size: 14px;' />
+        <input bindinput='getInput' bindblur='iflegalphone' data-name='phonenum' type='number' placeholder='请输入手机号' placeholder-style='font-size: 14px;' />
       </view>
       <view class='row2'>
         <label>验证码</label>
         <input bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码' placeholder-style='font-size: 14px;' />
-        <button bindtap='getVerifiedCode' class='getVerifiedCode' style='opacity:{{view.cOpacity}}'>获取验证码</button>
+        <button bindtap='getVerifiedCode' disabled='{{disabled}}' class='getVerifiedCode'>{{time ? time:'获取验证码'}}</button>
       </view>
       <button class='loginBtn' bindtap='clickLogin' style='opacity:{{view.dOpacity}}'>登录</button>
     </view>

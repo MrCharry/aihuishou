@@ -149,15 +149,18 @@ Page({
   getVerifiedCode: function (e) {
     app.getVerifiedCode(this)
   },
+  iflegalphone: function(e) {
+    app.iflegalphone(this)
+  },
   clickLogin: function (e) {
 
     var phonenum = this.data.inputData.phonenum
     var verifiedCode = this.data.inputData.verifiedCode
-    var s = this
+    var self = this
     var header = app.globalData.header
     console.log(header)
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
+      url: 'https://www.dingdonhuishou.com/AHSTest/api/user/login',
       data: {
         phonenum: phonenum,
         code: verifiedCode
@@ -169,7 +172,7 @@ Page({
         var success = res['data']['isSuccess']
 
         if (success == 'TRUE') {
-          app.getUserInfo(s, function() {
+          app.getUserInfo(self, function() {
             app.globalData.loginStatus = true
             wx.showToast({
               title: '登录成功',
@@ -191,7 +194,6 @@ Page({
         console.log(error)
       }
     })
-    app.adjustDOpacity(this)
   },
   clickLoginLabel: function (e) {
     app.adjustCOpacity(this)

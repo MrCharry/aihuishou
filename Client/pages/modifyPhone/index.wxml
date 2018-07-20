@@ -1,7 +1,7 @@
 <!--pages/modifyPhone/index.wxml-->
 <view class='container'>
   <form bindsubmit='submit'>
-    <label>请输入当前绑定号码137****6479</label>
+    <label>请输入当前绑定号码{{userInfo.phonenum}}</label>
     <view class='row'>
       <label class='countryNumber'>+86</label>
       <input type='number' />

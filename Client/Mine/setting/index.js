@@ -21,7 +21,7 @@ Page({
   modifyPassword: function(e) {
     app.adjustAOpacity(this)
     wx.navigateTo({
-      url: '/Mine/setting/modifyPassword/index',
+      url: '/Mine/setting/modifyPassword/index?rowlabel=输入旧密码&placeholder=输入原密码&name=oldPassword&ifpassword=TRUE',
       success: function() {
         wx.setNavigationBarTitle({
           title: '设置',

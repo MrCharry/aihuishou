@@ -16,34 +16,22 @@
   width: 30%;
 }
 .row input {
-  /* width: 67%; */
+  width: 67%;
   border: 1px solid #2dbea7;
   height: 80rpx;
   padding-right: 40rpx;
 }
 .getCodeLabel {
-  font-size: 14px;
+  font-size: 16px;
   background-color: #2dbea7;
-  display: flex;
   height: 80rpx;
   color: #fff;
   margin-left: 20rpx;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10rpx;
+  width: 33%;
 }
 .confirmBtn {
   height: 80rpx;
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
   margin-top: 120rpx;
-  /* border: 1px solid #2dbea7; */
   background-color: #2dbea7;
-  border-radius: 10rpx;
-}
-.confirmBtn label {
-  width: 100%;
-  text-align: center;
   color: #fff;
 }

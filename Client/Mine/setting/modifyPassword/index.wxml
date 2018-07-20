@@ -1,19 +1,19 @@
 <!--Mine/setting/modifyPassword/index.wxml-->
 <view class='container' style='height:{{deviceInfo.windowHeight}}px'>
   <view class='row'>
-    <label>输入旧密码</label>
-    <input bindinput='getInput' placeholder='输入原密码' placeholder-style='font-size:14px;' password='true' data-name='oldPassword' />
+    <label>{{opt.rowlabel}}</label>
+    <input bindinput='getInput' bindblur='iflegalphone' placeholder='{{opt.placeholder}}' placeholder-style='font-size:14px;' password='{{opt.ifpassword=="TRUE" ? true:false}}' data-name='{{opt.name}}' />
   </view>
   <view class='row'>
     <label>输入新密码</label>
-    <input bindinput='getInput' placeholder='输入6~18位数的新密码' placeholder-style='font-size:14px;' password='true' data-name='newPassword' />
+    <input bindinput='getInput' bindblur='iflegalpassword' placeholder='输入6~18位数的新密码' placeholder-style='font-size:14px;' password='true' data-name='newPassword' />
   </view>
   <view class='row'>
     <label>输入验证码</label>
     <input bindinput='getInput' type='text' data-name='verifiedCode' style='width:{{deviceInfo.windowWidth*0.325}}px; padding-right:0px;' />
-    <label bindtap='getVerifiedCode' class='getCodeLabel' style='opacity:{{view.aOpacity}};'>获取验证码</label>
+    <button bindtap='getVerifiedCode' disabled='{{disabled}}' class='getCodeLabel'>{{time ? time:'获取验证码'}}</button>
   </view>
-  <view class='confirmBtn'>
-    <label bindtap='confirm' style='opacity:{{view.bOpacity}}'>确认修改</label>
-  </view>
+
+  <button class='confirmBtn' bindtap='confirm'>确认修改</button>
+
 </view>
