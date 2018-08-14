@@ -87,7 +87,8 @@ App({
   globalData: {
     userInfo: null,
     deviceInfo: null,
-    loginStatus: false
+    loginStatus: false,
+    ak: 'iNG9vVwmH7HqGhnbokSIZGSnRr2VtPCn'
   },
   adjustAOpacity: function (that) {
     var view = that.data.view

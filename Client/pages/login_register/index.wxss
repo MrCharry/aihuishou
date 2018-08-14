@@ -41,13 +41,14 @@
   display: flex;
   height: 80rpx;
   margin-top: 30rpx;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .row1 label {
   color: #fff;
 }
 .row1 input {
-  width: 74%;
+  margin-left: 60rpx;
+  width: 77%;
 }
 .row2 {
   display: flex;

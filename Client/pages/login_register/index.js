@@ -130,9 +130,16 @@ Page({
               wx.showToast({
                 title: '登录成功',
                 success: function() {
-                  setTimeout(function() {
-                    wx.navigateTo({
-                      url: '/Mine/index'
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/Home/index',
+                      success: function () {
+                        setTimeout(function () {
+                          wx.navigateTo({
+                            url: '/Mine/index',
+                          })
+                        }, 500)
+                      }
                     })
                   }, 1000)
                 }

@@ -4,31 +4,47 @@
     <image class='left' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' bindtap='clickUserIcon' style='opacity: {{view.bOpacity}};' />
     <image class='right' src='/Resources/images/menuIcon.png' bindtap='clickMenu' style='opacity: {{view.aOpacity}};' />
   </view>
-  <view class='menuList' style="display:{{view.showMenu ? 'block':'none'}}">
-    <view class='menuItem' bindtap='clickOrderRecord' style='opacity:{{view.cOpacity}}' hidden='{{!loginStatus}}'>
-      <text>订单记录</text>
+
+  <block wx:if="{{!view.showLoginModel}}">
+    <map class='map' id='map' longitude='{{curLocation.longitude}}' latitude='{{curLocation.latitude}}' markers='{{markers}}' bindmarkertap='markertap' show-location='true' circles='{{circles}}' style='height:{{deviceInfo.windowHeight-40}}px; top:80rpx; width:{{deviceInfo.windowWidth}}px;'>
+      <cover-view class='topTitle'>
+        <cover-view>废品回收</cover-view>
+      </cover-view>
+      <cover-view class='release'>
+        <cover-view style='color: #fff;'>订单发布</cover-view>
+      </cover-view>
+      <cover-view class='menuList' style="display:{{view.showMenu ? 'block':'none'}}">
+        <cover-view class='menuItem' bindtap='clickOrderRecord' style='opacity:{{view.cOpacity}}' hidden='{{!loginStatus}}'>
+          <cover-view>订单记录</cover-view>
+        </cover-view>
+        <cover-view class='menuItem' bindtap='clickRecycleRecord' style='opacity:{{view.dOpacity}}' hidden='{{!loginStatus}}'>
+          <cover-view>回收记录</cover-view>
+        </cover-view>
+        <cover-view class='menuItem' bindtap='clickNotification' style='opacity:{{view.eOpacity}}' hidden='{{!loginStatus}}'>
+          <cover-view>消息提醒</cover-view>
+        </cover-view>
+        <cover-view class='menuItem' bindtap='clickLoginLabel' style='opacity:{{view.cOpacity}}' hidden='{{loginStatus}}'>
+          <cover-view>登录</cover-view>
+        </cover-view>
+      </cover-view>
+      <cover-view class='locateIcon'>
+        <cover-image bindtap='getCurLocation' style='opacity:{{view.fOpacity}}' class='img' src='/Resources/images/dingwei.png' />
+      </cover-view>
+    </map>
+  </block>
+  <block wx:if="{{view.showLoginModel}}">
+    <view class='map' longitude='{{curLocation.longitude}}' latitude='{{curLocation.latitude}}' markers='{{markers}}' style='height:{{deviceInfo.windowHeight}}px; width:{{deviceInfo.windowWidth}}px;'>
+      <view class='topTitle'>
+        <view>废品回收</view>
+      </view>
+      <view class='release'>
+        <text style='color: #fff;'>订单发布</text>
+      </view>
+      <view class='locateIcon'>
+        <image class='img' src='/Resources/images/dingwei.png' />
+      </view>
     </view>
-    <view class='menuItem' bindtap='clickRecycleRecord' style='opacity:{{view.dOpacity}}' hidden='{{!loginStatus}}'>
-      <text>回收记录</text>
-    </view>
-    <view class='menuItem' bindtap='clickNotification' style='opacity:{{view.eOpacity}}' hidden='{{!loginStatus}}'>
-      <text>消息提醒</text>
-    </view>
-    <view class='menuItem' bindtap='clickLoginLabel' style='opacity:{{view.cOpacity}}' hidden='{{loginStatus}}'>
-      <text>登录</text>
-    </view>
-  </view>
-  <view class='topTitle'>
-    <text>废品回收</text>
-  </view>
-  <view class='map' style='background-image:url("/Resources/images/bg.png"); height:{{deviceInfo.windowHeight}}px; width:{{deviceInfo.windowWidth}}px;'>
-    <view class='release'>
-      <text>订单发布</text>
-    </view>
-    <view class='locateIcon'>
-      <image src='/Resources/images/dingwei.png' />
-    </view>
-  </view>
+  </block>
 
   <!--Login Model -->
   <view class='modelCurtain' style='display:{{view.showLoginModel ? "block":"none"}}'>

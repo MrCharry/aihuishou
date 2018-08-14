@@ -8,12 +8,46 @@ Page({
     view: {
       showMenu: false
     },
-    inputData: {}
+    inputData: {},
+    merchants: []
   },
-  onLoad: function () {
-    
-    this.setData({
-      deviceInfo: app.globalData.deviceInfo,
+  onLoad: function() {
+    var s = this
+
+    wx.getLocation({
+
+      success: function(res) {
+        console.log(res)
+        s.setData({
+          deviceInfo: app.globalData.deviceInfo,
+          curLocation: res,
+          markers: [{
+            id: 0,
+            iconPath: '/Resources/images/location_01.png',
+            longitude: res.longitude,
+            latitude: res.latitude
+          }],
+          circles: [{
+            latitude: res.latitude,
+            longitude: res.longitude,
+            radius: 1000,
+            fillColor: '#f2f2f2AA',
+            color: '#2e84d4AA'
+          }]
+        })
+        //获取当前经纬度的行政区划代码
+        var ak = app.globalData.ak
+        var i = 1
+        wx.request({
+          url: 'http://api.map.baidu.com/geocoder/v2/?location=' + res.latitude + ',' + res.longitude + '&output=json&ak=' + ak,
+          method: 'GET',
+          success: function(res) {
+            var adcode = res['data']['result']['addressComponent']['adcode']
+            console.log(res)
+            s.getnearmerchants(adcode, i)
+          }
+        })
+      },
     })
   },
   onShow: function() {
@@ -25,18 +59,19 @@ Page({
       loginStatus: app.globalData.loginStatus,
       view: view
     })
+    console.log(this.data.merchants)
   },
-  clickMenu: function (e) {
+  clickMenu: function(e) {
     var view = this.data.view
     view.showMenu = !view.showMenu
     app.adjustAOpacity(this)
   },
-  clickOrderRecord: function (e) {
+  clickOrderRecord: function(e) {
     var view = this.data.view
     app.adjustCOpacity(this)
     wx.navigateTo({
       url: '/pages/orderRecords/index',
-      success: function () {
+      success: function() {
         wx.setNavigationBarTitle({
           title: '订单记录',
         })
@@ -44,12 +79,12 @@ Page({
     })
     view.showMenu = false
   },
-  clickRecycleRecord: function (e) {
+  clickRecycleRecord: function(e) {
     var view = this.data.view
     app.adjustDOpacity(this)
     wx.navigateTo({
       url: '/Mine/orders/index',
-      success: function () {
+      success: function() {
         wx.setNavigationBarTitle({
           title: '回收记录',
         })
@@ -57,14 +92,14 @@ Page({
     })
     view.showMenu = false
   },
-  clickNotification: function (e) {
+  clickNotification: function(e) {
     var view = this.data.view
     var s = this
     view.eOpacity = 0.5
     this.setData({
       view: view
     })
-    setTimeout(function () {
+    setTimeout(function() {
       view.eOpacity = 1
       s.setData({
         view: view
@@ -72,7 +107,7 @@ Page({
     }, 200)
     wx.navigateTo({
       url: '/Mine/notification/index',
-      success: function () {
+      success: function() {
         wx.setNavigationBarTitle({
           title: '消息通知',
         })
@@ -80,14 +115,14 @@ Page({
     })
     view.showMenu = false
   },
-  clickUserIcon: function (e) {
+  clickUserIcon: function(e) {
     var view = this.data.view
     app.adjustBOpacity(this)
     var s = this
     if (app.globalData.loginStatus) {
       wx.navigateTo({
         url: '/Mine/index',
-        success: function () {
+        success: function() {
           wx.setNavigationBarTitle({
             title: '慧回收个人中心'
           })
@@ -98,11 +133,11 @@ Page({
       wx.showModal({
         title: '提示',
         content: '暂未登录，需要登录吗？',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             wx.navigateTo({
               url: '/pages/login_register/index',
-              success: function () {
+              success: function() {
                 wx.setNavigationBarTitle({
                   title: '慧回收用户登录',
                 })
@@ -120,14 +155,14 @@ Page({
     }
     view.showMenu = false
   },
-  clickCloseLoginModel: function (e) {
+  clickCloseLoginModel: function(e) {
     var view = this.data.view
     var s = this
     view.fOpacity = 0.5
     this.setData({
       view: view
     })
-    setTimeout(function () {
+    setTimeout(function() {
       view.fOpacity = 1
       view.showLoginModel = false
       s.setData({
@@ -135,7 +170,7 @@ Page({
       })
     }, 300)
   },
-  getInput: function (e) {
+  getInput: function(e) {
     var inputData = this.data.inputData
     if (e.target.dataset.name == 'phonenum') {
       inputData.phonenum = e.detail.value
@@ -146,13 +181,13 @@ Page({
       inputData: inputData
     })
   },
-  getVerifiedCode: function (e) {
+  getVerifiedCode: function(e) {
     app.getVerifiedCode(this)
   },
   iflegalphone: function(e) {
     app.iflegalphone(this)
   },
-  clickLogin: function (e) {
+  clickLogin: function(e) {
 
     var phonenum = this.data.inputData.phonenum
     var verifiedCode = this.data.inputData.verifiedCode
@@ -167,7 +202,7 @@ Page({
       },
       method: 'POST',
       header: header,
-      success: function (res) {
+      success: function(res) {
         console.log(res)
         var success = res['data']['isSuccess']
 
@@ -181,29 +216,141 @@ Page({
                   wx.navigateTo({
                     url: '/Mine/index'
                   })
-                }, 1000)          
+                }, 1000)
               }
-            }) 
-          }) 
-          
-        }else {
+            })
+          })
+
+        } else {
           console.log(res['data']['content'])
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
   },
-  clickLoginLabel: function (e) {
+  clickLoginLabel: function(e) {
     app.adjustCOpacity(this)
     wx.navigateTo({
       url: '/pages/login_register/index',
-      success: function () {
+      success: function() {
         wx.setNavigationBarTitle({
           title: '慧回收用户登录',
         })
       }
     })
+  },
+  getCurLocation: function(e) {
+    var s = this
+    app.adjustFOpacity(this)
+    let lat = 22.5595
+    let lng = 113.8895
+    this.setData({
+      curLocation: {
+        latitude: lat,
+        longitude: lng
+      },
+      markers: [{
+        iconPath: '/Resources/images/location_01.png',
+        latitude: lat,
+        longitude: lng
+
+      }],
+      circles: [{
+        latitude: lat,
+        longitude: lng,
+        radius: 1000,
+        fillColor: '#f2f2f2AA',
+        color: '#2e84d4AA'
+      }]
+    })
+    //获取当前经纬度的行政区划代码
+    var ak = app.globalData.ak
+    var i = 1
+    var location = this.data.curLocation
+    var markers = this.data.markers
+    wx.request({
+      url: 'http://api.map.baidu.com/geocoder/v2/?location=' + location.latitude + ',' + location.longitude + '&output=json&ak=' + ak,
+      method: 'GET',
+      success: function(res) {
+        var adcode = res['data']['result']['addressComponent']['adcode']
+        s.getnearmerchants(adcode, i, function(merchants) {
+          console.log(merchants)
+          for (var j = 0; j < merchants.length; ++j) {
+            var merchant = merchants[j]['merchant']
+            markers.push({
+              id: j+1,
+              iconPath: '/Resources/images/location_red.png',
+              latitude: merchant.lat,
+              longitude: merchant.lng
+            })
+          }
+          s.setData({
+            markers: markers,
+            merchants: merchants
+          })
+        })
+      }
+    })
+
+  },
+  getnearmerchants: function(adcode, i, callback) {
+
+    var merchants = this.data.merchants
+    var location = this.data.curLocation
+    var s = this
+
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHSTest/api/userorder/get/nearmerchants?page.currentPage=' + i + '&lng=' + location.longitude + '&lat=' + location.latitude + '&areamoreid=' + adcode + '&lengthofnear=0',
+      method: 'POST',
+      success: function(res) {
+        //汇总回收商地址
+        if (i > 1) {
+          merchants = merchants.concat(res['data']['data'])
+        } else {
+          merchants = res['data']['data']
+        }
+
+        if (res['data']['hasMore'] == true) {
+          s.getnearmerchants(adcode, ++i)
+        }
+        if (typeof(callback) == 'function') {
+          callback(merchants)
+        }
+      },
+      fail: function(error) {
+        console.log(error)
+        if (typeof(callback) == 'function') {
+          var errMsg = {
+            status: false,
+            content: '请求回收商地址失败'
+          }
+          callback(errMsg)
+        }
+      }
+    })
+  },
+  markertap: function(e) {
+    var s = this
+    var id = e.markerId
+    var marksers = s.data.markers    
+    s.changeMarkerColor(marksers, id)
+    
+  },
+  changeMarkerColor: function (data, id) {
+    var that = this;
+    // var markersTemp = data
+    for (var i = 1; i < data.length; i++) {
+      if (i === id) {
+        data[i].iconPath = "/Resources/images/location_green.png";
+      } else {
+        data[i].iconPath = "/Resources/images/location_red.png";
+      }
+      // markersTemp[i] = data[i];
+    }
+    that.setData({
+      markers: data
+    });
   }
 })
