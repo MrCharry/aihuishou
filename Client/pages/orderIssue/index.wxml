@@ -1,0 +1,24 @@
+<!--pages/orderIssue/index.wxml-->
+<view class='container'>
+  <view class='top'>
+    <view class='row1'>
+      <label>上门回收地址:</label>
+    </view>
+    <view class='row2'>
+      <label>{{curAddress}}</label>
+      <label bindtap='modifyaddress' class='right' style='opacity:{{view.aOpacity}}'>修改地址</label>
+    </view>
+  </view>
+  <view class='middle'>
+    <view class='content'>
+      <view class='row1'>
+        <image src='/Resources/images/classify_08.png' />
+      </view>
+      <view class='row2'>
+        <view><image src='/Resources/images/minus.png' /></view>
+        <input type='number' placeholder='请输入重量' placeholder-style='color: #d5d3d7;     align-item: center;'/>
+        <view><image src='/Resources/images/plus.png' /></view>
+      </view>
+    </view>
+  </view>
+</view>

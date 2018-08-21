@@ -1,7 +1,12 @@
 <!--index.wxml-->
 <view class="container">
   <view class='topBar'>
-    <image class='left' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' bindtap='clickUserIcon' style='opacity: {{view.bOpacity}};' />
+    <view class='left' bindtap='bindRegionChange'>
+      <image src='/Resources/images/locateIcon.png' />
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view style='font-size: 24rpx; color: #fff;'>{{region[1]}}{{region[2]}}</view>
+      </picker>
+    </view>
     <image class='right' src='/Resources/images/menuIcon.png' bindtap='clickMenu' style='opacity: {{view.aOpacity}};' />
   </view>
 
@@ -10,10 +15,14 @@
       <cover-view class='topTitle'>
         <cover-view>废品回收</cover-view>
       </cover-view>
-      <cover-view class='release'>
+      <cover-view class='release' bindtap='issueOrder' style='opacity: {{view.eOpacity}}'>
         <cover-view style='color: #fff;'>订单发布</cover-view>
       </cover-view>
       <cover-view class='menuList' style="display:{{view.showMenu ? 'block':'none'}}">
+        <cover-view class='userIcon' bindtap='clickUserIcon' style='opacity:{{view.bOpacity}}' hidden='{{!loginStatus}}'>
+          <cover-image class='left' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' />
+          <cover-view class='right'>{{nickname}}</cover-view>
+        </cover-view>
         <cover-view class='menuItem' bindtap='clickOrderRecord' style='opacity:{{view.cOpacity}}' hidden='{{!loginStatus}}'>
           <cover-view>订单记录</cover-view>
         </cover-view>

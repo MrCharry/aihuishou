@@ -16,7 +16,7 @@
     </view>
     <input type='text' name='phone' />
     <view class='submitBtn'>
-      <label for='btn' style='opacity:{{view.aOpacity}}'>提交反馈</label>
+      <label for='btn' style='opacity:{{view.aOpacity}}; color: #fff;'>提交反馈</label>
     </view>
     <button id='btn' formType='submit' hidden='true'></button>
   </form>

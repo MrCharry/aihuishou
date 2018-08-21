@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     deviceInfo: {},
@@ -11,67 +10,72 @@ Page({
     inputData: {},
     merchants: []
   },
-  onLoad: function() {
-    var s = this
-
-    wx.getLocation({
-
-      success: function(res) {
-        console.log(res)
-        s.setData({
-          deviceInfo: app.globalData.deviceInfo,
-          curLocation: res,
-          markers: [{
-            id: 0,
-            iconPath: '/Resources/images/location_01.png',
-            longitude: res.longitude,
-            latitude: res.latitude
-          }],
-          circles: [{
-            latitude: res.latitude,
-            longitude: res.longitude,
-            radius: 1000,
-            fillColor: '#f2f2f2AA',
-            color: '#2e84d4AA'
-          }]
-        })
-        //获取当前经纬度的行政区划代码
-        var ak = app.globalData.ak
-        var i = 1
-        wx.request({
-          url: 'http://api.map.baidu.com/geocoder/v2/?location=' + res.latitude + ',' + res.longitude + '&output=json&ak=' + ak,
-          method: 'GET',
-          success: function(res) {
-            var adcode = res['data']['result']['addressComponent']['adcode']
-            console.log(res)
-            s.getnearmerchants(adcode, i)
-          }
-        })
-      },
+  onLoad: function () {
+    this.setData({
+      deviceInfo: app.globalData.deviceInfo
     })
-  },
-  onShow: function() {
+    // var s = this
+
+    // wx.getLocation({
+
+    //   success: function(res) {
+    //     console.log(res)
+    //     s.setData({
+    //       deviceInfo: app.globalData.deviceInfo,
+    //       curLocation: res,
+    //       markers: [{
+    //         iconPath: '/Resources/images/location_01.png',
+    //         longitude: res.longitude,
+    //         latitude: res.latitude
+    //       }],
+    //       circles: [{
+    //         latitude: res.latitude,
+    //         longitude: res.longitude,
+    //         radius: 1000,
+    //         fillColor: '#f2f2f2AA',
+    //         color: '#2e84d4AA'
+    //       }]
+    //     })
+    //     //获取当前经纬度的行政区划代码
+    //     var ak = app.globalData.ak
+    //     var i = 1
+    //     wx.request({
+    //       url: 'http://api.map.baidu.com/geocoder/v2/?location=' + res.latitude + ',' + res.longitude + '&output=json&ak=' + ak,
+    //       method: 'GET',
+    //       success: function(res) {
+    //         var adcode = res['data']['result']['addressComponent']['adcode']
+    //         console.log(res)
+    //         s.getnearmerchants(adcode, i)
+    //       }
+    //     })
+    //   },
+    // })
     var view = this.data.view
     view.showLoginModel = !app.globalData.loginStatus
     var userInfo = app.globalData.userInfo
     this.setData({
       userInfo: userInfo,
       loginStatus: app.globalData.loginStatus,
-      view: view
+      view: view,
+      nickname: userInfo.nickname.slice(0,5) + '...'
     })
     console.log(this.data.merchants)
   },
-  clickMenu: function(e) {
+  onShow: function () {
+
+    this.showLocation()
+  },
+  clickMenu: function (e) {
     var view = this.data.view
     view.showMenu = !view.showMenu
     app.adjustAOpacity(this)
   },
-  clickOrderRecord: function(e) {
+  clickOrderRecord: function (e) {
     var view = this.data.view
     app.adjustCOpacity(this)
     wx.navigateTo({
       url: '/pages/orderRecords/index',
-      success: function() {
+      success: function () {
         wx.setNavigationBarTitle({
           title: '订单记录',
         })
@@ -79,12 +83,12 @@ Page({
     })
     view.showMenu = false
   },
-  clickRecycleRecord: function(e) {
+  clickRecycleRecord: function (e) {
     var view = this.data.view
     app.adjustDOpacity(this)
     wx.navigateTo({
       url: '/Mine/orders/index',
-      success: function() {
+      success: function () {
         wx.setNavigationBarTitle({
           title: '回收记录',
         })
@@ -92,14 +96,14 @@ Page({
     })
     view.showMenu = false
   },
-  clickNotification: function(e) {
+  clickNotification: function (e) {
     var view = this.data.view
     var s = this
     view.eOpacity = 0.5
     this.setData({
       view: view
     })
-    setTimeout(function() {
+    setTimeout(function () {
       view.eOpacity = 1
       s.setData({
         view: view
@@ -107,7 +111,7 @@ Page({
     }, 200)
     wx.navigateTo({
       url: '/Mine/notification/index',
-      success: function() {
+      success: function () {
         wx.setNavigationBarTitle({
           title: '消息通知',
         })
@@ -115,14 +119,14 @@ Page({
     })
     view.showMenu = false
   },
-  clickUserIcon: function(e) {
+  clickUserIcon: function (e) {
     var view = this.data.view
     app.adjustBOpacity(this)
     var s = this
     if (app.globalData.loginStatus) {
       wx.navigateTo({
         url: '/Mine/index',
-        success: function() {
+        success: function () {
           wx.setNavigationBarTitle({
             title: '慧回收个人中心'
           })
@@ -133,11 +137,11 @@ Page({
       wx.showModal({
         title: '提示',
         content: '暂未登录，需要登录吗？',
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
             wx.navigateTo({
               url: '/pages/login_register/index',
-              success: function() {
+              success: function () {
                 wx.setNavigationBarTitle({
                   title: '慧回收用户登录',
                 })
@@ -155,14 +159,14 @@ Page({
     }
     view.showMenu = false
   },
-  clickCloseLoginModel: function(e) {
+  clickCloseLoginModel: function (e) {
     var view = this.data.view
     var s = this
     view.fOpacity = 0.5
     this.setData({
       view: view
     })
-    setTimeout(function() {
+    setTimeout(function () {
       view.fOpacity = 1
       view.showLoginModel = false
       s.setData({
@@ -170,7 +174,7 @@ Page({
       })
     }, 300)
   },
-  getInput: function(e) {
+  getInput: function (e) {
     var inputData = this.data.inputData
     if (e.target.dataset.name == 'phonenum') {
       inputData.phonenum = e.detail.value
@@ -181,13 +185,13 @@ Page({
       inputData: inputData
     })
   },
-  getVerifiedCode: function(e) {
+  getVerifiedCode: function (e) {
     app.getVerifiedCode(this)
   },
-  iflegalphone: function(e) {
+  iflegalphone: function (e) {
     app.iflegalphone(this)
   },
-  clickLogin: function(e) {
+  clickLogin: function (e) {
 
     var phonenum = this.data.inputData.phonenum
     var verifiedCode = this.data.inputData.verifiedCode
@@ -202,17 +206,17 @@ Page({
       },
       method: 'POST',
       header: header,
-      success: function(res) {
+      success: function (res) {
         console.log(res)
         var success = res['data']['isSuccess']
 
         if (success == 'TRUE') {
-          app.getUserInfo(self, function() {
+          app.getUserInfo(self, function () {
             app.globalData.loginStatus = true
             wx.showToast({
               title: '登录成功',
-              success: function() {
-                setTimeout(function() {
+              success: function () {
+                setTimeout(function () {
                   wx.navigateTo({
                     url: '/Mine/index'
                   })
@@ -225,86 +229,157 @@ Page({
           console.log(res['data']['content'])
         }
       },
-      fail: function(error) {
+      fail: function (error) {
         console.log(error)
       }
     })
   },
-  clickLoginLabel: function(e) {
+  clickLoginLabel: function (e) {
     app.adjustCOpacity(this)
     wx.navigateTo({
       url: '/pages/login_register/index',
-      success: function() {
+      success: function () {
         wx.setNavigationBarTitle({
           title: '慧回收用户登录',
         })
       }
     })
   },
-  getCurLocation: function(e) {
+  showLocation: function (location) {
+    console.log(location)
     var s = this
     app.adjustFOpacity(this)
-    let lat = 22.5595
-    let lng = 113.8895
-    this.setData({
-      curLocation: {
-        latitude: lat,
-        longitude: lng
-      },
-      markers: [{
-        iconPath: '/Resources/images/location_01.png',
-        latitude: lat,
-        longitude: lng
-
-      }],
-      circles: [{
-        latitude: lat,
-        longitude: lng,
-        radius: 1000,
-        fillColor: '#f2f2f2AA',
-        color: '#2e84d4AA'
-      }]
-    })
-    //获取当前经纬度的行政区划代码
-    var ak = app.globalData.ak
-    var i = 1
-    var location = this.data.curLocation
-    var markers = this.data.markers
-    wx.request({
-      url: 'http://api.map.baidu.com/geocoder/v2/?location=' + location.latitude + ',' + location.longitude + '&output=json&ak=' + ak,
-      method: 'GET',
-      success: function(res) {
-        var adcode = res['data']['result']['addressComponent']['adcode']
-        s.getnearmerchants(adcode, i, function(merchants) {
-          console.log(merchants)
-          for (var j = 0; j < merchants.length; ++j) {
-            var merchant = merchants[j]['merchant']
-            markers.push({
-              id: j+1,
-              iconPath: '/Resources/images/location_red.png',
-              latitude: merchant.lat,
-              longitude: merchant.lng
-            })
-          }
+    if (location == undefined) {
+      wx.getLocation({
+        type: 'gcj02',
+        success: function (res) {
           s.setData({
-            markers: markers,
-            merchants: merchants
-          })
-        })
-      }
-    })
+            curLocation: {
+              latitude: res.latitude,
+              longitude: res.longitude
+            },
+            markers: [{
+              iconPath: '/Resources/images/location_01.png',
+              latitude: res.latitude,
+              longitude: res.longitude
 
+            }],
+            circles: [{
+              latitude: res.latitude,
+              longitude: res.longitude,
+              radius: 1000,
+              fillColor: '#f2f2f2AA',
+              color: '#2e84d4AA'
+            }]
+          })
+          //获取当前经纬度的行政区划代码
+          var ak = app.globalData.ak
+          var i = 1
+          var location = s.data.curLocation
+          var markers = s.data.markers
+
+          wx.request({
+            url: 'http://api.map.baidu.com/geocoder/v2/?location=' + location.latitude + ',' + location.longitude + '&output=json&ak=' + ak,
+            method: 'GET',
+            success: function (res) {
+              console.log(res)
+              var adcode = res['data']['result']['addressComponent']['adcode']
+              s.getnearmerchants(adcode, i, function (merchants) {
+                console.log(merchants)
+                for (var j = 0; j < merchants.length; ++j) {
+                  var merchant = merchants[j]['merchant']
+                  markers.push({
+                    id: j,
+                    iconPath: '/Resources/images/location_red.png',
+                    latitude: merchant.lat,
+                    longitude: merchant.lng
+                  })
+                }
+                s.setData({
+                  markers: markers,
+                  merchants: merchants,
+                  region: [
+                    res['data']['result']['addressComponent']['province'],
+                    res['data']['result']['addressComponent']['city'],
+                    res['data']['result']['addressComponent']['district']
+                  ]
+                })
+                console.log(s.data.region)
+              })
+            }
+          })
+        },
+      })
+    } else {
+
+      s.setData({
+        curLocation: {
+          latitude: location.lat,
+          longitude: location.lng
+        },
+        markers: [{
+          iconPath: '/Resources/images/location_01.png',
+          latitude: location.lat,
+          longitude: location.lng
+
+        }],
+        circles: [{
+          latitude: location.lat,
+          longitude: location.lng,
+          radius: 1000,
+          fillColor: '#f2f2f2AA',
+          color: '#2e84d4AA'
+        }]
+      })
+
+      //获取当前经纬度的行政区划代码
+      var ak = app.globalData.ak
+      var i = 1
+      var location = s.data.curLocation
+      var markers = s.data.markers
+
+      wx.request({
+        url: 'http://api.map.baidu.com/geocoder/v2/?location=' + location.latitude + ',' + location.longitude + '&output=json&ak=' + ak,
+        method: 'GET',
+        success: function (res) {
+          console.log(res)
+          var adcode = res['data']['result']['addressComponent']['adcode']
+          s.getnearmerchants(adcode, i, function (merchants) {
+            console.log(merchants)
+            for (var j = 0; j < merchants.length; ++j) {
+              var merchant = merchants[j]['merchant']
+              markers.push({
+                id: j,
+                iconPath: '/Resources/images/location_red.png',
+                latitude: merchant.lat,
+                longitude: merchant.lng
+              })
+            }
+            s.setData({
+              markers: markers,
+              merchants: merchants,
+              region: [
+                res['data']['result']['addressComponent']['province'],
+                res['data']['result']['addressComponent']['city'],
+                res['data']['result']['addressComponent']['district']
+              ]
+            })
+            console.log(s.data.region)
+          })
+        }
+      })
+    }
   },
-  getnearmerchants: function(adcode, i, callback) {
+  getnearmerchants: function (adcode, i, callback) {
 
     var merchants = this.data.merchants
     var location = this.data.curLocation
     var s = this
 
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/userorder/get/nearmerchants?page.currentPage=' + i + '&lng=' + location.longitude + '&lat=' + location.latitude + '&areamoreid=' + adcode + '&lengthofnear=0',
+      url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/nearmerchants?page.currentPage=' + i + '&lng=' + location.longitude + '&lat=' + location.latitude + '&areamoreid=' + adcode + '&lengthofnear=0',
       method: 'POST',
-      success: function(res) {
+      success: function (res) {
         //汇总回收商地址
         if (i > 1) {
           merchants = merchants.concat(res['data']['data'])
@@ -315,13 +390,13 @@ Page({
         if (res['data']['hasMore'] == true) {
           s.getnearmerchants(adcode, ++i)
         }
-        if (typeof(callback) == 'function') {
+        if (typeof (callback) == 'function') {
           callback(merchants)
         }
       },
-      fail: function(error) {
+      fail: function (error) {
         console.log(error)
-        if (typeof(callback) == 'function') {
+        if (typeof (callback) == 'function') {
           var errMsg = {
             status: false,
             content: '请求回收商地址失败'
@@ -331,26 +406,65 @@ Page({
       }
     })
   },
-  markertap: function(e) {
+  markertap: function (e) {
     var s = this
     var id = e.markerId
-    var marksers = s.data.markers    
-    s.changeMarkerColor(marksers, id)
-    
+    var merchants = s.data.merchants
+    s.changeMarkerColor(merchants, id)
   },
   changeMarkerColor: function (data, id) {
     var that = this;
-    // var markersTemp = data
-    for (var i = 1; i < data.length; i++) {
+    var markersTemp = [];
+    for (var i = 0; i < data.length; i++) {
+      var elem = data[i]['merchant']
       if (i === id) {
-        data[i].iconPath = "/Resources/images/location_green.png";
+        elem.iconPath = "/Resources/images/location_green.png";
       } else {
-        data[i].iconPath = "/Resources/images/location_red.png";
+        elem.iconPath = "/Resources/images/location_red.png";
       }
-      // markersTemp[i] = data[i];
+      markersTemp[i] = elem
+
+      that.setData({
+        markers: markersTemp
+      });
     }
-    that.setData({
-      markers: data
-    });
+  },
+  issueOrder: function (e) {
+    app.adjustEOpacity(this)
+    wx.navigateTo({
+      url: '/pages/orderIssue/index',
+      success: function () {
+        wx.setNavigationBarTitle({
+          title: '订单发布',
+        })
+      }
+    })
+  },
+  bindRegionChange: function (e) {
+    let s = this
+    if (e.detail.value == undefined) {
+      return
+    }
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      region: e.detail.value
+    })
+    // 正向地理解析：地名->经纬度
+    let ak = app.globalData.ak
+    let address = e.detail.value[0] + e.detail.value[1] + e.detail.value[2]
+    console.log(address)
+    wx.request({
+      url: 'http://api.map.baidu.com/geocoder/v2/?address=' + address + '&ret_coordtype=gcj02ll&output=json&ak=' + ak,
+      method: 'GET',
+      success: function (res) {
+        console.log(res)
+        if (res['data']['status'] == 0) {
+          s.showLocation(res['data']['result']['location'])
+        }
+      }
+    })
+  },
+  getCurLocation: function(e) {
+    this.showLocation()
   }
 })

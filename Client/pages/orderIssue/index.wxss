@@ -1,0 +1,71 @@
+/* pages/orderIssue/index.wxss */
+.container {
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  box-sizing: border-box;
+}
+.top {
+  padding-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+.top .row1 label {  
+  font-size: 28rpx;
+}
+.top .row2 {
+  width: 100%;
+  display: flex;
+  margin-top: 20rpx;
+  justify-content: space-between;
+}
+.top .row2 label {
+  font-size: 24rpx;
+}
+.top .row2 .right {
+  width: 20%;
+  height: 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #2dbea7;
+  color: #fff;
+}
+.middle {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.middle .content {
+  box-sizing: border-box;
+  border: 1px solid #fcfafd;
+}
+.middle .row1 {
+  box-sizing: border-box; 
+  width: 100%;
+}
+.middle .row2 {
+  height: 100rpx;
+  
+  display: flex;
+  justify-content: space-between;
+}
+.middle .row2 view {
+  width: 100rpx;
+  height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f5f7;
+}
+.middle .row2 input {
+  width: 105px;
+  height: 100rpx;
+  text-align: center;
+}
+.middle .row2 image {
+  width: 32rpx;
+  height: 32rpx;
+}
