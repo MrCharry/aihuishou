@@ -1,9 +1,12 @@
 <!--pages/modifyAddress/index.wxml-->
 <view class='container'>
-<view class='left'>
-  <view class='left_top'>
+  <image src='{{checkIcon}}'/>
+  <view class='middle'>
+    <label class='address'>{{userInfo.address}}</label>
+    <view class='profile'>
+      <label>{{userInfo.nickname}}</label>
+      <label>{{userInfo.phonenum}}</label>
+    </view>
   </view>
-  <view class='left_bottom'></view>
-</view>
-<view class='right'><image src='' /></view>
+  <image src='/Resources/images/edit.png' bindtap='bindEditTap' style='opacity:{{view.aOpacity}}'/>
 </view>

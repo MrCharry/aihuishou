@@ -1,10 +1,115 @@
 /* pages/orderIssue/index.wxss */
 .container {
-  padding-left: 30rpx;
-  padding-right: 30rpx;
   box-sizing: border-box;
 }
 .top {
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  padding-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.top image {
+  width: 220rpx;
+  height: 220rpx;
+  border: 1px solid rgb(187, 180, 180);
+}
+.gap {
+  margin-top: 20rpx;
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid whitesmoke;
+}
+.middle {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rpx;
+}
+.middle text {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+.bottom {
+  margin-top: 20rpx;
+  border-top: 1px solid gainsboro;
+}
+.bottom .row1 {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  height: 80rpx;
+  align-items: center;
+}
+.bottom .row1 label {
+  padding-left: 20rpx;
+}
+.bottom .row1 .rowright {
+  display: flex;
+}
+.rowright image {
+  width: 16rpx;
+  height: 16rpx;
+  padding: 20rpx;
+}
+.rowright input {
+  border: 1px solid gainsboro;
+  height: 50rpx;
+}
+.rowright label {
+  position: absolute;
+  right: 70rpx;
+  padding-top: 10rpx;
+  color: gainsboro;
+}
+.row2 {
+  padding: 20rpx;
+  border: 1px solid whitesmoke;
+}
+.radio-group {
+  display: flex;
+  justify-content: space-around;
+}
+.row3 {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid whitesmoke;
+}
+.row3 label {
+  font-size: 24rpx;
+}
+.row3 .address {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.row3 .address .btn {
+  border: 1px solid gainsboro;
+  width: 120rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+}
+.confirmBtn {
+  margin-top: 40rpx;
+  height: 70rpx;
+  color: #fff;
+  background-color: #2dbea7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .top {
   padding-top: 30rpx;
   display: flex;
   flex-direction: column;
@@ -68,4 +173,4 @@
 .middle .row2 image {
   width: 32rpx;
   height: 32rpx;
-}
+} */

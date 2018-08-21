@@ -2,7 +2,7 @@
 <view class="container">
   <view class='topBar'>
     <view class='left' bindtap='bindRegionChange'>
-      <image src='/Resources/images/locateIcon.png' />
+      <image src='/Resources/images/locateIconw.png' />
       <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
         <view style='font-size: 24rpx; color: #fff;'>{{region[1]}}{{region[2]}}</view>
       </picker>

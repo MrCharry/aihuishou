@@ -435,7 +435,7 @@ Page({
       url: '/pages/orderIssue/index',
       success: function () {
         wx.setNavigationBarTitle({
-          title: '订单发布',
+          title: '发布订单',
         })
       }
     })

@@ -1,6 +1,49 @@
 <!--pages/orderIssue/index.wxml-->
 <view class='container'>
   <view class='top'>
+    <image id='1' src='/Resources/images/TierA.png' bindtap='bindImageTap' style='border:{{aBorderStyle}};' />
+    <image id='2' src='/Resources/images/TierB.png' bindtap='bindImageTap' style='border:{{bBorderStyle}};' />
+    <image id='3' src='/Resources/images/TierC.png' bindtap='bindImageTap' style='border:{{cBorderStyle}};' />
+  </view>
+  <view class='gap'>
+    <text>{{price}}</text>
+  </view>
+  <view class='middle'>
+    <text>注意：</text>
+    <text>A级纸类：黄色纸皮、周转箱</text>
+    <text>B类纸类：啤酒纸箱、矿泉水纸箱等</text>
+    <text>低级纸类：鸡蛋托、苹果纸箱、书本、A4纸等</text>
+    <text>完全湿水，有大量油污的不收</text>
+  </view>
+  <view class='bottom'>
+    <view class='row1'>
+      <label>预计斤数：</label>
+      <view class='rowright'>
+        <image src='/Resources/images/minus.png' bindtap='bindMinusTap' />
+        <input type='number' bindinput='bindAmountTap'/>
+        <label>斤</label>
+        <image src='/Resources/images/plus.png' bindtap='bindPlusTap' />
+      </view>
+    </view>
+    <view class='row2'>
+      <radio-group class="radio-group" bindchange="bindDegreeChange">
+        <label class="radio" wx:for="{{items}}" wx:key='{{index}}'>
+          <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+        </label>
+      </radio-group>
+    </view>
+    <view class='row3'>
+      <label>上门回收地址：</label>
+      <view class='address'>
+        <label>{{userInfo.address}}</label>
+        <label class='btn' bindtap='bindAddressModify' style='opacity:{{view.aOpacity}};'>修改</label>
+      </view>
+    </view>
+  </view>
+  <label class='confirmBtn' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.bOpacity}};' bindtap='bindConfirmTap'>确认发布订单</label>
+</view>
+<!-- <view class='container'>
+  <view class='top'>
     <view class='row1'>
       <label>上门回收地址:</label>
     </view>
@@ -21,4 +64,4 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->

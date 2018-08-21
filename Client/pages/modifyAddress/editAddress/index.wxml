@@ -1,0 +1,26 @@
+<!--pages/modifyAddress/editAddress/index.wxml-->
+<view class='container'>
+  <view class='row'>
+    <label>联系人：</label>
+    <text>{{userInfo.nickname}}</text>
+  </view>
+  <view class='row' style='padding-top:20rpx;'>
+    <label>手机号：</label>
+    <text>{{userInfo.phonenum}}</text>
+  </view>
+  <view class='row1'>
+    <label>收货地址：</label>
+    <view class='address'>
+      <view class='left'>
+        <image src='/Resources/images/locateIcon.png' style='width:32rpx; height:32rpx;'/>
+        <label>{{curLocation ? curLocation:userInfo.address}}</label>
+      </view>
+      <image src='/Resources/images/arrowRight.png' bindtap='bindLocateTap'/>
+    </view>
+  </view>
+  <view class='row2'>
+    <label>门牌号/店名：</label>
+    <input bindinput='bindInputTap'/>
+  </view>
+  <label class='saveBtn' style='width:{{deviceInfo.windowWidth-30}}px'>保存地址</label>
+</view>

@@ -17,6 +17,7 @@
     "pages/modifyPhone/index",
     "pages/bankcard/index",
     "pages/modifyAddress/index",
+    "pages/modifyAddress/editAddress/index",
     "pages/orderIssue/index",
     "pages/logs/logs"
   ],
