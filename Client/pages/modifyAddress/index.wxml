@@ -1,12 +1,15 @@
 <!--pages/modifyAddress/index.wxml-->
-<view class='container'>
-  <image src='{{checkIcon}}'/>
-  <view class='middle'>
-    <label class='address'>{{userInfo.address}}</label>
-    <view class='profile'>
-      <label>{{userInfo.nickname}}</label>
-      <label>{{userInfo.phonenum}}</label>
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+  <view class='addressItem' wx:if="{{userInfo.address!=''}}">
+    <image src='{{checkIcon}}' />
+    <view class='middle'>
+      <label class='address'>{{userInfo.address}}-{{userInfo.detailaddress}}</label>
+      <view class='profile'>
+        <label>{{userInfo.nickname}}</label>
+        <label>{{userInfo.phonenum}}</label>
+      </view>
     </view>
+    <image src='/Resources/images/edit.png' bindtap='bindEditTap' style='opacity:{{view.aOpacity}}' />
   </view>
-  <image src='/Resources/images/edit.png' bindtap='bindEditTap' style='opacity:{{view.aOpacity}}'/>
+  <label wx:else class='addAddress' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.bOpacity}}' bindtap='bindAddAddress'>新增收货地址</label>
 </view>

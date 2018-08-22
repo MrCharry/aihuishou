@@ -179,7 +179,7 @@ App({
     var header = this.globalData.header
     var self = this
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/user/get/personalinfo',
+      url: 'https://www.dingdonhuishou.com/AHS/api/user/get/personalinfo',
       method: 'POST',
       header: header,
       success: function (res) {
@@ -189,10 +189,10 @@ App({
         if (success == 'TRUE') {
           console.log(res['data']['content'])
           var userInfo = res['data']['data']
-          console.log(userInfo)
-          userInfo.imgpath = 'https://www.dingdonhuishou.com/AHSTest/uploads/' + userInfo.imgpath
+          userInfo.imgpath = 'https://www.dingdonhuishou.com/AHS/uploads/' + userInfo.imgpath
           self.globalData.userInfo = userInfo
           self.setStorageSync('userInfo', userInfo, 7*24)
+          console.log(userInfo)
           if (typeof (callback) == 'function') {
             callback()
           }
@@ -245,7 +245,7 @@ App({
     console.log(header)
     var self = this
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/requestcode1',
+      url: 'https://www.dingdonhuishou.com/AHS/api/requestcode1',
       data: {
         phonenum: phonenum
       },

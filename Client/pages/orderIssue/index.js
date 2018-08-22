@@ -14,47 +14,63 @@ Page({
       { name: 'book', value: '预约' }
     ],
     view: {},
-    inputData: {}
+    inputData: {
+      amount: 0
+    },
+    borderStyle:[
+      '2px solid orange'
+    ],
+    idx: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var adcode = options['adcode']
+    var s = this
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHS/api/areawasteprice/list?areamoreid=' + adcode,
+      method: 'POST',
+      header: app.globalData.header,
+      success: function(res) {
+        console.log(res)
+        var wasteinfo = res['data']['listwaste'][0]['listwastesub']
+        var wastetypeinfo = res['data']['listwaste'][0]['wastetypeinfo'].split('<p>').join('').split('</p>').join('')
+        var imgWidth = (app.globalData.deviceInfo.windowWidth - 30) / wasteinfo.length - 10
+        for (var i=0; i<wasteinfo.length; ++i) {
+          wasteinfo[i]['wasteimg'] = 'https://dingdonhuishou.com/HHSmanager/wasteimg/' + wasteinfo[i]['wasteimg']
+        }
+        s.setData({
+          wasteinfo: wasteinfo,
+          wastetypeinfo: wastetypeinfo,
+          imgWidth: imgWidth
+        })
+      }
+    })
     this.setData({
       deviceInfo: app.globalData.deviceInfo,
-      userInfo: app.globalData.userInfo,
-      price: 'A级类回收价格: 0.8元',
-      aBorderStyle: '2px solid orange'
+      userInfo: app.globalData.userInfo
     })
   },
   bindImageTap: function (e) {
 
-    let borderStyle = '2px solid orange'
-
     var id = e.currentTarget.id
-    if (id == '1') {
-      this.setData({
-        price: 'A级类回收价格: 0.8元',
-        aBorderStyle: borderStyle,
-        bBorderStyle: '',
-        cBorderStyle: ''
-      })
-    } else if (id == '2') {
-      this.setData({
-        price: 'B级类回收价格: 0.7元',
-        bBorderStyle: borderStyle,
-        aBorderStyle: '',
-        cBorderStyle: ''
-      })
-    } else if (id == '3') {
-      this.setData({
-        price: '低级类回收价格: 0.5元',
-        cBorderStyle: borderStyle,
-        aBorderStyle: '',
-        bBorderStyle: ''
-      })
+    var wasteinfo = this.data.wasteinfo
+    var borderStyle = this.data.borderStyle
+    for (var i=0; i<wasteinfo.length; ++i) {
+      if (i == id) {
+        borderStyle[i] = '2px solid orange'
+        this.setData({
+          idx: i
+        })
+      }else {
+        borderStyle[i] = ''
+      }
     }
+    this.setData({
+      borderStyle: borderStyle,
+    })
   },
   bindAmountTap: function(e) {
     // console.log(e)
@@ -87,7 +103,42 @@ Page({
     app.adjustBOpacity(this)
     var inputData = this.data.inputData
     inputData.degree = inputData.degree==undefined ? 'normal':inputData.degree
+    var s = this
     console.log(inputData)
+    if (inputData.amount == undefined) {
+      wx.showModal({
+        title: '提示',
+        content: '请先设置预计发布的斤数，谢谢！',
+        showCancel: false,
+        success: function() {
+          s.setData({
+            focus: true
+          })
+        }
+      })
+    }
+  },
+  bindMinusTap: function(e) {
+    var inputData = this.data.inputData
+    if (inputData.amount == 0) {
+      wx.showModal({
+        title: '提示',
+        content: '斤数必须大于0',
+        showCancel: false
+      })
+      return
+    }
+    --inputData.amount
+    this.setData({
+      inputData: inputData
+    })
+  },
+  bindPlusTap: function(e) {
+    var inputData = this.data.inputData
+    ++inputData.amount
+    this.setData({
+      inputData: inputData
+    })
   }
 })
 // Page({

@@ -20,7 +20,25 @@ Page({
     })
   },
   bindLocateTap: function(e) {
-
+    app.adjustAOpacity(this)
+    var s = this
+    wx.getLocation({
+      success: function(res) {
+        wx.openLocation({
+          latitude: res.latitude,
+          longitude: res.longitude,
+          success: function(res) {
+            wx.chooseLocation({
+              success: function(res) {
+                s.setData({
+                  selectedAddress: res.address
+                })
+              },
+            })
+          }
+        })
+      },
+    })
   },
   bindInputTap: function(e) {
     var inputData = this.data.inputData

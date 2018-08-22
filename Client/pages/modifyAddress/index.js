@@ -29,5 +29,16 @@ Page({
         })
       }
     })
+  },
+  bindAddAddress: function(e) {
+    app.adjustBOpacity(this)
+    wx.navigateTo({
+      url: '/pages/modifyAddress/editAddress/index',
+      success: function() {
+        wx.setNavigationBarTitle({
+          title: '编辑收货地址',
+        })
+      }
+    })
   }
 })

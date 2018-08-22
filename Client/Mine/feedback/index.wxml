@@ -14,7 +14,7 @@
     <view>
       <text>请在下方输入您的联系方式</text>
     </view>
-    <input type='text' name='phone' />
+    <input type='number' name='phonenum' />
     <view class='submitBtn'>
       <label for='btn' style='opacity:{{view.aOpacity}}; color: #fff;'>提交反馈</label>
     </view>

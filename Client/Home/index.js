@@ -50,19 +50,18 @@ Page({
     //     })
     //   },
     // })
+    console.log(this.data.merchants)
+  },
+  onShow: function () {
+    var userInfo = app.globalData.userInfo
     var view = this.data.view
     view.showLoginModel = !app.globalData.loginStatus
-    var userInfo = app.globalData.userInfo
     this.setData({
       userInfo: userInfo,
       loginStatus: app.globalData.loginStatus,
       view: view,
-      nickname: userInfo.nickname.slice(0,5) + '...'
+      nickname: userInfo ? userInfo.nickname.slice(0, 5) + '...' : ''
     })
-    console.log(this.data.merchants)
-  },
-  onShow: function () {
-
     this.showLocation()
   },
   clickMenu: function (e) {
@@ -199,7 +198,7 @@ Page({
     var header = app.globalData.header
     console.log(header)
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/user/login',
+      url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
       data: {
         phonenum: phonenum,
         code: verifiedCode
@@ -298,6 +297,7 @@ Page({
                 s.setData({
                   markers: markers,
                   merchants: merchants,
+                  adcode: adcode,
                   region: [
                     res['data']['result']['addressComponent']['province'],
                     res['data']['result']['addressComponent']['city'],
@@ -356,6 +356,7 @@ Page({
               })
             }
             s.setData({
+              adcode: adcode,
               markers: markers,
               merchants: merchants,
               region: [
@@ -430,9 +431,28 @@ Page({
     }
   },
   issueOrder: function (e) {
+    var adcode = this.data.adcode
     app.adjustEOpacity(this)
+    if (!app.globalData.loginStatus) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录！',
+        showCancel: false,
+        success: function() {
+          wx.navigateTo({
+            url: '/pages/login_register/index',
+            success: function() {
+              wx.setNavigationBarTitle({
+                title: '慧回收用户登录',
+              })
+            }
+          })
+        }
+      })
+      return
+    }
     wx.navigateTo({
-      url: '/pages/orderIssue/index',
+      url: '/pages/orderIssue/index?adcode=' + adcode,
       success: function () {
         wx.setNavigationBarTitle({
           title: '发布订单',

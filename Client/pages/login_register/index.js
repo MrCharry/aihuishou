@@ -56,7 +56,7 @@ Page({
       var password = this.data.inputData.password
       console.log(password)
       wx.request({
-        url: 'https://www.dingdonhuishou.com/AHSTest/api/user/loginbypassword',
+        url: 'https://www.dingdonhuishou.com/AHS/api/user/loginbypassword',
         data: {
           phonenum: phonenum,
           password: password
@@ -112,7 +112,7 @@ Page({
       //当前为验证码登录模式
       var verifiedCode = this.data.inputData.verifiedCode
       wx.request({
-        url: 'https://www.dingdonhuishou.com/AHSTest/api/user/login',
+        url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
         data: {
           phonenum: phonenum,
           code: verifiedCode
@@ -161,7 +161,7 @@ Page({
       var password = this.data.inputData.password
       var verifiedCode = this.data.inputData.verifiedCode
       wx.request({
-        url: 'https://www.dingdonhuishou.com/AHSTest/api/user/register',
+        url: 'https://www.dingdonhuishou.com/AHS/api/user/register',
         data: {
           phonenum: phonenum,
           password: password,
@@ -175,7 +175,7 @@ Page({
               title: '注册成功',
               success: function() {                
                 wx.request({
-                  url: 'https://www.dingdonhuishou.com/AHSTest/api/user/loginbypassword',
+                  url: 'https://www.dingdonhuishou.com/AHS/api/user/loginbypassword',
                   data: {
                     phonenum: phonenum,
                     password: password

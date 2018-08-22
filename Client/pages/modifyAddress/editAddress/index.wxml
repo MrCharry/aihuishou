@@ -10,17 +10,18 @@
   </view>
   <view class='row1'>
     <label>收货地址：</label>
-    <view class='address'>
+    <view class='address' bindtap='bindLocateTap'>
       <view class='left'>
         <image src='/Resources/images/locateIcon.png' style='width:32rpx; height:32rpx;'/>
-        <label>{{curLocation ? curLocation:userInfo.address}}</label>
+        <label wx:if='{{selectedAddress}}'>{{selectedAddress}}</label>
+        <label wx:else>{{userInfo.address}}-{{userInfo.detailaddress}}</label>
       </view>
-      <image src='/Resources/images/arrowRight.png' bindtap='bindLocateTap'/>
+      <image src='/Resources/images/arrowRight.png'/>
     </view>
   </view>
   <view class='row2'>
     <label>门牌号/店名：</label>
-    <input bindinput='bindInputTap'/>
+    <input bindinput='bindInputTap' value='{{userInfo.detailaddress}}'/>
   </view>
   <label class='saveBtn' style='width:{{deviceInfo.windowWidth-30}}px'>保存地址</label>
 </view>

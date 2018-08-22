@@ -19,7 +19,7 @@
         <cover-view style='color: #fff;'>订单发布</cover-view>
       </cover-view>
       <cover-view class='menuList' style="display:{{view.showMenu ? 'block':'none'}}">
-        <cover-view class='userIcon' bindtap='clickUserIcon' style='opacity:{{view.bOpacity}}' hidden='{{!loginStatus}}'>
+        <cover-view wx:if='{{loginStatus}}' class='userIcon' bindtap='clickUserIcon' style='opacity:{{view.bOpacity}}'>
           <cover-image class='left' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' />
           <cover-view class='right'>{{nickname}}</cover-view>
         </cover-view>
