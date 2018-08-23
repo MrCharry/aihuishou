@@ -82,7 +82,7 @@
   background-color: whitesmoke;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 40%;
 }
 .menuItem {
   border: 1px solid #ebebeb;

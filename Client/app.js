@@ -20,7 +20,8 @@ App({
     }else {
       this.globalData.header = { 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': sessionid }
       this.globalData.loginStatus = true
-      this.globalData.userInfo = this.getStorageSync('userInfo')
+      this.globalData.userInfo = this.getUserInfo()
+      // this.globalData.userInfo = this.getStorageSync('userInfo')
     }
     
     // 获取小程序更新机制兼容
@@ -194,7 +195,7 @@ App({
           self.setStorageSync('userInfo', userInfo, 7*24)
           console.log(userInfo)
           if (typeof (callback) == 'function') {
-            callback()
+            callback(userInfo)
           }
         } else {
           console.log(res['data']['content'])
@@ -245,7 +246,7 @@ App({
     console.log(header)
     var self = this
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/requestcode1',
+      url: 'https://www.dingdonhuishou.com/AHS/api/requestcode',
       data: {
         phonenum: phonenum
       },

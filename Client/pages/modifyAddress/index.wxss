@@ -8,13 +8,18 @@
 .addressItem {
   padding: 30rpx;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid whitesmoke;
 }
 .addressItem image {
   width: 48rpx;
   height: 48rpx;
+}
+.left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .middle {
   display: flex;
@@ -28,7 +33,6 @@
 .middle .profile {
   display: flex;
   margin-top: 10rpx;
-  justify-content: space-between;
 }
 .addAddress {
   height: 70rpx;

@@ -64,7 +64,7 @@ Page({
       console.log(phonenum)
       // 忘记密码
       wx.request({
-        url: 'https://www.dingdonhuishou.com/AHSTest/api/user/forgetpassword',
+        url: 'https://www.dingdonhuishou.com/AHS/api/user/forgetpassword',
         data: {
           phonenum: phonenum,
           newpassword: newPassword,
@@ -95,7 +95,7 @@ Page({
       console.log(oldPassword)
       // 修改密码
       wx.request({
-        url: 'https://www.dingdonhuishou.com/AHSTest/api/user/modify',
+        url: 'https://www.dingdonhuishou.com/AHS/api/user/modify',
         data: {
           oldpassword: oldPassword,
           newpassword: newPassword,

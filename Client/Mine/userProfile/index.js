@@ -15,36 +15,78 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    var userInfo = app.globalData.userInfo
-    if (userInfo.address.length > 20) {
-      userInfo.address = userInfo.address.slice(0,20) + '...'
-    }
+  
     this.setData({
-      userInfo: userInfo,
+      userInfo: app.globalData.userInfo,
       defaultGenderPic: '/Resources/images/check.png',
       selectedGenderPic: '/Resources/images/checked.png'
     })
   },
-  choosePhoto: function(e) {
+  onShow: function() {
+    var userInfo = app.globalData.userInfo
+    if (userInfo.address.length > 20) {
+      this.setData({
+        simpleAddress: userInfo.address.slice(0, 20) + '...'
+      })
+    }
+  },
+  bindUpdatePortrait: function(e) {
     var s = this
     var userInfo = s.data.userInfo
+    var sessionid = app.getStorageSync('sessionid')
+
     app.adjustAOpacity(this)
+
     wx.chooseImage({
       count: 1,
       success: function(res) {
-        userInfo.portrait = res.tempFilePaths[0]
-        s.setData({
-          userInfo: userInfo
+        var tempPath = res.tempFilePaths[0]
+        wx.uploadFile({
+          url: 'https://www.dingdonhuishou.com/AHS/api/user/picture',
+          filePath: tempPath,
+          name: 'fileUpload',
+          header: {
+            'content-type': 'multipart/form-data',
+            'Cookie': sessionid
+          },
+          success: function(res) {
+            
+            var result = JSON.parse(res['data'])
+            console.log(result)
+            if (result['isSuccess'] == 'TRUE') {
+              userInfo.imgpath = tempPath
+              s.setData({
+                userInfo: userInfo
+              })
+              app.globalData.userInfo = userInfo
+              wx.showModal({
+                title: '提示',
+                content: result['content'],
+                showCancel: false
+              })
+            }else {
+              wx.showModal({
+                title: '提示',
+                content: result['content'],
+                showCancel: false,
+                confirmText: '重试',
+                confirmColor: '#ff0000'
+              })
+            }
+          }
         })
       },
+      fail: function(error) {
+        console.log(error)
+      }
     })
   },
   clickGender: function(e) {
-    var gender = parseInt(e.currentTarget.dataset.gender)
+    var gender = parseInt(e.currentTarget.id)
     var userInfo = app.globalData.userInfo
     var self = this
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/user/modify/sex',
+      url: 'https://www.dingdonhuishou.com/AHS/api/user/modify/sex',
       data: {
         sex: gender
       },
@@ -52,15 +94,25 @@ Page({
       header: app.globalData.header,
       success: function(res) {
         if (res['data']['isSuccess'] == 'TRUE') {
-          console.log(res['data'])
+          
           userInfo.sex = gender
           self.setData({
             userInfo: userInfo
-          })          
-          app.setStorageSync('userInfo', userInfo)
-
+          })
+          app.globalData.userInfo = userInfo
+          wx.showModal({
+            title: '提示',
+            content: res['data']['content'],
+            showCancel: false
+          })
         }else {
-          console.log(res['data']['content'])
+          wx.showModal({
+            title: '提示',
+            content: res['data']['content'],
+            showCancel: false,
+            confirmText: '重试',
+            confirmColor: '#ff0000'
+          })          
         }
       }
     })
@@ -77,11 +129,44 @@ Page({
     console.log(e.detail)
     var userInfo = this.data.userInfo
     var view = this.data.view
+    var s = this
     view.editNickname = !view.editNickname
-    userInfo.nickname = e.detail.value
-    this.setData({
-      userInfo: userInfo,
-      view: view
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHS/api/user/modify/nickname',
+      data: {
+        nickname: e.detail.value
+      },
+      method: 'POST',
+      header: app.globalData.header,
+      success: function(res) {
+
+        if (res['data']['isSuccess'] == 'TRUE') {
+          userInfo.nickname = e.detail.value
+          s.setData({
+            userInfo: userInfo
+          })
+          app.globalData.userInfo = userInfo
+          wx.showModal({
+            title: '提示',
+            content: res['data']['content'],
+            showCancel: false
+          })
+        }else {
+          wx.showModal({
+            title: '提示',
+            content: res['data']['content'],
+            showCancel: false,
+            confirmText: '重试',
+            confirmColor: '#ff0000'
+          })
+        }
+        s.setData({
+          view: view
+        })
+      },
+      fail: function(error) {
+        console.log(error)
+      }
     })
   },
   bindPhone: function(e) {

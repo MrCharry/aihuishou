@@ -3,14 +3,14 @@
   <view class='profile'>
     <view class='row'>
       <label>头像</label>
-      <image bindtap='choosePhoto' class='icon' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' style='opacity:{{view.aOpacity}}' />
+      <image bindtap='bindUpdatePortrait' class='icon' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' style='opacity:{{view.aOpacity}}' />
     </view>
     <view class='row'>
       <label>昵称</label>
       <view>
         <label bindtap='clickModifyName' hidden='{{view.editNickname}}'>{{userInfo.nickname}}</label>
         <!-- <image src='/Resources/images/arrowRight.png' /> -->
-        <input class='nickname' value='{{userInfo.nickname}}' bindconfirm='editNicknameDone' hidden='{{!view.editNickname}}'/>
+        <input class='nickname' value='{{userInfo.nickname}}' bindconfirm='editNicknameDone' hidden='{{!view.editNickname}}' />
       </view>
     </view>
     <view class='row'>
@@ -31,14 +31,20 @@
 
     <view class='row2'>
       <label>性别</label>
-      <view bindtap='clickGender' class='gender' data-gender='0'><image src='{{userInfo.sex==0 ? selectedGenderPic:defaultGenderPic}}' /><text>女</text></view>
-      <view bindtap='clickGender' class='gender' data-gender='1'><image src='{{userInfo.sex==1 ? selectedGenderPic:defaultGenderPic}}' /><text>男</text></view>
+      <view id='0' bindtap='clickGender' class='gender'>
+        <image src='{{userInfo.sex==0 ? selectedGenderPic:defaultGenderPic}}' />
+        <text>女</text>
+      </view>
+      <view id='1' bindtap='clickGender' class='gender'>
+        <image src='{{userInfo.sex==1 ? selectedGenderPic:defaultGenderPic}}' />
+        <text>男</text>
+      </view>
     </view>
     <view class='row'>
       <label>地区</label>
-      <view>
+      <view class='address'>
         <view bindtap='modifyAddress' style='opacity:{{view.dOpacity}}'>
-          <label style='font-size: 28rpx;'>{{userInfo.address}}-{{userInfo.detailaddress}}</label>
+          <label style='font-size: 28rpx;'>{{simpleAddress}}</label>
           <image src='/Resources/images/arrowRight.png' />
         </view>
       </view>

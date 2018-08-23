@@ -29,8 +29,8 @@
   align-items: center;
 }
 .address image {
-  width: 27rpx;
-  height: 45rpx;
+  width: 16rpx;
+  height: 26rpx;
 }
 .address .left label {
   margin-left: 10rpx;
@@ -41,11 +41,16 @@
   border-bottom: 1px solid whitesmoke;  
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .row2 input {
   height: 60rpx;
   margin-left: 10rpx;
   border: 1px solid gainsboro;
+  width: 100%;
+}
+.row2 label {
+  white-space: nowrap;
 }
 .saveBtn {
   height: 70rpx;

@@ -16,7 +16,12 @@ Page({
     this.setData({
       deviceInfo: app.globalData.deviceInfo,
       userInfo: app.globalData.userInfo,
-      checkIcon: '/Resources/images/check.png'
+      checkIcon: app.globalData.userInfo.address == '' ? '/Resources/images/check.png' : '/Resources/images/checked.png'
+    })
+  },
+  onShow: function() {
+    this.setData({
+      userInfo: app.globalData.userInfo
     })
   },
   bindEditTap: function(e) {

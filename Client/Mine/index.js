@@ -19,6 +19,11 @@ Page({
       userInfo: app.globalData.userInfo
     })
   },
+  onShow: function() {
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
+  },
   clickCredit: function(e) {
     app.adjustAOpacity(this)
     wx.navigateTo({

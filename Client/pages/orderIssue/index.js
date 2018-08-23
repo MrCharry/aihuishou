@@ -53,6 +53,11 @@ Page({
       userInfo: app.globalData.userInfo
     })
   },
+  onShow: function() {
+    this.setData({
+      userInfo: app.globalData.userInfo
+    })
+  },
   bindImageTap: function (e) {
 
     var id = e.currentTarget.id

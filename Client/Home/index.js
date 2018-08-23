@@ -12,7 +12,8 @@ Page({
   },
   onLoad: function () {
     this.setData({
-      deviceInfo: app.globalData.deviceInfo
+      deviceInfo: app.globalData.deviceInfo,
+      loginStatus: app.globalData.loginStatus
     })
     // var s = this
 
@@ -60,7 +61,7 @@ Page({
       userInfo: userInfo,
       loginStatus: app.globalData.loginStatus,
       view: view,
-      nickname: userInfo ? userInfo.nickname.slice(0, 5) + '...' : ''
+      nickname: userInfo.nickname.length>5 ? userInfo.nickname.slice(0, 5) + '...' : userInfo.nickname
     })
     this.showLocation()
   },
