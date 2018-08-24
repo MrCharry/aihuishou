@@ -1,7 +1,9 @@
 // pages/orderIssue/index.js
 var app = getApp()
 var wxMarkerData = []
-var bmap = require('../../utils/bmap-wx.js')
+const bmap = require('../../utils/bmap-wx.js')
+const util = require('../../utils/util.js')
+
 Page({
 
   /**
@@ -15,7 +17,8 @@ Page({
     ],
     view: {},
     inputData: {
-      amount: 0
+      amount: 0,
+      degree: 'normal'
     },
     borderStyle:[
       '2px solid orange'
@@ -41,10 +44,15 @@ Page({
         for (var i=0; i<wasteinfo.length; ++i) {
           wasteinfo[i]['wasteimg'] = 'https://dingdonhuishou.com/HHSmanager/wasteimg/' + wasteinfo[i]['wasteimg']
         }
+        var inputData = s.data.inputData
+        inputData.areawastepriceid = wasteinfo[0]['areawastepriceid']
+        inputData.category = wasteinfo[0]['wastesubtype']
+        inputData.price = wasteinfo[0]['price']
         s.setData({
           wasteinfo: wasteinfo,
           wastetypeinfo: wastetypeinfo,
-          imgWidth: imgWidth
+          imgWidth: imgWidth,
+          inputData: inputData
         })
       }
     })
@@ -63,6 +71,8 @@ Page({
     var id = e.currentTarget.id
     var wasteinfo = this.data.wasteinfo
     var borderStyle = this.data.borderStyle
+    var inputData = this.data.inputData
+
     for (var i=0; i<wasteinfo.length; ++i) {
       if (i == id) {
         borderStyle[i] = '2px solid orange'
@@ -73,25 +83,54 @@ Page({
         borderStyle[i] = ''
       }
     }
+    inputData.priceid = e.currentTarget.dataset.priceid
+    inputData.category = e.currentTarget.dataset.category
+    inputData.price = e.currentTarget.dataset.price
     this.setData({
       borderStyle: borderStyle,
+      inputData: inputData
     })
   },
   bindAmountTap: function(e) {
     // console.log(e)
     var inputData = this.data.inputData
-    inputData.amount = e.detail.value
+    inputData.amount = e.detail.value 
     this.setData({
       inputData: inputData
     })
   },
   bindDegreeChange: function(e) {
-    console.log(e.detail)
+
     var inputData = this.data.inputData
     inputData.degree = e.detail.value
+
+    if (e.detail.value == 'book') {
+
+      wx.showToast({
+        title: '即日起七天内可接受预约,时间为9:00-18:00',
+        icon: 'none',
+        duration: 2000
+      })
+      var datetime = util.formatTime(new Date())
+      var startDate = datetime.split(' ')[0].split('/').join('-')
+      var time = datetime.split(' ')[1].slice(0, 5) 
+      var endDate = util.formatTime( new Date( new Date().getTime() + 7*24*3600*1000 ) ).split(' ')[0].split('/').join('-')
+      console.log(startDate, endDate, time)
+      
+      this.setData({
+        timeSet: {
+          date: startDate,
+          startDate: startDate,
+          endDate: endDate,
+          time: time          
+        }
+      })
+    }
+
     this.setData({
       inputData: inputData
     })
+    
   },
   bindAddressModify: function(e) {
     app.adjustAOpacity(this)
@@ -104,16 +143,15 @@ Page({
       }
     })
   },
-  bindConfirmTap: function(e) {
+  bindReleaseTap: function(e) {
     app.adjustBOpacity(this)
-    var inputData = this.data.inputData
-    inputData.degree = inputData.degree==undefined ? 'normal':inputData.degree
+    var inputData = this.data.inputData    
     var s = this
     console.log(inputData)
-    if (inputData.amount == undefined) {
+    if (inputData.amount == 0) {
       wx.showModal({
         title: '提示',
-        content: '请先设置预计发布的斤数，谢谢！',
+        content: '请设置大于0的斤数！',
         showCancel: false,
         success: function() {
           s.setData({
@@ -144,7 +182,23 @@ Page({
     this.setData({
       inputData: inputData
     })
-  }
+  },
+  bindDateChange: function (e) {
+    
+    var timeSet = this.data.timeSet
+    timeSet.date = e.detail.value
+    this.setData({
+      timeSet: timeSet
+    })
+  },
+  bindTimeChange: function (e) {
+
+    var tiemSet = this.data.timeSet
+    tiemSet.time = e.detail.value
+    this.setData({
+      timeSet: tiemSet
+    })
+  },
 })
 // Page({
 

@@ -11,6 +11,7 @@ Page({
     merchants: []
   },
   onLoad: function () {
+
     this.setData({
       deviceInfo: app.globalData.deviceInfo,
       loginStatus: app.globalData.loginStatus
@@ -54,14 +55,19 @@ Page({
     console.log(this.data.merchants)
   },
   onShow: function () {
-    var userInfo = app.globalData.userInfo
+
+    var userInfo = app.globalData.userInfo ? app.globalData.userInfo : app.getStorageSync('userInfo')
+    if (userInfo != undefined) {
+      this.setData({
+        userInfo: userInfo,
+        nickname: userInfo.nickname.length > 5 ? userInfo.nickname.slice(0, 5) : userInfo.nickname
+      })
+    }
     var view = this.data.view
     view.showLoginModel = !app.globalData.loginStatus
     this.setData({
-      userInfo: userInfo,
       loginStatus: app.globalData.loginStatus,
-      view: view,
-      nickname: userInfo.nickname.length>5 ? userInfo.nickname.slice(0, 5) + '...' : userInfo.nickname
+      view: view
     })
     this.showLocation()
   },
@@ -151,7 +157,7 @@ Page({
             console.log("用户取消登录！")
             wx.showToast({
               title: '用户取消登录！',
-              image: '/Resources/images/closeIcon_01.png'
+              icon: 'none'
             })
           }
         }

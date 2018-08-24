@@ -1,37 +1,54 @@
 /* Mine/setting/modifyPassword/index.wxss */
+
 .container {
   box-sizing: border-box;
-  width: 100%;
   padding-left: 20rpx;
   padding-right: 20rpx;
   background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
 }
+
+.content {
+  padding-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.content label {
+  white-space: nowrap;
+}
+
 .row {
   display: flex;
-  height: 80rpx;
   align-items: center;
   padding-top: 30rpx;
 }
-.row label {
-  width: 30%;
-}
+
 .row input {
-  width: 67%;
   border: 1px solid #2dbea7;
-  height: 80rpx;
-  padding-right: 40rpx;
+  height: 70rpx;
+  margin-left: 30rpx;
 }
+
 .getCodeLabel {
-  font-size: 16px;
   background-color: #2dbea7;
-  height: 80rpx;
+  height: 70rpx;
   color: #fff;
   margin-left: 20rpx;
-  width: 33%;
+  white-space: nowrap;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .confirmBtn {
-  height: 80rpx;
-  margin-top: 120rpx;
+  height: 70rpx;
+  margin-top: 100rpx;
   background-color: #2dbea7;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

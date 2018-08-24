@@ -1,4 +1,4 @@
-  var app = getApp()
+var app = getApp()
 
 Page({
 
@@ -20,12 +20,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       deviceInfo: app.globalData.deviceInfo
     })
   },
-  getInput: function(e) {
+  getInput: function (e) {
     var inputData = this.data.inputData
     if (e.target.dataset.name == 'phonenum') {
       inputData.phonenum = e.detail.value
@@ -38,13 +38,24 @@ Page({
       inputData: inputData
     })
   },
-  iflegalphone: function(e) {
-    app.iflegalphone(this)
+  iflegalphone: function (e) {
+
+    var phonenum = this.data.inputData.phonenum
+    if (!app.iflegalphone(this)) {
+      this.setData({
+        focus: true
+      })
+    } else {
+      this.setData({
+        focus: false
+      })
+    }
+
   },
-  getVerifiedCode: function(e) {
+  getVerifiedCode: function (e) {
     app.getVerifiedCode(this)
   },
-  clickLogin: function(e) {
+  clickLogin: function (e) {
 
     var view = this.data.view
     var phonenum = this.data.inputData.phonenum
@@ -63,7 +74,7 @@ Page({
         },
         method: 'POST',
         header: header,
-        success: function(res) {
+        success: function (res) {
           console.log(res)
           var success = res['data']['isSuccess']
 
@@ -78,58 +89,11 @@ Page({
               app.setStorageSync('sessionid', sessionid)
 
             }
-            app.getUserInfo(self, function() {
+            app.getUserInfo(self, function () {
               app.globalData.loginStatus = true
               wx.showToast({
                 title: '登录成功',
-                success: function() {
-                  setTimeout(function() {
-                    wx.reLaunch({
-                      url: '/Home/index',
-                      success: function () {
-                        setTimeout(function () {
-                          wx.navigateTo({
-                            url: '/Mine/index',
-                          })
-                        }, 500)
-                      }
-                    })
-                  }, 1000)
-                }
-              })
-            })
-
-          } else {
-            console.log(res['data']['content'])
-          }
-
-        },
-        fail: function(error) {
-          console.log(error)
-        }
-      })
-    } else if (view.rightLabelText == '密码登录') {
-      //当前为验证码登录模式
-      var verifiedCode = this.data.inputData.verifiedCode
-      wx.request({
-        url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
-        data: {
-          phonenum: phonenum,
-          code: verifiedCode
-        },
-        method: 'POST',
-        header: header,
-        success: function(res) {
-          console.log(res)
-          var success = res['data']['isSuccess']
-
-          if (success == 'TRUE') {
-
-            app.getUserInfo(self, function() {
-              app.globalData.loginStatus = true
-              wx.showToast({
-                title: '登录成功',
-                success: function() {
+                success: function () {
                   setTimeout(function () {
                     wx.reLaunch({
                       url: '/Home/index',
@@ -151,7 +115,54 @@ Page({
           }
 
         },
-        fail: function(error) {
+        fail: function (error) {
+          console.log(error)
+        }
+      })
+    } else if (view.rightLabelText == '密码登录') {
+      //当前为验证码登录模式
+      var verifiedCode = this.data.inputData.verifiedCode
+      wx.request({
+        url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
+        data: {
+          phonenum: phonenum,
+          code: verifiedCode
+        },
+        method: 'POST',
+        header: header,
+        success: function (res) {
+          console.log(res)
+          var success = res['data']['isSuccess']
+
+          if (success == 'TRUE') {
+
+            app.getUserInfo(self, function () {
+              app.globalData.loginStatus = true
+              wx.showToast({
+                title: '登录成功',
+                success: function () {
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/Home/index',
+                      success: function () {
+                        setTimeout(function () {
+                          wx.navigateTo({
+                            url: '/Mine/index',
+                          })
+                        }, 500)
+                      }
+                    })
+                  }, 1000)
+                }
+              })
+            })
+
+          } else {
+            console.log(res['data']['content'])
+          }
+
+        },
+        fail: function (error) {
           console.log(error)
         }
       })
@@ -169,11 +180,11 @@ Page({
         },
         method: 'POST',
         header: header,
-        success: function(res) {
+        success: function (res) {
           if (res['data']['isSuccess'] == 'TRUE') {
             wx.showToast({
               title: '注册成功',
-              success: function() {                
+              success: function () {
                 wx.request({
                   url: 'https://www.dingdonhuishou.com/AHS/api/user/loginbypassword',
                   data: {
@@ -182,7 +193,7 @@ Page({
                   },
                   method: 'POST',
                   header: header,
-                  success: function(res) {
+                  success: function (res) {
                     console.log(res)
                     var success = res['data']['isSuccess']
 
@@ -197,12 +208,12 @@ Page({
                         app.setStorageSync('sessionid', sessionid)
 
                       }
-                      app.getUserInfo(self, function() {
+                      app.getUserInfo(self, function () {
                         app.globalData.loginStatus = true
                         wx.reLaunch({
                           url: '/Home/index',
-                          success: function() {
-                            setTimeout(function() {
+                          success: function () {
+                            setTimeout(function () {
                               wx.navigateTo({
                                 url: '/Mine/index',
                               })
@@ -216,7 +227,7 @@ Page({
                     }
 
                   },
-                  fail: function(error) {
+                  fail: function (error) {
                     console.log(error)
                   }
                 })
@@ -228,21 +239,21 @@ Page({
           }
 
         },
-        fail: function(error) {
+        fail: function (error) {
           console.log(error)
         }
       })
 
     }
   },
-  clickLeftLabel: function(e) {
+  clickLeftLabel: function (e) {
 
     var view = this.data.view
     app.adjustCOpacity(this)
     if (view.leftLabelText == '忘记密码') {
       wx.navigateTo({
         url: '/Mine/setting/modifyPassword/index?rowlabel=输入手机号&placeholder=输入手机号&name=phonenum',
-        success: function(e) {
+        success: function (e) {
           wx.setNavigationBarTitle({
             title: '设置',
           })
@@ -261,13 +272,13 @@ Page({
       })
     }
   },
-  clickRightLabel: function(e) {
+  clickRightLabel: function (e) {
     var view = this.data.view
     app.adjustDOpacity(this)
     if (view.rightLabelText == '验证码登录') {
       wx.navigateTo({
         url: '/pages/login_register/index',
-        success: function(e) {
+        success: function (e) {
           wx.setNavigationBarTitle({
             title: '慧回收用户登录',
           })
@@ -284,7 +295,7 @@ Page({
       })
     }
   },
-  goLogin: function(e) {
+  goLogin: function (e) {
     console.log("直接登录")
     var view = this.data.view
     view.showRow1 = false

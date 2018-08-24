@@ -77,11 +77,31 @@
 }
 .row2 {
   padding: 20rpx;
-  border: 1px solid whitesmoke;
+  border-top: 1px solid whitesmoke;
 }
 .radio-group {
   display: flex;
   justify-content: space-around;
+}
+.book {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 24rpx;
+  padding-bottom: 20rpx;
+
+}
+.book input {
+  margin-left: 20rpx;
+  border: 1px solid gainsboro;
+  width: 200rpx;
+  height: 50rpx;
+}
+.picker {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
 }
 .row3 {
   display: flex;
@@ -90,7 +110,7 @@
   padding-left: 20rpx;
   padding-right: 20rpx;
   padding-bottom: 10rpx;
-  border-bottom: 1px solid whitesmoke;
+  border: 1px solid whitesmoke;
 }
 .row3 label {
   font-size: 24rpx;

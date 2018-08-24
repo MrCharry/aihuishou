@@ -4,7 +4,10 @@
     <view wx:for='{{wasteinfo}}' wx:key='{{index}}'>
       <!-- <label>{{item['wastesubtype']}}</label> -->
       <!-- <image id='{{index}}' src="{{item['wasteimg']}}" bindtap='bindImageTap' style='border:{{borderStyle[index]}}; width:{{(deviceInfo.windowWidth-30)/wasteinfo.length-10}}px' /> -->
-      <view id='{{index}}' class='wasteimg' bindtap='bindImageTap' style='background: url({{item.wasteimg}}); background-size:{{imgWidth}}px 220rpx; border:{{borderStyle[index]}}; width:{{imgWidth}}px'><text>{{item['wastesubtype']}}</text></view>
+      <view id='{{index}}' class='wasteimg' bindtap='bindImageTap' style='background: url({{item.wasteimg}}); background-size:{{imgWidth}}px 220rpx; border:{{borderStyle[index]}}; width:{{imgWidth}}px' data-category='{{item.wastesubtype}}' data-price='{{item.price}}'
+        data-priceid='{{item.areawastepriceid}}'>
+        <text>{{item['wastesubtype']}}</text>
+      </view>
     </view>
   </view>
   <view class='gap'>
@@ -35,6 +38,22 @@
         </label>
       </radio-group>
     </view>
+    <view class='book' hidden='{{inputData.degree != "book"}}'>
+      <view class='date'>
+        <picker mode="date" value="{{timeSet.date}}" start="{{timeSet.startDate}}" end="{{timeSet.endDate}}" bindchange="bindDateChange">
+          <view class="picker">
+            回收日期: <input value='{{timeSet.date}}' disabled='true'/>
+          </view>
+        </picker>
+      </view>
+      <view class='time'>
+        <picker mode="time" value="{{timeSet.time}}" start="9:00" end="18:00" bindchange="bindTimeChange">
+          <view class="picker">
+            回收时间: <input value='{{timeSet.time}}' disabled='true'/>
+          </view>
+        </picker>
+      </view>
+    </view>
     <view class='row3'>
       <label>上门回收地址：</label>
       <view class='address'>
@@ -43,7 +62,7 @@
       </view>
     </view>
   </view>
-  <label class='confirmBtn' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.bOpacity}};' bindtap='bindConfirmTap'>确认发布订单</label>
+  <label class='confirmBtn' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.bOpacity}};' bindtap='bindReleaseTap'>确认发布订单</label>
 </view>
 <!-- <view class='container'>
   <view class='top'>

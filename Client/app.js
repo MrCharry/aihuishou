@@ -2,7 +2,6 @@
 
 //设置时效缓存，time为有效时间，单位小时，默认24小时
 var postfix = '_deadtime'
-
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -242,6 +241,15 @@ App({
 
     var phonenum = that.data.inputData.phonenum
     console.log(phonenum)
+    if (phonenum == undefined) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入手机号',
+        showCancel: false,
+        confirmColor: '#ff0000'
+      })
+      return
+    }
     var header = this.globalData.header
     console.log(header)
     var self = this
@@ -304,27 +312,30 @@ App({
         image: '/Resources/images/closeIcon_01.png'
       })
       return false;
-    } 
+    }else {
+      return true;
+    }
   },
   iflegalpassword: function(that) {
 
     var newPassword = that.data.inputData.newPassword == undefined ? '' : that.data.inputData.newPassword
+    console.log(typeof(newPassword))
     // 检测输入密码长度是否合法
     if (newPassword.length < 6 || newPassword.length > 18) {
       wx.showToast({
         title: '密码过短或过长',
         image: '/Resources/images/closeIcon_01.png'
       })
-      return;
+      return false;
     }
     // 检测输入密码强度是否过弱
     for (var i = 0; i < newPassword.length - 1; ++i) {
-      if (newPassword[i + 1] - newPassword[i] != 1) {
+      if (newPassword[i + 1].charCodeAt() - newPassword[i].charCodeAt() != 1) {
         break;
       }
     }
     for (var j = 0; j < newPassword.length - 1; ++j) {
-      if (newPassword[j + 1] - newPassword[j] != -1) {
+      if (newPassword[j + 1].charCodeAt() - newPassword[j].charCodeAt() != -1) {
         break;
       }
     }
@@ -333,7 +344,8 @@ App({
         title: '连续的字符',
         image: '/Resources/images/closeIcon_01.png'
       })
-      return;
+      return false;
     }
+    return true;
   }
 })

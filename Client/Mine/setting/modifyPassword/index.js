@@ -21,13 +21,14 @@ Page({
   },
   getInput: function (e) {
     var inputData = this.data.inputData
-    if (e.target.dataset.name == 'oldPassword') {
+    
+    if (e.target.id == 'oldPassword') {
       inputData.oldPassword = e.detail.value
-    } else if (e.target.dataset.name == 'newPassword') {
+    } else if (e.target.id == 'newPassword') {
       inputData.newPassword = e.detail.value
-    }else if (e.target.dataset.name == 'verifiedCode') {
+    }else if (e.target.id == 'verifiedCode') {
       inputData.verifiedCode = e.detail.value
-    }else if (e.target.dataset.name == 'phonenum') {
+    }else if (e.target.id == 'phonenum') {
       inputData.phonenum = e.detail.value
     }
     this.setData({
@@ -36,21 +37,43 @@ Page({
   },
   getVerifiedCode: function(e) {
     var inputData = this.data.inputData
-    inputData.phonenum = app.globalData.userInfo.phonenum
+    console.log(inputData)
     this.setData({
       inputData: inputData
     })
     app.getVerifiedCode(this)
   },
   iflegalphone: function(e) {
+    if (this.data.focus2 == true) {
+      return
+    }
     var opt = this.data.opt
     if (opt.name == 'phonenum') {
       var phonenum = this.data.inputData.phonenum
-      app.iflegalphone(this)
+      if ( !app.iflegalphone(this) ) {
+        this.setData({
+          focus1: true
+        })
+      }else {
+        this.setData({
+          focus1: false
+        })
+      }
     }
   },
   iflegalpassword: function(e) {
-    app.iflegalpassword(this)
+    if (this.data.focus1 == true) {
+      return
+    }
+    if ( !app.iflegalpassword(this) ) {
+      this.setData({
+        focus2: true
+      })
+    }else {
+      this.setData({
+        focus2: false
+      })
+    }
   },
   confirm: function(e) {
 
@@ -83,7 +106,7 @@ Page({
           }else {
             wx.showToast({
               title: res['data']['content'],
-              image: '/Resources/images/closeIcon_01.png',
+              icon: 'none',
               duration: 1500
             })
           }

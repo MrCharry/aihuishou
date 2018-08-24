@@ -56,21 +56,30 @@
   </block>
 
   <!--Login Model -->
-  <view class='modelCurtain' style='display:{{view.showLoginModel ? "block":"none"}}'>
-    <view class='loginModel' style='top:{{deviceInfo.windowHeight*0.3}}px;height:{{deviceInfo.windowHeight*0.37}}px'>
-      <view class='closeIcon'>
-        <image src='/Resources/images/closeIcon_01.png' bindtap='clickCloseLoginModel' style='opacity:{{view.fOpacity}}' />
+  <view class='modelCurtain' style='display:{{view.showLoginModel ? "block":"none"}};'>
+    <view class='modal' style='width:{{deviceInfo.windowWidth}}px; height:{{deviceInfo.windowHeight}}px'>
+
+      <view class='loginModel' style='width:{{deviceInfo.windowWidth*0.90}}px'>
+        <view class='closeIcon'>
+          <image src='/Resources/images/closeIcon_01.png' bindtap='clickCloseLoginModel' style='opacity:{{view.fOpacity}}' />
+        </view>
+
+        <view class='row'>
+          <view class='col1'>
+            <label>手机</label>
+            <label>验证码</label>
+          </view>
+          <view class='col2'>
+            <input bindinput='getInput' bindblur='iflegalphone' data-name='phonenum' type='number' placeholder='请输入手机号'/>
+            <view class='colrow'>
+              <input bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码'/>
+              <button bindtap='getVerifiedCode' disabled='{{disabled}}' class='getVerifiedCode'>{{time ? time:'获取验证码'}}</button>
+            </view>
+          </view>
+        </view>
+
+        <button class='loginBtn' bindtap='clickLogin' style='opacity:{{view.dOpacity}}'>登录</button>
       </view>
-      <view class='row1'>
-        <label>手机</label>
-        <input bindinput='getInput' bindblur='iflegalphone' data-name='phonenum' type='number' placeholder='请输入手机号' placeholder-style='font-size: 14px;' />
-      </view>
-      <view class='row2'>
-        <label>验证码</label>
-        <input bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码' placeholder-style='font-size: 14px;' />
-        <button bindtap='getVerifiedCode' disabled='{{disabled}}' class='getVerifiedCode'>{{time ? time:'获取验证码'}}</button>
-      </view>
-      <button class='loginBtn' bindtap='clickLogin' style='opacity:{{view.dOpacity}}'>登录</button>
     </view>
   </view>
 </view>

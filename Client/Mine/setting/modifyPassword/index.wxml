@@ -1,19 +1,19 @@
 <!--Mine/setting/modifyPassword/index.wxml-->
-<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
-  <view class='row'>
-    <label>{{opt.rowlabel}}</label>
-    <input bindinput='getInput' bindblur='iflegalphone' placeholder='{{opt.placeholder}}' placeholder-style='font-size:14px;' password='{{opt.ifpassword=="TRUE" ? true:false}}' data-name='{{opt.name}}' />
+<view class='container' style='height:{{deviceInfo.windowHeight}}px; width:{{deviceInfo.windowWidth}}px'>
+  <view class='content'>
+    <view class='row'>
+      <label>{{opt.rowlabel}}</label>
+      <input bindinput='getInput' bindblur='iflegalphone' focus='{{focus1}}' type='{{opt.ifpassword=="TRUE" ? "text":"number"}}' placeholder='{{opt.placeholder}}' placeholder-style='font-size:14px;' password='{{opt.ifpassword=="TRUE" ? true:false}}' id='{{opt.name}}' style='width: 100%;'/>
+    </view>
+    <view class='row'>
+      <label>输入新密码</label>
+      <input bindinput='getInput' bindblur='iflegalpassword' focus='{{focus2}}' placeholder='输入6~18位数的新密码' placeholder-style='font-size:14px;' password='true' id='newPassword' style='width: 100%;'/>
+    </view>
+    <view class='row'>
+      <label>输入验证码</label>
+      <input bindinput='getInput' type='number' id='verifiedCode'/>
+      <button bindtap='getVerifiedCode' class='getCodeLabel'>{{time ? time:'获取验证码'}}</button>
+    </view>
+    <label class='confirmBtn' bindtap='confirm'>确认修改</label>
   </view>
-  <view class='row'>
-    <label>输入新密码</label>
-    <input bindinput='getInput' bindblur='iflegalpassword' placeholder='输入6~18位数的新密码' placeholder-style='font-size:14px;' password='true' data-name='newPassword' />
-  </view>
-  <view class='row'>
-    <label>输入验证码</label>
-    <input bindinput='getInput' type='text' data-name='verifiedCode' style='width:{{deviceInfo.windowWidth*0.325}}px; padding-right:0px;' />
-    <button bindtap='getVerifiedCode' disabled='{{disabled}}' class='getCodeLabel'>{{time ? time:'获取验证码'}}</button>
-  </view>
-
-  <button class='confirmBtn' bindtap='confirm'>确认修改</button>
-
 </view>

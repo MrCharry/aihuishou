@@ -3,25 +3,31 @@
   <view class='logoIcon'>
     <image src='/Resources/images/logoIcon.png' />
   </view>
-  <view class='loginModel'>
-    <view class='row1'>
-      <label>手机</label>
-      <input bindinput='getInput' bindblur='iflegalphone' data-name='phonenum' type='number' placeholder='请输入手机号' placeholder-style='font-size: 14px;' />
+  <view class='modal'>
+    <view class='loginModel' style='width:{{deviceInfo.windowWidth*0.95}}px'>
+
+      <view class='col1'>
+        <label>手机</label>
+        <label hidden='{{!view.showRow1}}'>密码</label>
+        <label hidden='{{!view.showRow2}}' class='verifiedCode'>验证码</label>
+      </view>
+
+      <view class='col2'>
+        <input bindinput='getInput' focus='{{focus}}' bindblur='iflegalphone' data-name='phonenum' type='number' placeholder='请输入手机号' />
+        <input style='margin-top:30rpx;' bindinput='getInput' data-name='password' password='true' placeholder='请输入密码' hidden='{{!view.showRow1}}' />
+        <view class='colrow'>
+          <input hidden='{{!view.showRow2}}' bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码' />
+          <button hidden='{{!view.showRow2}}' bindtap='getVerifiedCode' disabled='{{disabled}}' class='getVerifiedCode'>{{time ? time:'获取验证码'}}</button>
+        </view>
+      </view>
     </view>
-    <view class='row1' hidden='{{!view.showRow1}}'>
-      <label>密码</label>
-      <input bindinput='getInput' data-name='password' password='true' placeholder='请输入密码' placeholder-style='font-size: 14px;' />
+    <view class='loginLabel' bindtap='goLogin' hidden='{{!view.showLoginLabel}}'>
+      <text>直接登录</text>
     </view>
-    <view class='row2' hidden='{{!view.showRow2}}'>
-      <label class='verifiedCode'>验证码</label>
-      <input bindinput='getInput' data-name="verifiedCode" type='number' placeholder='请输入验证码' placeholder-style='font-size: 14px;' />
-      <button bindtap='getVerifiedCode' disabled='{{disabled}}' class='getVerifiedCode'>{{time ? time:'获取验证码'}}</button>
-    </view>
-    <view class='loginLabel' bindtap='goLogin' hidden='{{!view.showLoginLabel}}'>直接登录</view>
-    <button class='loginBtn' bindtap='clickLogin'>{{view.btnText}}</button>
+    <label class='loginBtn' bindtap='clickLogin'>{{view.btnText}}</label>
   </view>
   <view class='options' hidden='{{!view.showOptions}}'>
-    <label bindtap='clickLeftLabel' style='padding-left:20rpx; opacity:{{view.cOpacity}}'>{{view.leftLabelText}}</label>
-    <label bindtap='clickRightLabel' style='padding-right:30rpx; opacity:{{view.dOpacity}}'>{{view.rightLabelText}}</label>
+    <label bindtap='clickLeftLabel' style='opacity:{{view.cOpacity}}'>{{view.leftLabelText}}</label>
+    <label bindtap='clickRightLabel' style='opacity:{{view.dOpacity}}'>{{view.rightLabelText}}</label>
   </view>
 </view>
