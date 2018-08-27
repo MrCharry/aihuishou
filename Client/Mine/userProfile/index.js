@@ -191,13 +191,13 @@ Page({
       }
     })
   },
-  modifyAddress: function(e) {
+  bindAddressList: function(e) {
     app.adjustDOpacity(this)
     wx.navigateTo({
-      url: '/pages/modifyAddress/index',
+      url: '/pages/addressList/index',
       success: function () {
         wx.setNavigationBarTitle({
-          title: '收货地址',
+          title: '收货地址列表',
         })
       }
     })

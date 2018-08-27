@@ -4,3 +4,21 @@
   padding-top: 20%;
   color: #a0a0a0;
 }
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+}
+.notificationItem {
+  margin-top: 10rpx;
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  background-color:whitesmoke;
+}
+.time {
+  margin-top: 10rpx;
+  text-align: right;
+}

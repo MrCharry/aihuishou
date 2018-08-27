@@ -1,12 +1,14 @@
 // Mine/credits/index.js
 var app = getApp()
+var i = 1
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    deviceInfo: {}
+    deviceInfo: {},
+    points: []
   },
 
   /**
@@ -19,51 +21,59 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var s = this
+    this.getUserCredits(1, function(points) {
+      console.log(points)
+      var totalPoint = 0
+      for (var i=0; i<points.length; ++i) {
+        totalPoint += points[i].point
+        points[i].time = util.formatTime(new Date(points[i].createtime))
+      }
+      points.totalpoint = totalPoint
+      s.setData({
+        points: points
+      })
+    })
   },
+  getUserCredits: function(curPage, callback) {
+    var s = this
+    var points = this.data.points
+    // 获取用户积分详情
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHS/api/userpoints/list?currentPage=' + curPage,
+      method: 'POST',
+      header: app.globalData.header,
+      success: function (res) {
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+        if (res['data']['isSuccess'] == 'TRUE') {
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
+          if (i > 1) {
+            //有下一页
+            points.concat(res['data']['data']['list'])
+          } else {
+            //没有下一页
+            points = res['data']['data']['list']
+          }
+          s.setData({
+            points: points
+          })
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+          if (res['data']['data']['hasMore'] == true) {
+            // 有下一页
+            s.getUserCredits(++i)
+            return
+          }
+          if (typeof(callback) == 'function') {
+            callback(points)
+          }
+        }
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+    })
   }
 })

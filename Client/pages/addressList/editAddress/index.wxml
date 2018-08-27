@@ -23,5 +23,6 @@
     <label>门牌号/店名：</label>
     <input bindinput='bindInputTap' value='{{addressInfo.name ? addressInfo.name:userInfo.detailaddress}}'/>
   </view>
-  <label class='saveBtn' style='width:{{deviceInfo.windowWidth-30}}px; opacity:{{view.bOpacity}}' bindtap='bindUpdateAddress'>保存地址</label>
+  <label class='saveBtn' style='width:{{deviceInfo.windowWidth-30}}px; opacity:{{view.bOpacity}}' bindtap='{{options.tag=="edit" ? "bindUpdateAddress":"bindAddNewAddress"}}'>保存地址</label>
+  <label wx:if='{{options.tag == "edit"}}' class='delBtn' style='width:{{deviceInfo.windowWidth-30}}px; opacity:{{view.cOpacity}}' bindtap='bindDelAddress'>删除地址</label>
 </view>

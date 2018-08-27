@@ -57,7 +57,7 @@
     <view class='row3'>
       <label>上门回收地址：</label>
       <view class='address'>
-        <label>{{userInfo.address}}-{{userInfo.detailaddress}}</label>
+        <label>{{addressInfo.address}}-{{addressInfo.detailaddress}}</label>
         <label class='btn' bindtap='bindAddressModify' style='opacity:{{view.aOpacity}};'>修改</label>
       </view>
     </view>

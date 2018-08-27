@@ -16,43 +16,6 @@ Page({
       deviceInfo: app.globalData.deviceInfo,
       loginStatus: app.globalData.loginStatus
     })
-    // var s = this
-
-    // wx.getLocation({
-
-    //   success: function(res) {
-    //     console.log(res)
-    //     s.setData({
-    //       deviceInfo: app.globalData.deviceInfo,
-    //       curLocation: res,
-    //       markers: [{
-    //         iconPath: '/Resources/images/location_01.png',
-    //         longitude: res.longitude,
-    //         latitude: res.latitude
-    //       }],
-    //       circles: [{
-    //         latitude: res.latitude,
-    //         longitude: res.longitude,
-    //         radius: 1000,
-    //         fillColor: '#f2f2f2AA',
-    //         color: '#2e84d4AA'
-    //       }]
-    //     })
-    //     //获取当前经纬度的行政区划代码
-    //     var ak = app.globalData.ak
-    //     var i = 1
-    //     wx.request({
-    //       url: 'http://api.map.baidu.com/geocoder/v2/?location=' + res.latitude + ',' + res.longitude + '&output=json&ak=' + ak,
-    //       method: 'GET',
-    //       success: function(res) {
-    //         var adcode = res['data']['result']['addressComponent']['adcode']
-    //         console.log(res)
-    //         s.getnearmerchants(adcode, i)
-    //       }
-    //     })
-    //   },
-    // })
-    console.log(this.data.merchants)
   },
   onShow: function () {
 
@@ -265,9 +228,19 @@ Page({
               longitude: res.longitude
             },
             markers: [{
+              id: 0,
               iconPath: '/Resources/images/location_01.png',
               latitude: res.latitude,
-              longitude: res.longitude
+              longitude: res.longitude,
+              callout: {
+                content: '当前位置',
+                fontSize: 10,
+                borderRadius: 10,
+                bgColor: "#fff",
+                padding: 10,
+                display: 'BYCLICK',
+                textAlign: 'center'
+              }
 
             }],
             circles: [{
@@ -280,7 +253,6 @@ Page({
           })
           //获取当前经纬度的行政区划代码
           var ak = app.globalData.ak
-          var i = 1
           var location = s.data.curLocation
           var markers = s.data.markers
 
@@ -290,15 +262,24 @@ Page({
             success: function (res) {
               console.log(res)
               var adcode = res['data']['result']['addressComponent']['adcode']
-              s.getnearmerchants(adcode, i, function (merchants) {
+              s.getnearmerchants(adcode, 1, function (merchants) {
                 console.log(merchants)
                 for (var j = 0; j < merchants.length; ++j) {
                   var merchant = merchants[j]['merchant']
                   markers.push({
-                    id: j,
+                    id: j+1,
                     iconPath: '/Resources/images/location_red.png',
                     latitude: merchant.lat,
-                    longitude: merchant.lng
+                    longitude: merchant.lng,
+                    callout: {
+                      content: merchant.name + '\n' + '预约',
+                      fontSize: 10,
+                      borderRadius: 10,
+                      bgColor: "#2dbea7",
+                      padding: 10,
+                      display: 'BYCLICK',
+                      textAlign: 'center'
+                    }
                   })
                 }
                 s.setData({
@@ -325,10 +306,19 @@ Page({
           longitude: location.lng
         },
         markers: [{
+          id: 0,
           iconPath: '/Resources/images/location_01.png',
           latitude: location.lat,
-          longitude: location.lng
-
+          longitude: location.lng,
+          callout: {
+            content: '当前位置',
+            fontSize: 10,
+            borderRadius: 10,
+            bgColor: "#fff",
+            padding: 10,
+            display: 'BYCLICK',
+            textAlign: 'center'
+          }
         }],
         circles: [{
           latitude: location.lat,
@@ -341,7 +331,6 @@ Page({
 
       //获取当前经纬度的行政区划代码
       var ak = app.globalData.ak
-      var i = 1
       var location = s.data.curLocation
       var markers = s.data.markers
 
@@ -351,15 +340,24 @@ Page({
         success: function (res) {
           console.log(res)
           var adcode = res['data']['result']['addressComponent']['adcode']
-          s.getnearmerchants(adcode, i, function (merchants) {
+          s.getnearmerchants(adcode, 1, function (merchants) {
             console.log(merchants)
             for (var j = 0; j < merchants.length; ++j) {
               var merchant = merchants[j]['merchant']
               markers.push({
-                id: j,
+                id: j+1,
                 iconPath: '/Resources/images/location_red.png',
                 latitude: merchant.lat,
-                longitude: merchant.lng
+                longitude: merchant.lng,
+                callout: {
+                  content: merchant.name + '\n' + '预约',
+                  fontSize: 10,
+                  borderRadius: 10,
+                  bgColor: "#2dbea7",
+                  padding: 10,
+                  display: 'BYCLICK',
+                  textAlign: 'center'
+                }
               })
             }
             s.setData({
@@ -394,9 +392,12 @@ Page({
         } else {
           merchants = res['data']['data']
         }
-
+        s.setData({
+          merchants: merchants
+        })
         if (res['data']['hasMore'] == true) {
           s.getnearmerchants(adcode, ++i)
+          return
         }
         if (typeof (callback) == 'function') {
           callback(merchants)
@@ -414,28 +415,22 @@ Page({
       }
     })
   },
-  markertap: function (e) {
-    var s = this
-    var id = e.markerId
-    var merchants = s.data.merchants
-    s.changeMarkerColor(merchants, id)
-  },
-  changeMarkerColor: function (data, id) {
-    var that = this;
-    var markersTemp = [];
-    for (var i = 0; i < data.length; i++) {
-      var elem = data[i]['merchant']
-      if (i === id) {
-        elem.iconPath = "/Resources/images/location_green.png";
-      } else {
-        elem.iconPath = "/Resources/images/location_red.png";
-      }
-      markersTemp[i] = elem
+  callouttap: function (e) {
 
-      that.setData({
-        markers: markersTemp
-      });
-    }
+    // var id = e.markerId
+    // var markers = this.data.markers
+    
+    // for (var i = 1; i < markers.length; ++i) {
+    //   if (i === id) {
+    //     markers[i].iconPath = "/Resources/images/location_green.png"
+    //   } else {
+    //     markers[i].iconPath = "/Resources/images/location_red.png"
+    //   }
+    // }
+    // this.setData({
+    //   markers: markers
+    // })
+    this.issueOrder()
   },
   issueOrder: function (e) {
     var adcode = this.data.adcode
@@ -458,6 +453,7 @@ Page({
       })
       return
     }
+    app.globalData.adcode = adcode
     wx.navigateTo({
       url: '/pages/orderIssue/index?adcode=' + adcode,
       success: function () {

@@ -16,8 +16,8 @@
     "pages/login_register/index",
     "pages/modifyPhone/index",
     "pages/bankcard/index",
-    "pages/modifyAddress/index",
-    "pages/modifyAddress/editAddress/index",
+    "pages/addressList/index",
+    "pages/addressList/editAddress/index",
     "pages/orderIssue/index",
     "pages/logs/logs"
   ],

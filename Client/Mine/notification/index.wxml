@@ -1,4 +1,11 @@
 <!--Mine/notification/index.wxml-->
 <view class='container'>
-  <view class='noNotification'>暂无消息</view>
+  <view wx:if='{{notifications.length == 0}}' class='noNotification'>暂无消息</view>
+  <view wx:if='{{notifications.length > 0}}' wx:for='{{notifications}}' wx:key='{{index}}' class='notificationList'>
+    <view class='notificationItem'>
+      <text>{{item.title}}</text>
+      <text>{{item.content}}</text>
+      <view class='time'>{{item.time}}</view>
+    </view>
+  </view>
 </view>

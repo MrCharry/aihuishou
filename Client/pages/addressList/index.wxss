@@ -1,9 +1,10 @@
 /* pages/modifyAddress/index.wxss */
 .container {
   width: 100%;
+}
+.addressList {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 .addressItem {
   padding: 30rpx;
@@ -35,10 +36,14 @@
   margin-top: 10rpx;
 }
 .addAddress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 70rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  background-color: #2dbea7;
+  background-color: #2dbea7;  
 }

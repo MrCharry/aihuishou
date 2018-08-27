@@ -1,0 +1,23 @@
+<!--pages/modifyAddress/index.wxml-->
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+  <view class='addressList' wx:for='{{addressList}}' wx:key='{{index}}'>
+    <view class='addressItem'>
+      <view class='left'>
+        <view>
+          <image id='{{index}}' src='{{index==0 ? defaultIcon:icon}}' mode='aspectFit' bindtap='bindSetDefaultAddress' />
+        </view>
+        <view class='middle'>
+          <label class='address'>{{item.address}}-{{item.detailaddress}}</label>
+          <view class='profile'>
+            <label>{{userInfo.nickname}}</label>
+            <label style='margin-left: 30rpx;'>{{userInfo.phonenum}}</label>
+          </view>
+        </view>
+      </view>
+      <view>
+        <image id='{{index}}' src='/Resources/images/edit.png' mode='aspectFit' bindtap='bindEditTap' />
+      </view>
+    </view>
+  </view>
+  <label class='addAddress' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.fOpacity}}' bindtap='bindAddAddress'>新增收货地址</label>
+</view>

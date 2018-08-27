@@ -61,3 +61,12 @@
   color: #fff;
   background-color: #2dbea7;
 }
+.delBtn {
+  height: 70rpx;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #ff0000;
+}

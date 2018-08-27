@@ -43,7 +43,7 @@
     <view class='row'>
       <label>地区</label>
       <view class='address'>
-        <view bindtap='modifyAddress' style='opacity:{{view.dOpacity}}'>
+        <view bindtap='bindAddressList' style='opacity:{{view.dOpacity}}'>
           <label style='font-size: 28rpx;'>{{simpleAddress}}</label>
           <image src='/Resources/images/arrowRight.png' />
         </view>
