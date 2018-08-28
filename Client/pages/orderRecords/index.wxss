@@ -12,8 +12,16 @@
   text-align: center;
   border: 1px solid #fff;
 }
-.content {
+.noOrder {
   padding-top: 60rpx;
   text-align: center;
   color: #999;
+}
+.orderList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.orderItem {
+  
 }

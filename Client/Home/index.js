@@ -215,7 +215,7 @@ Page({
     })
   },
   showLocation: function (location) {
-    console.log(location)
+    // console.log(location)
     var s = this
     app.adjustFOpacity(this)
     if (location == undefined) {
@@ -345,7 +345,7 @@ Page({
             for (var j = 0; j < merchants.length; ++j) {
               var merchant = merchants[j]['merchant']
               markers.push({
-                id: j+1,
+                id: merchant.id,
                 iconPath: '/Resources/images/location_red.png',
                 latitude: merchant.lat,
                 longitude: merchant.lng,
@@ -385,6 +385,7 @@ Page({
     wx.request({
       url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/nearmerchants?page.currentPage=' + i + '&lng=' + location.longitude + '&lat=' + location.latitude + '&areamoreid=' + adcode + '&lengthofnear=0',
       method: 'POST',
+      header: app.globalData.header,
       success: function (res) {
         //汇总回收商地址
         if (i > 1) {
@@ -416,23 +417,12 @@ Page({
     })
   },
   callouttap: function (e) {
-
-    // var id = e.markerId
-    // var markers = this.data.markers
-    
-    // for (var i = 1; i < markers.length; ++i) {
-    //   if (i === id) {
-    //     markers[i].iconPath = "/Resources/images/location_green.png"
-    //   } else {
-    //     markers[i].iconPath = "/Resources/images/location_red.png"
-    //   }
-    // }
-    // this.setData({
-    //   markers: markers
-    // })
-    this.issueOrder()
+    this.setData({
+      bookmerchantid: e.markerId
+    })
+    this.issueOrder('book')
   },
-  issueOrder: function (e) {
+  issueOrder: function (tag) {
     var adcode = this.data.adcode
     app.adjustEOpacity(this)
     if (!app.globalData.loginStatus) {
@@ -453,9 +443,11 @@ Page({
       })
       return
     }
-    app.globalData.adcode = adcode
+    // app.globalData.adcode = adcode
+    let bookmerchantid = this.data.bookmerchantid
+    let url = tag == 'book' ? '/pages/orderIssue/index?adcode='+adcode+'&tag='+tag+'&bookmerchantid='+bookmerchantid: '/pages/orderIssue/index?adcode='+adcode
     wx.navigateTo({
-      url: '/pages/orderIssue/index?adcode=' + adcode,
+      url: url,
       success: function () {
         wx.setNavigationBarTitle({
           title: '发布订单',

@@ -26,7 +26,7 @@
       <label>预计斤数：</label>
       <view class='rowright'>
         <image src='/Resources/images/minus.png' bindtap='bindMinusTap' />
-        <input type='number' bindinput='bindAmountTap' focus='{{focus}}' value='{{inputData.amount}}' />
+        <input type='number' bindinput='bindAmountTap' bindfocus='bindAmountFocus' focus='{{focus}}' value='{{inputData.amount}}' />
         <label>斤</label>
         <image src='/Resources/images/plus.png' bindtap='bindPlusTap' />
       </view>
@@ -34,7 +34,7 @@
     <view class='row2'>
       <radio-group class="radio-group" bindchange="bindDegreeChange">
         <label class="radio" wx:for="{{items}}" wx:key='{{index}}'>
-          <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          <radio value="{{item.name}}" checked="{{item.checked}}" disabled='{{item.disabled}}'/>{{item.value}}
         </label>
       </radio-group>
     </view>
