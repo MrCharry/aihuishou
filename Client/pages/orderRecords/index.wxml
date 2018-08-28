@@ -1,13 +1,30 @@
 <!--pages/orderRecords/index.wxml-->
 <view class='container' style='width:{{deviceInfo.windowWidth}}px'>
   <view class='topBar'>
-    <label bindtap='clickOperatableOrder' style='opacity:{{view.aOpacity}}; color:{{view.aColor}}'>可操作订单</label>
-    <label bindtap='clickUnoperatableOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已操作订单</label>
+    <label class='operatable' bindtap='clickOperatableOrder' style='opacity:{{view.aOpacity}}; color:{{view.aColor}}'>可操作订单</label>
+    <label class='operatabled' bindtap='clickOperatabledOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已操作订单</label>
   </view>
   <view class='noOrder'>
-    <text wx:if='{{operatableOrderList.length == 0}}'>暂无订单记录</text>
+    <text wx:if='{{tag=="operatable"&&operatableOrderList.length==0 || tag=="operatabled"&&operatabledOrderList.length==0}}'>暂无订单记录</text>
   </view>
-  <view class='orderList' wx:for='{{operatableOrderList.length > 0}}' wx:key='{{index}}'>
+  <!-- <view class='orderList' wx:for='{{operatableOrderList.length > 0}}' wx:key='{{index}}'>
     <view class='orderItem'>{{item}}</view>
+  </view> -->
+  <view wx:for="{{tag=='operatabled' ? operatableOrderList:msgList}}" wx:key="{{index}}" class='list' animation='{{item.wrapAnimation}}'>
+    <view id='{{item.idx}}' class='item' animation='{{item.animation}}' bindtouchstart='ontouchstart' bindtouchmove='ontouchmove' bindtouchend='ontouchend'>
+      <image class='bubble' src='/Resources/images/orderIcon.png' mode='aspectFit' />
+      <text class='address'>{{item.userName}}</text>
+      <text class='amount'>{{item.msgText}}</text>
+      <text class='time'>时间</text>
+      <label wx:if='{{tag == "operatable"}}' id='{{item.idx}}' data-orderid='{{item.id}}' class='delOrder' bindtap='bindDelTap' style='opacity:{{view.cOpacity}}'>取消订单</label>
+    </view>
+    <view class='menu'>
+      <view id='{{item.idx}}' class='confirm' data-orderid='{{item.id}}' bindtap='bindConfirmTap' style='opacity:{{view.dOpacity}}'>
+        {{tag=='operatable' ? '待收货':'确认收货'}}
+      </view>
+      <view id='{{item.idx}}' class='contact' data-orderid='{{item.id}}' bindtap='bindContactTap' style='opacity:{{view.eOpacity}}'>
+        联系对方
+      </view>
+    </view>
   </view>
 </view>

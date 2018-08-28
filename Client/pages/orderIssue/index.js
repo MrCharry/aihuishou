@@ -26,7 +26,7 @@ Page({
     ],
     view: {},
     inputData: {
-      amount: 0,
+      amount: '',
       degree: 'normal'
     },
     borderStyle: [
@@ -153,7 +153,7 @@ Page({
       inputData: inputData
     })
   },
-  bindAmountFocus: function(e) {
+  bindAmountBlur: function(e) {
     var inputData = this.data.inputData
     if (inputData.amount == 0) {
       inputData.amount = ''
@@ -438,7 +438,7 @@ Page({
   },
   bindMinusTap: function (e) {
     var inputData = this.data.inputData
-    if (inputData.amount == 0) {
+    if (inputData.amount == '') {
       wx.showModal({
         title: '提示',
         content: '斤数必须大于0',
@@ -447,12 +447,18 @@ Page({
       return
     }
     --inputData.amount
+    if (inputData.amount == 0) {
+      inputData.amount = ''
+    }
     this.setData({
       inputData: inputData
     })
   },
   bindPlusTap: function (e) {
     var inputData = this.data.inputData
+    if (inputData.amount == '') {
+      inputData.amount = 0
+    }
     ++inputData.amount
     this.setData({
       inputData: inputData

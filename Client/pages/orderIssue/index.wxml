@@ -26,7 +26,7 @@
       <label>预计斤数：</label>
       <view class='rowright'>
         <image src='/Resources/images/minus.png' bindtap='bindMinusTap' />
-        <input type='number' bindinput='bindAmountTap' bindfocus='bindAmountFocus' focus='{{focus}}' value='{{inputData.amount}}' />
+        <input type='number' bindinput='bindAmountTap' focus='{{focus}}' bindblur='bindAmountBlur' value='{{inputData.amount}}' placeholder='0' placeholder-style='color:#dcdcdc;'/>
         <label>斤</label>
         <image src='/Resources/images/plus.png' bindtap='bindPlusTap' />
       </view>
