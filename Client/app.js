@@ -3,6 +3,7 @@
 //设置时效缓存，time为有效时间，单位小时，默认24小时
 var postfix = '_deadtime'
 App({
+  // ifReturn: false,
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []

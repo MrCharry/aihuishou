@@ -1,4 +1,7 @@
 /* Mine/index.wxss */
+.hover {
+  opacity: 0.5
+}
 .userBanner {
   background-color: #2dbea7;
   box-sizing: border-box;

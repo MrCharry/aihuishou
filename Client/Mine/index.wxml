@@ -28,7 +28,7 @@
         <image src='/Resources/images/feedback@2x.png' />
         <text>意见反馈</text>
       </view>
-      <view class='item' bindtap='clickSetting' style='opacity:{{view.fOpacity}}'>
+      <view class='item' bindtap='clickSetting' hover-class='hover'>
         <image src='/Resources/images/setting@2x.png' />
         <text>设置</text>
       </view>

@@ -46,7 +46,7 @@ Page({
     }
   },
   bindLocateTap: function(e) {
-    app.adjustAOpacity(this)
+    // app.adjustAOpacity(this)
     var s = this
     wx.getLocation({
       success: function(res) {
@@ -77,7 +77,7 @@ Page({
     })
   },
   bindUpdateAddress: function(e) {
-    app.adjustBOpacity(this)
+    // app.adjustBOpacity(this)
     var addressInfo = this.data.addressInfo
     var inputData = this.data.inputData
     var addressid = this.data.options.id

@@ -49,22 +49,22 @@ Page({
     var inputData = this.data.inputData
 
     if (e.currentTarget.id == 'oldcode') {
-      app.adjustAOpacity(this)
+      // app.adjustAOpacity(this)
       inputData.phonenum = inputData.oldnum
 
     }else if (e.currentTarget.id == 'newcode') {
       inputData.phonenum = inputData.newnum
-      app.adjustBOpacity(this)
+      // app.adjustBOpacity(this)
     }
     this.setData({
       inputData: inputData
     })
     console.log(inputData)
-    app.getVerifiedCode(this)
+    // app.getVerifiedCode(this)
   },
   submit: function(e) {
 
-    app.adjustCOpacity(this)
+    // app.adjustCOpacity(this)
     var submitText = this.data.inputData
     var s = this
     console.log(submitText)

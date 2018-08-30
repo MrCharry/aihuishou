@@ -80,7 +80,7 @@ Page({
     })
   },
   clickSetting: function (e) {
-    app.adjustFOpacity(this)
+    // app.adjustFOpacity(this)
     wx.navigateTo({
       url: '/Mine/setting/index',
       success: function () {

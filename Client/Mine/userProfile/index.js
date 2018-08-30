@@ -26,7 +26,8 @@ Page({
     var userInfo = app.globalData.userInfo
     if (userInfo.address.length > 20) {
       this.setData({
-        simpleAddress: userInfo.address.slice(0, 20) + '...'
+        simpleAddress: userInfo.address.slice(0, 20) + '...',
+        phoneNumber: userInfo.phonenum.slice(0,3) + '****' + userInfo.phonenum.slice(7,11)
       })
     }
   },

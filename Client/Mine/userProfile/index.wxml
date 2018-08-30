@@ -16,7 +16,7 @@
     <view class='row'>
       <label>绑定手机号</label>
       <view bindtap='bindPhone' style='opacity:{{view.bOpacity}}'>
-        <label>{{userInfo.phonenum}}</label>
+        <label>{{phoneNumber}}</label>
         <image src='/Resources/images/arrowRight.png' />
       </view>
     </view>

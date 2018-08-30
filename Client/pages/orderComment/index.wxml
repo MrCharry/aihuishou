@@ -1,0 +1,23 @@
+<!--pages/orderComment/index.wxml-->
+<view class='container'>
+  <view class='starLine'>
+    <view class='starAndLabel'>
+      <label>服务评价：</label>
+      <view class='star' wx:for="{{[0,1,2,3,4]}}" wx:key='{{index}}'>
+        <image id='{{index}}' src='{{starIcon[index]}}' mode='aspectFit' bindtap='bindStarTap' />
+      </view>
+    </view>
+    <label class='starText'>{{starText}}</label>
+  </view>
+  <view class='comment-block'>
+    <radio-group class="comment-options" bindchange="bindRadioChange">
+      <label class="radio" wx:for="{{items}}" wx:key='{{index}}'>
+        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </radio-group>
+    <view class='detailcomment'>
+      <textarea bindinput='bindTextareaInput' placeholder='请输入您对本次服务的评价！' placeholder-style='font-size: 28rpx;'></textarea>
+    </view>
+  </view>
+  <button class='publish-btn' bindtap='bindCommentTap'>发布评价</button>
+</view>

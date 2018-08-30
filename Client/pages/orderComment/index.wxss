@@ -1,0 +1,40 @@
+/* pages/orderComment/index.wxss */
+.container {
+  box-sizing: border-box;
+  width: 100%;
+}
+.starLine {
+  padding-top: 10%;
+  display: flex;
+}
+.starAndLabel {
+  padding-left: 15%;
+  display: flex;
+  align-items: center;
+}
+.starAndLabel image {
+  width: 48rpx;
+  height: 48rpx;
+}
+.starText {
+  margin-left: 30rpx;
+}
+.comment-block {
+  margin-top: 30rpx;
+}
+.comment-options {
+  display: flex;
+  justify-content: space-around;
+  font-size: 24rpx;
+}
+.detailcomment {
+  margin: 30rpx;
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+}
+.publish-btn {
+  margin-top: 40rpx;
+  background-color: #2dbea7;
+  color: #fff;
+  width: 80%;
+}

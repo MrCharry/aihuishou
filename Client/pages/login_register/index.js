@@ -111,6 +111,13 @@ Page({
             })
 
           } else {
+            wx.showModal({
+              title: '提示',
+              content: res['data']['content'],
+              showCancel: false,
+              confirmText: '重试',
+              confirmColor: '#ff0000'
+            })
             console.log(res['data']['content'])
           }
 
@@ -158,6 +165,13 @@ Page({
             })
 
           } else {
+            wx.showModal({
+              title: '提示',
+              content: res['data']['content'],
+              showCancel: false,
+              confirmText: '重试',
+              confirmColor: '#ff0000'
+            })
             console.log(res['data']['content'])
           }
 
@@ -235,6 +249,13 @@ Page({
             })
 
           } else {
+            wx.showModal({
+              title: '提示',
+              content: res['data']['content'],
+              showCancel: false,
+              confirmText: '重试',
+              confirmColor: '#ff0000'
+            })
             console.log(res['data']['content'])
           }
 

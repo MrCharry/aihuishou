@@ -19,6 +19,7 @@
     "pages/addressList/index",
     "pages/addressList/editAddress/index",
     "pages/orderIssue/index",
+    "pages/orderComment/index",
     "pages/logs/logs"
   ],
   "window":{

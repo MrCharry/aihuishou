@@ -57,7 +57,7 @@ Page({
     })
   },
   bindAddAddress: function (e) {
-    app.adjustBOpacity(this)
+    // app.adjustBOpacity(this)
     wx.navigateTo({
       url: '/pages/addressList/editAddress/index?tag=add',
       success: function () {
