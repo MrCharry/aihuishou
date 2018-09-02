@@ -12,7 +12,7 @@
     <view class='row'>
       <label>输入验证码</label>
       <input bindinput='getInput' type='number' id='verifiedCode'/>
-      <button bindtap='getVerifiedCode' class='getCodeLabel'>{{time ? time:'获取验证码'}}</button>
+      <button bindtap='getVerifiedCode' class='getCodeLabel' disabled='{{disabled}}'>{{time ? time:'获取验证码'}}</button>
     </view>
     <label class='confirmBtn' bindtap='confirm'>确认修改</label>
   </view>

@@ -1,0 +1,58 @@
+/* pages/bankcard/index.wxss */
+.hover {
+  opacity: 0.5;
+}
+
+.container {
+  width: 100%;
+}
+
+.block {
+  background-color: #f6f6f6;
+  margin: 20rpx;
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.col1 {
+  display: flex;
+  flex-direction: column;
+  height: 200rpx;
+  padding: 20rpx;
+}
+
+.col2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200rpx;
+  padding: 20rpx;
+}
+
+.setDefault {
+  display: flex;
+  align-items: center;
+}
+
+.setDefault label {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color: #2dbea7;
+}
+
+.bindBtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  background-color: #2dbea7;
+  color: #fff;
+  height: 60rpx;
+}

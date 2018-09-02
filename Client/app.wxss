@@ -17,3 +17,6 @@ textarea {
   height: 100%;
   box-sizing: border-box;
 } 
+.hover {
+  opacity: 0.5
+}

@@ -1,14 +1,13 @@
 // Mine/notification/index.js
 var app = getApp()
 var util = require('../../utils/util.js')
-var i = 1
+var m = 1
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    deviceInfo: {},
     notifications: []
   },
 
@@ -29,6 +28,7 @@ Page({
     var s = this
     this.getUserNotifications(1, function(notifications) {
       console.log(notifications)
+      m = 1
       for (var i=0; i<notifications.length; ++i) {
         notifications[i].time =  util.formatTime(new Date(notifications[i].createtime))
       }
@@ -48,7 +48,7 @@ Page({
       header: app.globalData.header,
       success: function(res) {
         if (res['data']['isSuccess'] == 'TRUE') {
-          if (i > 1) {
+          if (m > 1) {
             notifications.concat(res['data']['data']['list'])
           }else {
             notifications = res['data']['data']['list']
@@ -58,7 +58,7 @@ Page({
           })
           if (res['data']['data']['hasMore'] == true) {
             // 有下一页
-            s.getUserNotifications(++i)
+            s.getUserNotifications(++m)
             return
           }
           // 回调函数

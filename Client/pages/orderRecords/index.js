@@ -1,7 +1,8 @@
 // pages/orderRecords/index.js
 var app = getApp()
 var util = require('../../utils/util.js')
-var i = 1
+var m = 1
+var n = 1
 Page({
 
   /**
@@ -53,7 +54,7 @@ Page({
         }        
         // 获取未完成订单
         s.getUserOperatableOrders(1, function(operatableOrderList) {
-          
+          m = 1
           for (var i = 0; i < operatableOrderList.length; ++i) {
             operatableOrderList[i].idx = i + ''
             operatableOrderList[i].createtime = util.formatTime(new Date(operatableOrderList[i].createtime))
@@ -100,7 +101,7 @@ Page({
         })
         // 获取已完成订单
         s.getUserOperatabledOrders(1, function(operatabledOrderList) {
-
+          n = 1
           for (var i = 0; i < operatabledOrderList.length; ++i) {
             operatabledOrderList[i].idx = i + ''
             operatabledOrderList[i].createtime = util.formatTime(new Date(operatabledOrderList[i].createtime))
@@ -161,7 +162,8 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function(res) {
-        if (i > 1) {
+
+        if (m > 1) {
           operatableOrderList.concat(res['data']['data'])
         } else {
           operatableOrderList = res['data']['data']
@@ -170,7 +172,7 @@ Page({
           operatableOrderList: operatableOrderList
         })
         if (res['data']['hasMore']) {
-          s.getUserOperatableOrders(++i)
+          s.getUserOperatableOrders(++m)
           return
         }
         if (typeof(callback) == 'function') {
@@ -193,7 +195,7 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function(res) {
-        if (i > 1) {
+        if (n > 1) {
           operatabledOrderList.concat(res['data']['data'])
         } else {
           operatabledOrderList = res['data']['data']
@@ -202,7 +204,7 @@ Page({
           operatabledOrderList: operatabledOrderList
         })
         if (res['data']['hasMore']) {
-          s.getUserOperatabledOrders(++i)
+          s.getUserOperatabledOrders(++n)
           return
         }
         if (typeof(callback) == 'function') {

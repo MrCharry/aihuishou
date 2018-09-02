@@ -181,10 +181,10 @@ Page({
       }
     })
   },
-  bindBankcard: function(e) {
+  bindAccountTap: function(e) {
     app.adjustCOpacity(this)
     wx.navigateTo({
-      url: '/pages/bankcard/index',
+      url: '/pages/bindAccountList/index',
       success: function () {
         wx.setNavigationBarTitle({
           title: '提现绑定',

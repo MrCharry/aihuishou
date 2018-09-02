@@ -1,15 +1,19 @@
 /* Mine/wallets/index.wxss */
+@import "/Component/paySix/index.wxss";
+
 .container {
   width: 100%;
   box-sizing: border-box;
   background-color: whitesmoke;
 }
+
 .myWallet {
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
+
 .myWallet view {
   width: 100%;
   display: flex;
@@ -17,8 +21,19 @@
   border-bottom: 1px solid #cecece;
   height: 160rpx;
   align-items: center;
-
 }
+
+.withdrow {
+  height: 70rpx;
+  margin: 60rpx;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #43dac0;
+  color: #fff;
+}
+
 .tips {
   width: 100%;
   position: fixed;
@@ -26,4 +41,190 @@
   text-align: center;
   font-size: small;
   color: #999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tips .contact-block {
+  display: flex;
+  margin-top: 10rpx;
+}
+
+.contact-block text {
+  font-size: x-small;
+}
+
+.contact-block .contact {
+  font-size: x-small;
+  color: rgb(10, 181, 248);
+  margin-left: 20rpx;
+}
+
+.modal-curtain {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 4;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+}
+
+.withdrow-modal {
+  margin-top: 30%;
+  width: 50%;
+  height: 28%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  border: 1px solid gainsboro;
+  border-radius: 10rpx;
+}
+
+.withdrow-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.withdrow-block text {
+  padding-left: 30rpx;
+  font-size: 26rpx;
+}
+
+.amount {
+  margin: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.amount image {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.amount input {
+  margin-left: 10rpx;
+  border-bottom: 1px solid gainsboro;
+}
+
+.withdrowBtn {
+  height: 70rpx;
+  margin-left: 60rpx;
+  margin-right: 60rpx;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #43dac0;
+  color: #fff;
+}
+
+.closeIcon {
+  text-align: right;
+}
+
+.closeIcon image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.password-modal {
+  margin-top: 30%;
+  width: 60%;
+  height: 20%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20rpx;
+  border: 1px solid gainsboro;
+  border-radius: 10rpx;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.middle label {
+  font-size: 24rpx;
+}
+
+.bill {
+  display: flex;
+  align-items: center;
+}
+
+.bill text {
+  font-weight: bold;
+}
+
+.bill image {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.closeIconRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gainsboro;
+  align-items: center;
+}
+
+.closeIconRow label {
+  font-size: 26rpx;
+}
+
+.closeIconRow image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+/*paylogo modal*/
+.paylogo-modal {
+  margin-top: 30%;
+  display: flex;
+  width: 25%;
+  height: 15%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  background-color: gray;
+}
+.paylogo-modal image {
+  width: 100rpx;
+  height: 100rpx;
+}
+.paylogo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.clouds {
+  display: flex;
+  align-items: center;
+}
+.dots {
+  display: flex;
+}
+.dot {
+  margin-left: 10rpx;
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 50%;
+  background-color: rgb(194, 186, 186);
+
+}
+.movedot {
+
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #fff;
 }

@@ -1,0 +1,44 @@
+<!--pages/bankcard/index.wxml-->
+<view class='container'>
+  <view class='block'>
+    <view class='col1'>
+      <label>绑定的微信账号</label>
+      <label style='margin-top: 20rpx; font-size:26rpx;'>{{userInfo.weixinnum=='' ? '暂未绑定':userInfo.weixinnum}}</label>
+    </view>
+    <view class='col2'>
+      <view id='wechat' bindtap='bindSetdefaultTap' class='setDefault' hover-class='hover'>
+        <image src='{{userInfo.paymethod=="0" ? checkedIcon:checkIcon}}'/>
+        <label>设为默认</label>
+      </view>
+      <view id='weixinnum' bindtap='bindAccountTap' hover-class='hover'><label class='bindBtn'>{{userInfo.weixinnum=='' ? '去绑定':'重新绑定'}}</label></view>
+    </view>
+  </view>
+
+    <view class='block'>
+    <view class='col1'>
+      <label>绑定的支付宝账号</label>
+      <label style='margin-top: 20rpx; font-size:26rpx;'>{{userInfo.alipaynum=='' ? '暂未绑定':userInfo.alipaynum}}</label>
+    </view>
+    <view class='col2'>
+      <view id='alipay' bindtap='bindSetdefaultTap' class='setDefault' hover-class='hover'>
+        <image src='{{userInfo.paymethod=="1" ? checkedIcon:checkIcon}}'/>
+        <label>设为默认</label>
+      </view>
+      <view id='alipaynum' bindtap='bindAccountTap' hover-class='hover'><label class='bindBtn'>{{userInfo.alipaynum=='' ? '去绑定':'重新绑定'}}</label></view>
+    </view>
+  </view>
+
+    <view class='block'>
+    <view class='col1'>
+      <label>绑定的银行卡账号</label>
+      <label style='margin-top: 20rpx; font-size:26rpx;'>{{userInfo.banknum=='' ? '暂未绑定':userInfo.banknum}}</label>
+    </view>
+    <view class='col2'>
+      <view id='bank' bindtap='bindSetdefaultTap' class='setDefault' hover-class='hover'>
+        <image src='{{userInfo.paymethod=="2" ? checkedIcon:checkIcon}}'/>
+        <label>设为默认</label>
+      </view>
+      <view id='banknum' bindtap='bindAccountTap' hover-class='hover'><label class='bindBtn'>{{userInfo.banknum=='' ? '暂未绑定':'重新绑定'}}</label></view>
+    </view>
+  </view>
+</view>

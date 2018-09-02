@@ -1,0 +1,68 @@
+/* pages/bindPage/index.wxss */
+
+.container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  margin: 60rpx;
+}
+
+.row1 {
+  margin-top: 30rpx;
+}
+
+.input-block input {
+  border: 1px solid gainsboro;
+  height: 70rpx;
+}
+
+.row2 input {
+  margin-top: 30rpx;
+}
+.row2 .cardInfo {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.cardInfo label {
+  font-size: 28rpx;
+}
+.cardInfo image {
+  width: 250rpx;
+  height: 70rpx;
+}
+.row3 {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row3 input {
+  margin-left: 10rpx;
+}
+
+.row3 .getcode {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  background-color: #43dac0;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.saveBtn {
+
+  height: 70rpx;
+  margin: 60rpx;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #43dac0;
+  color: #fff;
+}

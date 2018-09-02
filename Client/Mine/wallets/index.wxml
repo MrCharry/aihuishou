@@ -3,12 +3,81 @@
   <view class='myWallet'>
     <view>
       <text style='padding-left:30rpx;'>您的当前账户余额为</text>
-      <text style='padding-right:30rpx;'>0元</text>
+      <text style='padding-right:30rpx;'>{{userInfo.balance}}.0元</text>
     </view>
     <view>
       <text style='padding-left:30rpx;'>可提现余额为</text>
-      <text style='padding-right:30rpx;'>0元</text>
+      <text style='padding-right:30rpx;'>{{userInfo.balance}}.0元</text>
     </view>
   </view>
-  <view class='tips'>提交提现后，将会在2-3个工作日内打到对应账户</view>
+  <view class='withdrow' bindtap='bindWithdrowTap'>我要提现</view>
+  <view class='tips'>
+    <text>提交提现后，将会在2-3个工作日内打到对应账户</text>
+    <view class='contact-block'>
+      <text>如有疑问请及时联系客服</text>
+      <view class='contact' hover-class='hover' bindtap='bindContactTap'>拨打客服电话</view>
+    </view>
+  </view>
+</view>
+
+<!-- withdrow Modal -->
+<view class='modal-curtain' wx:if='{{showModal}}'>
+  <view class='modal' style='width:{{deviceInfo.windowWidth}}px; height:{{deviceInfo.windowHeight}}px'>
+    <view class='withdrow-modal'>
+      <view class='closeIcon' hover-class='hover'>
+        <image src='/Resources/images/closeIcon_01.png' bindtap='bindCloseTap' mode='aspectFit' />
+      </view>
+      <view class='withdrow-block'>
+        <text>输入提现金额</text>
+        <view class='amount'>
+          <image src='/Resources/images/rmb.png' mode='aspectFit' />
+          <input type='number' bindinput='bindInput' />
+        </view>
+        <view class='withdrowBtn' bindtap='bindWithdrowMoney' hover-class='hover'>提现</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- Paypassword Modal -->
+<view class='modal-curtain' wx:if='{{showPasswordModal}}'>
+  <view class='modal' style='width:{{deviceInfo.windowWidth}}px; height:{{deviceInfo.windowHeight}}px'>
+    <view class='password-modal'>
+      <view class='closeIconRow'>
+        <label>输入支付密码</label>
+        <view hover-class='hover'>
+          <image src='/Resources/images/closeIcon_01.png' bindtap='bindCloseTap' mode='aspectFit' />
+        </view>
+      </view>
+      <view class='middle'>
+        <label>提现</label>
+        <view class='bill'>
+          <image src='/Resources/images/rmb.png' mode='aspectFit' />
+          <text>{{bill}}</text>
+        </view>
+      </view>
+      <paySix bindvalueSix="valueSix" input_value="{{inputData.input_value}}" value_length="{{inputData.value_length}}" isNext="{{inputData.isNext}}" get_focus="{{inputData.get_focus}}" focus_class="{{inputData.focus_class}}" value_num="{{inputData.value_num}}"
+        height="{{inputData.height}}" width="{{inputData.width}}" see="{{inputData.see}}" interval="{{inputData.interval}}">
+      </paySix>
+    </view>
+  </view>
+</view>
+
+<!-- Paylogo Modal -->
+<view class='modal-curtain' wx:if='{{showPaylogoModal}}'>
+  <view class='modal' style='width:{{deviceInfo.windowWidth}}px; height:{{deviceInfo.windowHeight}}px'>
+    <view class='paylogo-modal'>
+
+      <view class='paylogo-block'>
+        <image src='{{paylogo}}' class='logo'/>
+        <view class="clouds">
+          <view class='movedot' animation="{{animationData}}"></view>
+          <view class='dots' wx:for='{{[1,2,3,4,5]}}' wx:key='{{index}}'>
+            <view class='dot'></view>
+          </view>
+        </view>              
+      </view>
+      
+    </view>
+  </view>
 </view>

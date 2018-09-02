@@ -1,6 +1,7 @@
 /* Mine/setting/setPayword/index.wxss */
 @import "/Component/paySix/index.wxss";
-label {
+
+/* label {
   border-radius: 10rpx;
 }
 .container {
@@ -22,41 +23,60 @@ label {
 }
 .paywordRow label {
   line-height: 80rpx;
-}
+} */
+
 .verifiedCodeRow {
-  margin-top: 30rpx;
+  margin-top: 40rpx;
   display: flex;
-  height: 80rpx;
   align-items: center;
+  justify-content: space-between;
 }
+
 .verifiedCodeRow label {
   margin-right: 20rpx;
   white-space: nowrap;
-} 
-.verifiedCodeRow input {
+}
 
-  height: 80rpx;
+.verifiedCodeRow input {
+  height: 70rpx;
   border: 1px solid #2dbea7;
-  margin-right: 20rpx;
-  
 }
-.getVerifiedCode {
-  width: 40%;
-  height: 80rpx;
+.verifiedCodeRow button {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  white-space: nowrap;
   background-color: #2dbea7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: white;
+  color: #fff;
 }
+/* .getVerifiedCode {
+  background-color: #2dbea7;
+  font-size: 28rpx;
+  color: white;
+  padding: 20rpx;
+  white-space: nowrap;
+} */
+
 .confirmBtn {
-  height: 80rpx;
+  height: 70rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 120rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
   color: #fff;
-  /* border: 1px solid #2dbea7; */
   background-color: #2dbea7;
+  font-size: 30rpx;
+}
+
+.block {
+  margin: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.paysix {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
 }

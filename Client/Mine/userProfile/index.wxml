@@ -21,10 +21,10 @@
       </view>
     </view>
 
-    <view class='row'>
+    <view class='row' bindtap='bindAccountTap'>
       <label>提现方式绑定</label>
-      <view bindtap='bindBankcard' style='opacity:{{view.cOpacity}}'>
-        <label>***********</label>
+      <view style='opacity:{{view.cOpacity}}'>
+        <!-- <label>***********</label> -->
         <image src='/Resources/images/arrowRight.png' />
       </view>
     </view>

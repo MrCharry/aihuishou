@@ -4,15 +4,16 @@
     <label class='operatable' bindtap='clickOperatableOrder' style='opacity:{{view.aOpacity}}; color:{{view.aColor}}'>未完成订单</label>
     <label class='operatabled' bindtap='clickOperatabledOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已完成订单</label>
   </view>
-  <view class='noOrder'>
-    <text wx:if='{{tag=="operatable"&&operatableOrderList.length==0 || tag=="operatabled"&&operatabledOrderList.length==0}}'>暂无订单记录</text>
+  <view class='noOrder' wx:if='{{tag=="operatable"&&operatableOrderList.length==0 || tag=="operatabled"&&operatabledOrderList.length==0}}' style='width:{{deviceInfo.windowWidth}}px'>
+    <image src='/Resources/images/noOrder.png' mode='aspectFit' />
+    <text>暂无订单记录</text>
   </view>
   <!-- <view class='orderList' wx:for='{{operatableOrderList.length > 0}}' wx:key='{{index}}'>
     <view class='orderItem'>{{item}}</view>
   </view> -->
   <view wx:for="{{tag=='operatable' ? operatableOrderList:operatabledOrderList}}" wx:key="{{index}}" class='list' animation='{{item.wrapAnimation}}'>
     <view id='{{item.idx}}' class='item' animation='{{item.animation}}' bindtouchstart='ontouchstart' bindtouchmove='ontouchmove' bindtouchend='ontouchend'>
-      <image class='bubble' src='{{item.icon}}' mode='aspectFit' style='top:{{item.address.length+item.detailaddress.length+1>19 ? 40:10}}rpx'/>
+      <image class='bubble' src='{{item.icon}}' mode='aspectFit' style='top:{{item.address.length+item.detailaddress.length+1>19 ? 40:10}}rpx' />
       <text class='address'>{{item.address}}-{{item.detailaddress}}</text>
       <text class='amount'>预计：{{item.wastename}}{{item.wasteweight}}斤</text>
       <text class='time'>{{item.createtime}}</text>

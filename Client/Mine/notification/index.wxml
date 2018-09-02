@@ -1,11 +1,17 @@
 <!--Mine/notification/index.wxml-->
 <view class='container'>
-  <view wx:if='{{notifications.length == 0}}' class='noNotification'>暂无消息</view>
+
+  <view wx:if='{{notifications.length == 0}}' class='noNotification' style='height:{{deviceInfo.windowHeight}}px'>
+    <image src='/Resources/images/noNotification.png' mode='aspectFit' />
+    <text>暂无消息</text>
+  </view>
+
   <view wx:if='{{notifications.length > 0}}' wx:for='{{notifications}}' wx:key='{{index}}' class='notificationList'>
-    <view class='notificationItem'>
-      <text>{{item.title}}</text>
-      <text>{{item.content}}</text>
+    <view class='notificationItem' style='width:{{deviceInfo.windowWidth}}px'>
+      <text class='title'>{{item.title}}</text>
+      <text class='content'>{{item.content}}</text>
       <view class='time'>{{item.time}}</view>
     </view>
   </view>
+  
 </view>

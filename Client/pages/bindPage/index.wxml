@@ -1,0 +1,26 @@
+<!--pages/bindPage/index.wxml-->
+<view class='container' style='width:{{deviceInfo.windowWidth}}px'>
+  <view class='input-block'>
+    <label wx:if='{{opt.tag != "banknum"}}'>请输入你要绑定的{{opt.tag=='weixinnum' ? '微信':'支付宝'}}账号</label>
+    <view class='row1'>
+      <input id='account' focus='{{focus1}}' bindfocus='bindFocusTap' bindinput='bindInputTap' bindblur='bindVerifyCard' type='{{opt.tag=="banknum" ? "number":"text"}}' value='{{accountNo}}' />
+    </view>
+    <view wx:if='{{opt.tag == "banknum"}}' class='row2'>
+      <input wx:if='{{inputData.bankLogo == undifined}}' id='bankname' focus='{{focus2}}' bindinput='bindInputTap' placeholder='请输入银行名称' placeholder-style='color:#dcdcdc; font-size:28rpx;' />
+      <view wx:if='{{inputData.bankLogo != undifined}}' class='cardInfo'>
+        <image src='{{inputData.bankLogo}}' mode='aspectFit'/>
+        <label>{{inputData.cardType}}</label>
+      </view>
+      <input id='bankusername' bindinput='bindInputTap' focus='{{focus3}}' placeholder='请输入银行卡户名' placeholder-style='color:#dcdcdc; font-size:28rpx' />
+    </view>
+    <view class='row3'>
+      <label style='white-space:nowrap;'>验证码</label>
+      <input id='code' focus='{{focus4}}' bindinput='bindInputTap' type='number' />
+      <!-- <view class='getcode' hover-class='hover'>
+        <label bindtap='bindGetcodeTap'>获取验证码</label>
+      </view> -->
+      <view><button class='getcode' hover-class='hover' disabled='{{disabled}}'>获取验证码</button></view>
+    </view>
+  </view>
+  <view bindtap='bindSaveTap' class='saveBtn' hover-class='hover'>保存</view>
+</view>

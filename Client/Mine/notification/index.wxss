@@ -1,9 +1,16 @@
 /* Mine/notification/index.wxss */
 .noNotification {
-  text-align: center;
-  padding-top: 20%;
+  padding-top: 40%;
   color: #a0a0a0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+.noNotification image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
 .notificationList {
   display: flex;
   flex-direction: column;
@@ -13,12 +20,23 @@
 }
 .notificationItem {
   margin-top: 10rpx;
-  padding: 20rpx;
   display: flex;
   flex-direction: column;
   background-color:whitesmoke;
 }
+.notificationItem .title {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 20rpx;
+}
+.notificationItem .content {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 10rpx;
+}
 .time {
   margin-top: 10rpx;
+  padding-bottom: 10rpx;
   text-align: right;
+  padding-right: 20rpx;
 }

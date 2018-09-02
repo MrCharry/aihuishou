@@ -6,7 +6,7 @@
       <text>修改登录密码</text>
       <image src='/Resources/images/arrowRight.png'/>
     </view>
-    <view bindtap='setPayword' style='opacity:{{view.bOpacity}}'>
+    <view bindtap='bindPaypasswordTap' style='opacity:{{view.bOpacity}}'>
       <text>设置支付密码</text>
       <image src='/Resources/images/arrowRight.png'/>
     </view>

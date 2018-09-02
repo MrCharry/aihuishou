@@ -304,13 +304,13 @@ App({
     if (phonenum.length == 0) {
       wx.showToast({
         title: '手机号为空',
-        image: '/Resources/images/closeIcon_01.png'
+        image: '/Resources/images/error.png'
       })
       return false;
     } else if (!pattern.test(phonenum)) {
       wx.showToast({
         title: '手机号有误！',
-        image: '/Resources/images/closeIcon_01.png'
+        image: '/Resources/images/error.png'
       })
       return false;
     }else {
@@ -325,7 +325,7 @@ App({
     if (newPassword.length < 6 || newPassword.length > 18) {
       wx.showToast({
         title: '密码过短或过长',
-        image: '/Resources/images/closeIcon_01.png'
+        image: '/Resources/images/error.png'
       })
       return false;
     }
@@ -343,7 +343,7 @@ App({
     if (i == newPassword.length - 1 || j == newPassword.length - 1) {
       wx.showToast({
         title: '连续的字符',
-        image: '/Resources/images/closeIcon_01.png'
+        image: '/Resources/images/error.png'
       })
       return false;
     }

@@ -1,0 +1,43 @@
+<!--Mine/setting/setPayword/index.wxml-->
+<!-- <view class='container'>
+  <form bindsubmit='formSubmit'>
+    <view class='paywordRow'>
+      <label>设置新密码</label>
+      <paySix bindvalueSix="valueSix" input_value="{{inputDatas.input_value}}" value_length="{{inputDatas.value_length}}" isNext="{{inputDatas.isNext}}" get_focus="{{inputDatas.get_focus}}" focus_class="{{inputDatas.focus_class}}" value_num="{{inputDatas.value_num}}"
+        height="{{inputDatas.height}}" width="{{inputDatas.width}}" see="{{inputDatas.see}}" interval="{{inputDatas.interval}}">
+      </paySix>
+    </view>
+    <view class='verifiedCodeRow'>
+      <label>输入验证码</label>
+      <input name='verifiedCode' />
+      <label class='getVerifiedCode' bindtap='getVerifiedCode' style='opacity:{{view.aOpacity}};'>获取验证码</label>
+    </view>
+    <label for='submitBtn' class='confirmBtn' style='opacity:{{view.bOpacity}}'>确认</label>
+    <button id='submitBtn' formType='submit' hidden='true'></button>
+  </form>
+</view> -->
+<view class='container'>
+  <view class='block'>
+
+    <label>输入新支付密码</label>
+    <view class='paysix'>
+      <paySix id='password' bindvalueSix="valueSix" input_value="{{inputDatas.input_value}}" value_length="{{inputDatas.value_length}}" isNext="{{inputDatas.isNext}}" get_focus="{{inputDatas.get_focus}}" focus_class="{{inputDatas.focus_class}}" value_num="{{inputDatas.value_num}}"
+        height="{{inputDatas.height}}" width="{{inputDatas.width}}" see="{{inputDatas.see}}" interval="{{inputDatas.interval}}">
+      </paySix>
+    </view>
+
+    <label style='margin-top:20rpx;'>确认新支付密码</label>
+    <view class='paysix'>
+      <paySix id='confirmpassword' bindvalueSix="valueSix" input_value="{{inputDatas.input_value}}" value_length="{{inputDatas.value_length}}" isNext="{{inputDatas.isNext}}" value_num="{{inputDatas.value_num}}" height="{{inputDatas.height}}" width="{{inputDatas.width}}"
+        see="{{inputDatas.see}}" interval="{{inputDatas.interval}}">
+      </paySix>
+    </view>
+
+    <view class='verifiedCodeRow'>
+      <label>输入验证码</label>
+      <input type='number' bindinput='bindInputTap' focus='{{focus}}' />
+      <view><button bindtap='getVerifiedCode' disabled='{{disabled}}' hover-class='hover'>获取验证码</button></view>
+    </view>
+    <view class='confirmBtn' hover-class='hover' bindtap='bindConfirmTap'>确认</view>
+  </view>
+</view>

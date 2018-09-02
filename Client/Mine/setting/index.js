@@ -29,10 +29,16 @@ Page({
       }
     })
   },
-  setPayword: function(e) {
+  bindPaypasswordTap: function(e) {
     app.adjustBOpacity(this)
+    var tag = ''
+    if (app.globalData.userInfo.paypassword == '') {
+      tag = 'new'
+    }else {
+      tag = 'modify'
+    }
     wx.navigateTo({
-      url: '/Mine/setting/setPayword/index',
+      url: '/Mine/setting/paypassword/index?tag='+tag,
       success: function () {
         wx.setNavigationBarTitle({
           title: '设置',
