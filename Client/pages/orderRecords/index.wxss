@@ -39,6 +39,87 @@
   width: 100rpx;
   height: 100rpx;
 }
+.list-block {
+  padding-top: 80rpx;
+  box-sizing: border-box;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.item {
+  height: 250rpx;
+  display: flex;
+  margin-top: 20rpx;
+  width: 100%;
+  align-items: center;
+  background-color: #f6f6f6;
+}
+.left {
+  height: 100%;
+  padding: 20rpx;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+.left .row1 {
+  padding-top: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.left .row1 .state {
+  width: 10%;
+}
+.left .row1 image {
+  width: 48rpx;
+  height: 48rpx;
+}
+.left .row1 text {
+  width: 90%;
+  font-size: 32rpx;
+}
+.left .row2 text {
+  font-size: 30rpx;
+}
+.left .row3 {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20rpx;
+}
+.left .row3 text {
+  font-size: 28rpx;
+}
+.left .row3 label {
+  margin-left: 30rpx;
+}
+.right {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20%;
+}
+.right .confirm {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #808080;
+  color: #fff;
+}
+.right .contact {
+  height: 35%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2dbea7;
+  color: #fff;
+}
+
 
 /* .orderList {
   display: flex;
@@ -49,7 +130,7 @@
   padding: 20rpx;
 } */
 
-.list {
+/* .list {
   width: 100%;
   height: 240rpx;
   position: relative;
@@ -80,7 +161,7 @@
   position: absolute;
   left: 88rpx;
   top: 10rpx;
-  line-height: 48rpx;
+  font-size: 30rpx;
 }
 
 .amount {
@@ -140,4 +221,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */

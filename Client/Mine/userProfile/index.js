@@ -18,18 +18,41 @@ Page({
   
     this.setData({
       userInfo: app.globalData.userInfo,
+      addressInfo: app.globalData.addressInfo,
       defaultGenderPic: '/Resources/images/check.png',
       selectedGenderPic: '/Resources/images/checked.png'
     })
   },
   onShow: function() {
+
+    var addressInfo = app.globalData.addressInfo
     var userInfo = app.globalData.userInfo
-    if (userInfo.address.length > 20) {
-      this.setData({
-        simpleAddress: userInfo.address.slice(0, 20) + '...',
-        phoneNumber: userInfo.phonenum.slice(0,3) + '****' + userInfo.phonenum.slice(7,11)
-      })
+    var simpleAddress = ''
+    this.setData({
+      phoneNumber: userInfo.phonenum.slice(0, 3) + '****' + userInfo.phonenum.slice(7, 11)
+    })
+
+    if (addressInfo == '') {
+      
+      if (userInfo.address.length + userInfo.detailaddress.length + 1 > 20) {
+       
+        simpleAddress = (userInfo.address + '-' + userInfo.detailaddress).slice(0, 20) + '...'
+
+      }else {
+        simpleAddress = userInfo.address + '-' + userInfo.detailaddress
+      }
+    } else {
+      if (addressInfo.address.length + addressInfo.detailaddress.length + 1 > 20) {
+
+        simpleAddress = (addressInfo.address + '-' + addressInfo.detailaddress).slice(0, 20) + '...'
+
+      } else {
+        simpleAddress = addressInfo.address + '-' + addressInfo.detailaddress
+      }
     }
+    this.setData({
+      simpleAddress: simpleAddress
+    })
   },
   bindUpdatePortrait: function(e) {
     var s = this

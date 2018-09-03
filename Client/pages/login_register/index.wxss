@@ -64,6 +64,7 @@
   border-radius: 10rpx;
   color: #1bc3a9;
   white-space: nowrap;
+  font-size: 28rpx;
 }
 .loginBtn {
   margin-top: 10%;

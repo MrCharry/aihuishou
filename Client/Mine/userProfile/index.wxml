@@ -8,9 +8,9 @@
     <view class='row'>
       <label>昵称</label>
       <view>
-        <label bindtap='clickModifyName' hidden='{{view.editNickname}}'>{{userInfo.nickname}}</label>
+        <label bindtap='clickModifyName' hidden='{{view.editNickname}}'>{{userInfo.nickname ? userInfo.nickname:userInfo.name}}</label>
         <!-- <image src='/Resources/images/arrowRight.png' /> -->
-        <input class='nickname' value='{{userInfo.nickname}}' bindconfirm='editNicknameDone' hidden='{{!view.editNickname}}' />
+        <input class='nickname' value='{{userInfo.nickname ? userInfo.nickname:userInfo.name}}' bindconfirm='editNicknameDone' hidden='{{!view.editNickname}}' />
       </view>
     </view>
     <view class='row'>

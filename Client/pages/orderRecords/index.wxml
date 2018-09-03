@@ -1,5 +1,5 @@
 <!--pages/orderRecords/index.wxml-->
-<view class='container' style='width:{{deviceInfo.windowWidth}}px'>
+<!-- <view class='container' style='width:{{deviceInfo.windowWidth}}px'>
   <view class='topBar'>
     <label class='operatable' bindtap='clickOperatableOrder' style='opacity:{{view.aOpacity}}; color:{{view.aColor}}'>未完成订单</label>
     <label class='operatabled' bindtap='clickOperatabledOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已完成订单</label>
@@ -8,9 +8,6 @@
     <image src='/Resources/images/noOrder.png' mode='aspectFit' />
     <text>暂无订单记录</text>
   </view>
-  <!-- <view class='orderList' wx:for='{{operatableOrderList.length > 0}}' wx:key='{{index}}'>
-    <view class='orderItem'>{{item}}</view>
-  </view> -->
   <view wx:for="{{tag=='operatable' ? operatableOrderList:operatabledOrderList}}" wx:key="{{index}}" class='list' animation='{{item.wrapAnimation}}'>
     <view id='{{item.idx}}' class='item' animation='{{item.animation}}' bindtouchstart='ontouchstart' bindtouchmove='ontouchmove' bindtouchend='ontouchend'>
       <image class='bubble' src='{{item.icon}}' mode='aspectFit' style='top:{{item.address.length+item.detailaddress.length+1>19 ? 40:10}}rpx' />
@@ -20,11 +17,55 @@
       <label wx:if='{{item.btnText == "待接单"}}' id='{{item.idx}}' data-orderid='{{item.id}}' class='delOrder' bindtap='bindDelTap' style='opacity:{{view.cOpacity}}'>取消订单</label>
     </view>
     <view class='menu'>
-      <view id='{{item.idx}}' class='confirm' data-orderid='{{item.id}}' data-btnText='{{item.btnText}}' data-desc='{{item.desc}}' bindtap='bindConfirmTap' style='opacity:{{view.dOpacity}}; height:{{item.btnText=="已取消" ? 240:130}}rpx; background-color:{{item.btnText=="已取消" ? "#808080":"#2dbea7"}}'>
+      <view id='{{item.idx}}' class='confirm' data-orderid='{{item.id}}' data-btntext='{{item.btnText}}' data-desc='{{item.desc}}' bindtap='bindConfirmTap' style='opacity:{{view.dOpacity}}; height:{{item.btnText=="已取消" ? 240:130}}rpx; background-color:{{item.btnText=="已取消" ? "#808080":"#2dbea7"}}'>
         {{item.btnText}}
       </view>
-      <view wx:if='{{item.btnText!="已取消" && item.btnText!="已完成"}}' id='{{item.idx}}' class='contact' data-orderid='{{item.id}}' bindtap='bindContactTap' style='opacity:{{view.eOpacity}}'>
+      <view wx:if='{{item.btnText!="已取消" && item.btnText!="已完成"}}' id='{{item.idx}}' class='contact' data-orderid='{{item.id}}' bindtap='bindContactTap' hover-class='hover'>
         联系对方
+      </view>
+    </view>
+  </view>
+</view> -->
+<view class='container' style='width:{{deviceInfo.windowWidth}}px'>
+
+  <view class='topBar'>
+    <label class='operatable' bindtap='clickOperatableOrder' style='opacity:{{view.aOpacity}}; color:{{view.aColor}}'>未完成订单</label>
+    <label class='operatabled' bindtap='clickOperatabledOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已完成订单</label>
+  </view>
+
+  <view class='noOrder' wx:if='{{tag=="operatable"&&operatableOrderList.length==0 || tag=="operatabled"&&operatabledOrderList.length==0}}' style='width:{{deviceInfo.windowWidth}}px'>
+    <image src='/Resources/images/noOrder.png' mode='aspectFit' />
+    <text>暂无订单记录</text>
+  </view>
+  
+  <view class='list-block'>
+    <view class='list' wx:for="{{tag=='operatable' ? operatableOrderList:operatabledOrderList}}" wx:key="{{index}}">
+      <view id='{{index}}' class='item'>
+
+        <view class='left'>
+          <view class='row1'>
+            <view class='state'><image src='{{item.icon}}' mode='aspectFit' /></view>
+            <text>{{item.address}}-{{item.detailaddress}}</text>
+          </view>
+          <view class='row2'>
+            <text>预计：{{item.wastename}}{{item.wasteweight}}斤</text>
+          </view>
+          <view class='row3'>
+            <text>{{item.createtime}}</text>
+            <label id='{{index}}' wx:if='{{item.btnText == "待接单"}}' bindtap='bindDelTap' style='opacity:{{view.cOpacity}}'>取消订单</label>
+          </view>
+        </view>
+
+        <view class='right'>
+
+          <view id='{{index}}' class='confirm' bindtap='bindConfirmTap' style='height:{{item.finished ? "100%":"60%"}}; background-color:{{item.bdcolor}}' hover-class='hover'>
+            {{item.btnText}}
+          </view>
+          <view id='{{index}}' wx:if='{{!item.finished}}' class='contact' bindtap='bindContactTap' hover-class='hover'>
+            联系对方
+          </view>
+
+        </view>
       </view>
     </view>
   </view>

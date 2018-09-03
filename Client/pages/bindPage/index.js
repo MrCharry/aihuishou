@@ -189,7 +189,9 @@ Page({
             title: res['data']['content'],
             icon: 'none',
             success: function() {
-              wx.navigateBack()
+              setTimeout(function () {
+                wx.navigateBack()
+              }, 1500)
             }
           })
         }else {

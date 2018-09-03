@@ -19,19 +19,19 @@ Page({
   },
   onShow: function () {
 
-    var userInfo = app.globalData.userInfo ? app.globalData.userInfo : app.getStorageSync('userInfo')
+    var userInfo = app.globalData.userInfo ? app.globalData.userInfo : app.getStorageSync('userInfo')    
     if (userInfo != undefined) {
       this.setData({
         userInfo: userInfo,
-        nickname: userInfo.nickname.length > 5 ? userInfo.nickname.slice(0, 5) : userInfo.nickname
+        nickname: userInfo.nickname ? userInfo.nickname : userInfo.name
       })
     }
     var view = this.data.view
     view.showLoginModel = !app.globalData.loginStatus
+    view.showMenu = false
     this.setData({
       loginStatus: app.globalData.loginStatus,
-      view: view,
-      showMenu: false
+      view: view
     })
     this.showLocation()
   },

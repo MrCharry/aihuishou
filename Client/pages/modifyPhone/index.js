@@ -87,7 +87,9 @@ Page({
             content: res['data']['content'],
             showCancel: false,
             success: function() {
-              wx.navigateBack()
+              setTimeout(function () {
+                wx.navigateBack()
+              }, 1500)
             }
           })
         }else {

@@ -9,7 +9,7 @@
         <view class='middle'>
           <label class='address'>{{item.address}}-{{item.detailaddress}}</label>
           <view class='profile'>
-            <label>{{userInfo.nickname}}</label>
+            <label>{{userInfo.nickname ? userInfo.nickname:userInfo.name}}</label>
             <label style='margin-left: 30rpx;'>{{userInfo.phonenum}}</label>
           </view>
         </view>

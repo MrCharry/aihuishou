@@ -1,4 +1,7 @@
 <!--Mine/orders/index.wxml-->
 <view class='container' style='height:{{deviceInfo.windowHeight}}px'>
-  <view class='noRecord'>暂无回收记录</view>
+  <view class='noRecord'>
+  <image src='/Resources/images/norecycle.png' mode='aspectFit'/>
+  <text>暂无回收记录</text>
+  </view>
 </view>

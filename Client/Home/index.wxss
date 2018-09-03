@@ -150,6 +150,7 @@
   justify-content: center;
   color: #fff;
   white-space: nowrap;
+  font-size: 28rpx;
 }
 .loginBtn {
   margin-top: 40rpx;

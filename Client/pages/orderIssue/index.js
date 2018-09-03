@@ -39,6 +39,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    // 检测用户是否设置了默认地址
+    if (app.globalData.addressInfo == '') {
+      wx.showModal({
+        title: '提示',
+        content: '请先设置默认收货地址',
+        showCancel: false,
+        confirmText: '去设置',
+        success: function () {
+          wx.navigateTo({
+            url: '/pages/addressList/index'
+          })
+        }
+      })
+      return
+    }
+
     console.log(options)
     // 用户主动预约回收商
     if (options.tag == 'book') {
@@ -61,10 +78,13 @@ Page({
     this.setData({
       deviceInfo: app.globalData.deviceInfo,
       userInfo: app.globalData.userInfo,
-      options: options
+      options: options,
+      addressInfo: app.globalData.addressInfo
     })
   },
   onShow: function () {
+
+    
     var s = this
     let adcode = this.options.adcode
 
@@ -104,23 +124,6 @@ Page({
           imgWidth: imgWidth,
           inputData: inputData
         })
-      }
-    })
-    // 获取当前默认上门回收地址
-    wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
-      method: 'POST',
-      header: app.globalData.header,
-      success: function (res) {
-        console.log(res)
-        if (res['data']['isSuccess'] == 'TRUE') {
-          s.setData({
-            addressInfo: res['data']['data']
-          })
-        }
-      },
-      fail: function (error) {
-        console.log(error)
       }
     })
 
@@ -266,13 +269,13 @@ Page({
               let merchantid = opt.bookmerchantid
               let timestamp = s.data.timeSet.date.split('-').join('') + s.data.timeSet.time.split(':').join('')+ '00'
               console.log('主动预约商户上门回收')
-              
+              console.log(timestamp)
               wx.request({
                 url: 'https://www.dingdonhuishou.com/AHS/api/userorder/book/merchant',
                 data: {                
                   lat: addressInfo.lat,
                   lng: addressInfo.lng,
-                  merchanttid: merchantid,
+                  merchantid: merchantid,
                   address: addressInfo.address,
                   detailaddress: addressInfo.detailaddress,
                   areawastepriceid: inputData.areawastepriceid,
@@ -286,9 +289,10 @@ Page({
                 method: 'POST',
                 header: app.globalData.header,
                 success: function(res) {
+                  console.log(res)
                   if (res['data']['isSuccess'] == 'TRUE') {
                     wx.showToast({
-                      title: '预约成功',
+                      title: res['data']['content'],
                       success: function() {
                         setTimeout(function () {
                           wx.navigateBack()
@@ -419,13 +423,13 @@ Page({
                           if (rt.confirm) {
                             opt.adcode = adcode
                             s.setData({
-                              optins: opt
+                              options: opt
                             })
                             s.bindReleaseTap()
                           }else {
                             opt.adcode = adcode
                             s.setData({
-                              optins: opt
+                              options: opt
                             })
                           }
                         }

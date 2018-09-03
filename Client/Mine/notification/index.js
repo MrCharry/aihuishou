@@ -15,7 +15,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var s = this
+    this.getUserNotifications(1, function (notifications) {
+      console.log(notifications)
+      m = 1
+      for (var i = 0; i < notifications.length; ++i) {
+        notifications[i].time = util.formatTime(new Date(notifications[i].createtime))
+      }
+      s.setData({
+        notifications: notifications
+      })
+    })
   },
   /**
    * 生命周期函数--监听页面显示
@@ -24,17 +34,6 @@ Page({
 
     this.setData({
       deviceInfo: app.globalData.deviceInfo
-    })
-    var s = this
-    this.getUserNotifications(1, function(notifications) {
-      console.log(notifications)
-      m = 1
-      for (var i=0; i<notifications.length; ++i) {
-        notifications[i].time =  util.formatTime(new Date(notifications[i].createtime))
-      }
-      s.setData({
-        notifications: notifications
-      })
     })
   },
   getUserNotifications: function(curPage, callback) {

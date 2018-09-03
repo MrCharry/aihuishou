@@ -1,15 +1,12 @@
 // Mine/orders/index.js
 var app = getApp()
-let util = require('../../utils/util.js')
-var i = 1
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    deviceInfo: {},
-    operatableOrderList: []
+    deviceInfo: {}
   },
 
   /**

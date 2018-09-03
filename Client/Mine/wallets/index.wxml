@@ -3,11 +3,11 @@
   <view class='myWallet'>
     <view>
       <text style='padding-left:30rpx;'>您的当前账户余额为</text>
-      <text style='padding-right:30rpx;'>{{userInfo.balance}}.0元</text>
+      <text style='padding-right:30rpx;'>{{userInfo.balance}}元</text>
     </view>
     <view>
       <text style='padding-left:30rpx;'>可提现余额为</text>
-      <text style='padding-right:30rpx;'>{{userInfo.balance}}.0元</text>
+      <text style='padding-right:30rpx;'>{{userInfo.balance}}元</text>
     </view>
   </view>
   <view class='withdrow' bindtap='bindWithdrowTap'>我要提现</view>

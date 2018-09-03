@@ -23,6 +23,24 @@ App({
       this.globalData.userInfo = this.getUserInfo()
       // this.globalData.userInfo = this.getStorageSync('userInfo')
     }
+    // 获取当前默认上门回收地址
+    var s = this
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
+      method: 'POST',
+      header: s.globalData.header,
+      success: function (res) {
+        console.log(res)
+        if (res['data']['isSuccess'] == 'TRUE') {
+          s.globalData.addressInfo = res['data']['data']
+        }else {
+          s.globalData.addressInfo = ''
+        }
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+    })
     
     // 获取小程序更新机制兼容
     if (wx.canIUse('getUpdateManager')) {
@@ -63,7 +81,7 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
-    })
+    })    
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -190,7 +208,9 @@ App({
         if (success == 'TRUE') {
           console.log(res['data']['content'])
           var userInfo = res['data']['data']
-          userInfo.imgpath = 'https://www.dingdonhuishou.com/AHS/uploads/' + userInfo.imgpath
+          if (userInfo.imgpath) {
+            userInfo.imgpath = 'https://www.dingdonhuishou.com/AHS/uploads/' + userInfo.imgpath
+          }
           self.globalData.userInfo = userInfo
           self.setStorageSync('userInfo', userInfo, 7*24)
           console.log(userInfo)
@@ -348,5 +368,5 @@ App({
       return false;
     }
     return true;
-  }
+  },
 })

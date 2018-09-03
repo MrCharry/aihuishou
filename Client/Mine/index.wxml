@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='userBanner' style='height:{{deviceInfo.windowHeight*0.35}}px'>
     <image src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' bindtap='clickUserProfile' style='opacity:{{view.fOpacity}}'/>
-    <label style='color:#fff;'>{{userInfo.nickname}}</label>
+    <label style='color:#fff;'>{{userInfo.nickname ? userInfo.nickname:userInfo.name}}</label>
   </view>
   <view class='functionZoom' style='height:{{deviceInfo.windowHeight*0.65}}px'>
     <view class='row'>

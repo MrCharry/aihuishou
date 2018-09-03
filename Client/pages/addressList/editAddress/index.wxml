@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='row'>
     <label>联系人：</label>
-    <text>{{userInfo.nickname}}</text>
+    <text>{{userInfo.nickname ? userInfo.nickname:userInfo.name}}</text>
   </view>
   <view class='row' style='padding-top:20rpx;'>
     <label>手机号：</label>
