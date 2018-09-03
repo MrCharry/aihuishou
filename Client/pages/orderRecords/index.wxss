@@ -118,7 +118,7 @@
 
 .confirm {
   position: absolute;
-  width: 150rpx;
+  width: 160rpx;
   height: 130rpx;
   top: 0rpx;
   right: 0;
@@ -131,7 +131,7 @@
 
 .contact {
   position: absolute;
-  width: 150rpx;
+  width: 160rpx;
   height: 100rpx;
   top: 140rpx;
   right: 0;

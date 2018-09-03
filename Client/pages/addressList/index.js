@@ -1,6 +1,6 @@
 // pages/modifyAddress/index.js
 var app = getApp()
-var i = 1
+var m = 1
 Page({
 
   /**
@@ -71,12 +71,12 @@ Page({
     var s = this
     var addressList = this.data.addressList
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/useraddress/list?page.currentPage=' + curPage,
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/list?page.currentPage=' + curPage,
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
 
-        if (i > 1) {
+        if (m > 1) {
           addressList.concat(res['data']['data'])
         }else {
           addressList = res['data']['data']
@@ -88,7 +88,7 @@ Page({
 
         if (res['data']['hasMore'] == true) {
           //有下一页
-          s.getAddressList(++i)
+          s.getAddressList(++m)
           return
         }
         if (typeof(callback) == 'function') {
@@ -106,7 +106,7 @@ Page({
     var s = this
     // 用户设置默认地址    
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/useraddress/setdefault?id=' + addressid,
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/setdefault?id=' + addressid,
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {

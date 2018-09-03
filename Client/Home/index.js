@@ -30,7 +30,8 @@ Page({
     view.showLoginModel = !app.globalData.loginStatus
     this.setData({
       loginStatus: app.globalData.loginStatus,
-      view: view
+      view: view,
+      showMenu: false
     })
     this.showLocation()
   },
@@ -50,7 +51,6 @@ Page({
         })
       }
     })
-    view.showMenu = false
   },
   clickRecycleRecord: function (e) {
     var view = this.data.view
@@ -67,17 +67,8 @@ Page({
   },
   clickNotification: function (e) {
     var view = this.data.view
-    var s = this
-    view.eOpacity = 0.5
-    this.setData({
-      view: view
-    })
-    setTimeout(function () {
-      view.eOpacity = 1
-      s.setData({
-        view: view
-      })
-    }, 200)
+    app.adjustFOpacity(this)
+
     wx.navigateTo({
       url: '/Mine/notification/index',
       success: function () {
@@ -85,8 +76,7 @@ Page({
           title: '消息通知',
         })
       }
-    })
-    view.showMenu = false
+    })          
   },
   clickUserIcon: function (e) {
     var view = this.data.view
@@ -129,19 +119,13 @@ Page({
     view.showMenu = false
   },
   clickCloseLoginModel: function (e) {
+
     var view = this.data.view
-    var s = this
-    view.fOpacity = 0.5
+    view.showLoginModel = false
     this.setData({
       view: view
     })
-    setTimeout(function () {
-      view.fOpacity = 1
-      view.showLoginModel = false
-      s.setData({
-        view: view
-      })
-    }, 300)
+    app.adjustFOpacity(this)
   },
   getInput: function (e) {
     var inputData = this.data.inputData

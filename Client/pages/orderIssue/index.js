@@ -108,7 +108,7 @@ Page({
     })
     // 获取当前默认上门回收地址
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/useraddress/getdefault',
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
@@ -184,8 +184,15 @@ Page({
       })
       var datetime = util.formatTime(new Date())
       var startDate = datetime.split(' ')[0].split('/').join('-')
-      var time = parseInt(datetime.split(' ')[1].slice(0, 2))<18 ? datetime.split(' ')[1].slice(0, 5):'18:00'
       var endDate = util.formatTime(new Date(new Date().getTime() + 7 * 24 * 3600 * 1000)).split(' ')[0].split('/').join('-')
+      var time = parseInt(datetime.split(' ')[1].slice(0, 2))
+      if (time<=18 && time>=9) {
+        time = datetime.split(' ')[1].slice(0, 5)
+      }else if (time > 18) {
+        time = '18:00'
+      }else if (time < 9) {
+        time = '09:00'
+      }
 
       if (parseInt(datetime.split(' ')[1].slice(0, 2)) >= 15) {
         startDate = util.formatTime(new Date(new Date().getTime() + 1 * 24 * 3600 * 1000)).split(' ')[0].split('/').join('-')
@@ -283,7 +290,9 @@ Page({
                     wx.showToast({
                       title: '预约成功',
                       success: function() {
-                        wx.navigateBack()
+                        setTimeout(function () {
+                          wx.navigateBack()
+                        }, 1500)
                       }
                     })
                   }else {
@@ -327,7 +336,9 @@ Page({
                     wx.showToast({
                       title: res['data']['content'],
                       success: function () {
-                        wx.navigateBack()
+                        setTimeout(function () {
+                          wx.navigateBack()
+                        }, 1500)
                       }
                     })
                   }

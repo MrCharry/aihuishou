@@ -82,7 +82,7 @@ Page({
     var inputData = this.data.inputData
     var addressid = this.data.options.id
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/useraddress/modify',
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/modify',
       data: {
         id: addressid,
         address: addressInfo.address,
@@ -94,16 +94,12 @@ Page({
       header: app.globalData.header,
       success: function(res) {
         if (res['data']['isSuccess'] == 'TRUE') {
-          wx.showModal({
-            title: '提示',
-            content: res['data']['content'],
-            showCancel: false,
+          wx.showToast({
+            title: res['data']['content'],
             success: function() {
-              // var userInfo = app.globalData.userInfo
-              // userInfo.address = addressInfo.address
-              // userInfo.detailaddress = inputData.detailaddress ? inputData.detailaddress:addressInfo.name
-              // app.globalData.userInfo = userInfo
-              wx.navigateBack()
+              setTimeout(function () {
+                wx.navigateBack()
+              }, 1500)
             }
           })
         }else {
@@ -126,7 +122,7 @@ Page({
     var addressInfo = this.data.addressInfo
     var inputData = this.data.inputData
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/useraddress/add',
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/add',
       data: {
         address: addressInfo.address,
         detailaddress: inputData.detailaddress ? inputData.detailaddress : addressInfo.name,
@@ -136,13 +132,17 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function(res) {
+        console.log(res)
         if (res['data']['isSuccess'] == 'TRUE') {
           wx.showToast({
             title: res['data']['content'],
             success: function() {
-              wx.navigateBack()
+              setTimeout(function () {
+                wx.navigateBack()  
+              }, 1500)
             }
           })
+
         }else {
           wx.showModal({
             title: '提示',
@@ -164,7 +164,7 @@ Page({
 
     // 删除当前地址
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHSTest/api/useraddress/del?id' + addressid,
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/del?id=' + addressid,
       method: 'POST',
       header: app.globalData.header,
       success: function(res) {
@@ -173,7 +173,9 @@ Page({
           wx.showToast({
             title: res['data']['content'],
             success: function() {
-              wx.navigateBack()
+              setTimeout(function () {
+                wx.navigateBack()
+              }, 1500)
             }
           })
           

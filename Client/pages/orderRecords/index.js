@@ -20,9 +20,9 @@ Page({
   },
   swipeCheckX: 35, //激活检测滑动的阈值
   swipeCheckState: 0, //0未激活 1激活
-  maxMoveLeft: 75, //消息列表项最大左滑距离
-  correctMoveLeft: 75, //显示菜单时的左滑距离
-  thresholdMoveLeft: 40, //左滑阈值，超过则显示菜单
+  maxMoveLeft: 80, //消息列表项最大左滑距离
+  correctMoveLeft: 80, //显示菜单时的左滑距离
+  thresholdMoveLeft: 50, //左滑阈值，超过则显示菜单
   lastShowId: '', //记录上次显示菜单的消息id
   moveX: 0, //记录平移距离
   showState: 0, //0 未显示菜单 1显示菜单

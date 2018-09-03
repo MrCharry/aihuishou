@@ -29,7 +29,7 @@
         <cover-view class='menuItem' bindtap='clickRecycleRecord' style='opacity:{{view.dOpacity}}' hidden='{{!loginStatus}}'>
           <cover-view>回收记录</cover-view>
         </cover-view>
-        <cover-view class='menuItem' bindtap='clickNotification' style='opacity:{{view.eOpacity}}' hidden='{{!loginStatus}}'>
+        <cover-view class='menuItem' bindtap='clickNotification' style='opacity:{{view.fOpacity}}' hidden='{{!loginStatus}}'>
           <cover-view>消息提醒</cover-view>
         </cover-view>
         <cover-view class='menuItem' bindtap='clickLoginLabel' style='opacity:{{view.cOpacity}}' hidden='{{loginStatus}}'>
