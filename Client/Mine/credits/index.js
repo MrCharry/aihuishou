@@ -1,6 +1,7 @@
 // Mine/credits/index.js
 var app = getApp()
-var i = 1
+let util = require('../../utils/util.js')
+var m = 1
 Page({
 
   /**
@@ -8,7 +9,7 @@ Page({
    */
   data: {
     deviceInfo: {},
-    points: []
+    points: new Array()
   },
 
   /**
@@ -18,29 +19,32 @@ Page({
     this.setData({
       deviceInfo: app.globalData.deviceInfo
     })
+    var s = this
+    this.getUserCredits(1, function (points) {
+
+      var totalPoint = 0
+      for (var i = 0; i < points.length; ++i) {
+        totalPoint += points[i].point
+        points[i].time = util.formatTime(new Date(points[i].createtime))
+      }
+      s.setData({
+        points: points,
+        totalpoint: totalPoint        
+      })
+      console.log(points)
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var s = this
-    this.getUserCredits(1, function(points) {
-      console.log(points)
-      var totalPoint = 0
-      for (var i=0; i<points.length; ++i) {
-        totalPoint += points[i].point
-        points[i].time = util.formatTime(new Date(points[i].createtime))
-      }
-      points.totalpoint = totalPoint
-      s.setData({
-        points: points
-      })
-    })
+
   },
   getUserCredits: function(curPage, callback) {
     var s = this
-    var points = this.data.points
+    // var points = this.data.points
+    
     // 获取用户积分详情
     wx.request({
       url: 'https://www.dingdonhuishou.com/AHS/api/userpoints/list?currentPage=' + curPage,
@@ -50,24 +54,21 @@ Page({
 
         if (res['data']['isSuccess'] == 'TRUE') {
 
-          if (i > 1) {
+          if (m > 1) {
             //有下一页
-            points.concat(res['data']['data']['list'])
+            s.points.concat(res['data']['data']['list'])
           } else {
             //没有下一页
-            points = res['data']['data']['list']
+            s.points = res['data']['data']['list']
           }
-          s.setData({
-            points: points
-          })
 
           if (res['data']['data']['hasMore'] == true) {
             // 有下一页
-            s.getUserCredits(++i)
+            s.getUserCredits(++m)
             return
           }
           if (typeof(callback) == 'function') {
-            callback(points)
+            callback(s.points)
           }
         }
       },

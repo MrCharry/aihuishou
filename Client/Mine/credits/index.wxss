@@ -1,4 +1,10 @@
 /* Mine/credits/index.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .curCreditZoom {
   width: 100%;
   box-sizing: border-box;
@@ -7,27 +13,63 @@
   flex-direction: column;
   padding-top: 30rpx;
 }
+
 .curCreditZoom .curCredit {
   padding-top: 40rpx;
   text-align: center;
 }
+
 .curCreditZoom text {
   color: white;
 }
+
 .curCredit {
-    font-size: xx-large;
+  font-size: xx-large;
 }
+
 .creditRecordZoom {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   box-sizing: border-box;
-  background-color: whitesmoke;
 }
+
 .item {
   border-bottom: 1px solid gainsboro;
   padding: 20rpx;
   display: flex;
   flex-direction: column;
+  margin-top: 20rpx;
+  background-color: #f6f6f6;
 }
+
+.item .row1 {
+  display: flex;
+  align-items: center;
+}
+
+.item .row1 label {
+  white-space: nowrap;
+  font-size: 32rpx;
+}
+
+.item .row1 text {
+  color: #a0a0a0;
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+
+.item .point {
+  font-size: 30rpx;
+  margin-top: 20rpx;
+}
+
+.item .time {
+  margin-top: 20rpx;
+  color: #a0a0a0;
+  font-size: 24rpx;
+}
+
 .noCredit {
   padding-top: 60rpx;
   text-align: center;

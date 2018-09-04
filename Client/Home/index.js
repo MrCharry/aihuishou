@@ -225,7 +225,7 @@ Page({
               longitude: res.longitude,
               callout: {
                 content: '当前位置',
-                fontSize: 10,
+                fontSize: 20,
                 borderRadius: 10,
                 bgColor: "#fff",
                 padding: 10,
@@ -237,7 +237,7 @@ Page({
             circles: [{
               latitude: res.latitude,
               longitude: res.longitude,
-              radius: 1000,
+              radius: 2000,
               fillColor: '#f2f2f2AA',
               color: '#2e84d4AA'
             }]
@@ -264,7 +264,7 @@ Page({
                     longitude: merchant.lng,
                     callout: {
                       content: merchant.name + '\n' + '预约',
-                      fontSize: 10,
+                      fontSize: 20,
                       borderRadius: 10,
                       bgColor: "#2dbea7",
                       padding: 10,
@@ -273,10 +273,11 @@ Page({
                     }
                   })
                 }
+                s.curadcode = adcode
+                s.curdist = res['data']['result']['addressComponent']['district']
                 s.setData({
                   markers: markers,
                   merchants: merchants,
-                  adcode: adcode,
                   region: [
                     res['data']['result']['addressComponent']['province'],
                     res['data']['result']['addressComponent']['city'],
@@ -303,7 +304,7 @@ Page({
           longitude: location.lng,
           callout: {
             content: '当前位置',
-            fontSize: 10,
+            fontSize: 20,
             borderRadius: 10,
             bgColor: "#fff",
             padding: 10,
@@ -314,13 +315,13 @@ Page({
         circles: [{
           latitude: location.lat,
           longitude: location.lng,
-          radius: 1000,
+          radius: 2000,
           fillColor: '#f2f2f2AA',
           color: '#2e84d4AA'
         }]
       })
 
-      //获取当前经纬度的行政区划代码
+      //获取选择区域的行政区划代码
       var ak = app.globalData.ak
       var location = s.data.curLocation
       var markers = s.data.markers
@@ -342,7 +343,7 @@ Page({
                 longitude: merchant.lng,
                 callout: {
                   content: merchant.name + '\n' + '预约',
-                  fontSize: 10,
+                  fontSize: 20,
                   borderRadius: 10,
                   bgColor: "#2dbea7",
                   padding: 10,
@@ -351,8 +352,9 @@ Page({
                 }
               })
             }
+            s.selectedadcode = adcode
+            s.selecteddist = res['data']['result']['addressComponent']['district']
             s.setData({
-              adcode: adcode,
               markers: markers,
               merchants: merchants,
               region: [
@@ -414,7 +416,7 @@ Page({
     this.issueOrder('book')
   },
   issueOrder: function (tag) {
-    var adcode = this.data.adcode
+
     app.adjustEOpacity(this)
     if (!app.globalData.loginStatus) {
       wx.showModal({
@@ -434,9 +436,18 @@ Page({
       })
       return
     }
-    // app.globalData.adcode = adcode
     let bookmerchantid = this.data.bookmerchantid
-    let url = tag == 'book' ? '/pages/orderIssue/index?adcode='+adcode+'&tag='+tag+'&bookmerchantid='+bookmerchantid: '/pages/orderIssue/index?adcode='+adcode
+    let adcode = this.selectedadcode ? this.selectedadcode:this.curadcode
+    let dist = this.selecteddist ? this.selecteddist:this.curdist
+    var url = ''
+    if (tag == 'book') {
+      url = '/pages/orderIssue/index?adcode=' + adcode + '&tag=' + tag + '&bookmerchantid=' + bookmerchantid + '&dist='+dist
+    }else {
+      url = '/pages/orderIssue/index?adcode=' + adcode + '&dist='+dist
+    }
+    this.selectedadcode = ''
+    this.selecteddist = ''
+
     wx.navigateTo({
       url: url,
       success: function () {

@@ -7,7 +7,7 @@
   </view>
 
   <view wx:if='{{notifications.length > 0}}' wx:for='{{notifications}}' wx:key='{{index}}' class='notificationList'>
-    <view class='notificationItem' style='width:{{deviceInfo.windowWidth}}px'>
+    <view class='notificationItem' style='width:{{deviceInfo.windowWidth*0.9}}px'>
       <text class='title'>{{item.title}}</text>
       <text class='content'>{{item.content}}</text>
       <view class='time'>{{item.time}}</view>

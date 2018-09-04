@@ -2,13 +2,19 @@
 <view class='container'>
   <view class='curCreditZoom' style='height:{{deviceInfo.windowHeight*0.2}}px'>
     <text>你现在的总积分为</text>
-    <view class='curCredit'><text>{{points.totalpoint ? points.totalpoint:0}}分</text></view>
+    <view class='curCredit'>
+      <text>{{totalpoint>0 ? totalpoint:0}}分</text>
+    </view>
   </view>
   <view wx:if='{{points.length == 0}}' class='noCredit'>暂无积分纪录</view>
-  <view wx:if='{{points.length > 0}}' class='creditRecordZoom' style='height:{{deviceInfo.windowHeight*0.8}}px' wx:for='{{points}}' wx:key='{{index}}'>
+  <view wx:if='{{points.length > 0}}' class='creditRecordZoom' wx:for='{{points}}' wx:key='{{index}}'>
     <view class='item'>
-      <label>积分+{{item.point}}</label>
-      <label style='font-size:24rpx; padding-top:10rpx;'>获取时间:{{item.date}}</label>
+      <view class='row1'>
+        <label>废品回收</label>
+        <text>废物循环利用，保护环境，从我做起</text>
+      </view>
+      <label class='point'>获得：{{item.point}}积分</label>
+      <label class='time'>{{item.time}}</label>
     </view>
   </view>
 </view>

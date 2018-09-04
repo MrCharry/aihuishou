@@ -78,15 +78,49 @@ Page({
     this.setData({
       deviceInfo: app.globalData.deviceInfo,
       userInfo: app.globalData.userInfo,
-      options: options,
-      addressInfo: app.globalData.addressInfo
+      options: options
     })
   },
   onShow: function () {
 
-    
+
+    // 获取当前默认上门回收地址
     var s = this
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
+      method: 'POST',
+      header: app.globalData.header,
+      success: function (res) {
+        console.log(res)
+        if (res['data']['isSuccess'] == 'TRUE') {
+          s.setData({
+            addressInfo: res['data']['data']
+          })
+
+
+        } else {
+          console.log(res['data']['content'])
+          wx.showModal({
+            title: '提示',
+            content: '请先设置默认收货地址',
+            showCancel: false,
+            confirmText: '去设置',
+            success: function () {
+              wx.navigateTo({
+                url: '/pages/addressList/index'
+              })
+            }
+          })
+          return
+        }
+      },
+      fail: function (error) {
+        console.log(error)
+      }
+    })
+
     let adcode = this.options.adcode
+    let dist = this.options.dist
 
     // 获取当前选择区域的废品回收信息
     wx.request({
@@ -108,6 +142,11 @@ Page({
           })
           return
         }
+        wx.showToast({
+          title: '已为你加载' + dist + '废品信息',
+          icon: 'none'
+        })
+
         var wasteinfo = res['data']['listwaste'][0]['listwastesub']
         var wastetypeinfo = res['data']['listwaste'][0]['wastetypeinfo'].split('<p>').join('').split('</p>').join('')
         var imgWidth = (app.globalData.deviceInfo.windowWidth - 30) / wasteinfo.length - 10
@@ -366,82 +405,96 @@ Page({
             // 当前上门回收地址不属于属于当前所选区域
             // 1.获取当前上门回收地址的废品回收信息
             console.log('当前上门回收地址不属于属于当前所选区域')
-            wx.request({
-              url: 'https://www.dingdonhuishou.com/AHS/api/areawasteprice/list?areamoreid=' + adcode,
-              method: 'POST',
-              header: app.globalData.header,
-              success: function (res) {
-
-                // 2.判断当前上门回收地址所属区域是否在服务范围内
-                if (res['data']['listwaste'].length == 0) {
-                  // 2.1不在服务范围内
-                  wx.showModal({
-                    title: '提示',
-                    content: '当前上门回收地址未查询到相关废品回收信息，点击确定修改地址，点击返回重新选择发单区域',
-                    cancelText: '返回',
-                    success: function (rt) {
-                      if (rt.confirm) {
-                        // 用户点击确定按钮，跳转到地址栏页面
-                        wx.navigateTo({
-                          url: '/pages/addressList/index',
-                        })
-
-                      } else {
-                        // 用户点击取消，返回首页重新选择发单区域
-                        wx.navigateBack()
-                      }
-                    }
+            wx.showModal({
+              title: '提示',
+              content: '暂不支持跨区域下单，点击确定更改地址，点击返回重新选择区域',
+              cancelText: '返回',
+              success: function(rt) {
+                if (rt.confirm) {
+                  wx.navigateTo({
+                    url: '/pages/addressList/index',
                   })
-                } else {
-                  // 2.2在服务范围内
-                  wx.showModal({
-                    title: '提示',
-                    content: '当前上门回收地址废品信息与当前发单区域废品信息不一致，将为您获取当前上门回收地址的废品回收信息',
-                    showCancel: false,
-                    success: function () {
-                      var wasteinfo = res['data']['listwaste'][0]['listwastesub']
-                      var wastetypeinfo = res['data']['listwaste'][0]['wastetypeinfo'].split('<p>').join('').split('</p>').join('')
-                      var imgWidth = (app.globalData.deviceInfo.windowWidth - 30) / wasteinfo.length - 10
-                      for (var i = 0; i < wasteinfo.length; ++i) {
-                        wasteinfo[i]['wasteimg'] = 'https://dingdonhuishou.com/HHSmanager/wasteimg/' + wasteinfo[i]['wasteimg']
-                      }
-
-                      inputData.areawastepriceid = wasteinfo[0]['areawastepriceid']
-                      inputData.category = wasteinfo[0]['wastesubtype']
-                      inputData.price = wasteinfo[0]['price']
-                      s.setData({
-                        wasteinfo: wasteinfo,
-                        wastetypeinfo: wastetypeinfo,
-                        imgWidth: imgWidth,
-                        inputData: inputData
-                      })
-                      wx.showModal({
-                        title: '提示',
-                        content: '获取当前上门回收地址的废品回收信息成功，继续发布吗？',
-                        cancelText: '返回',
-                        success: function(rt) {
-                          if (rt.confirm) {
-                            opt.adcode = adcode
-                            s.setData({
-                              options: opt
-                            })
-                            s.bindReleaseTap()
-                          }else {
-                            opt.adcode = adcode
-                            s.setData({
-                              options: opt
-                            })
-                          }
-                        }
-                      })                
-                    }
-                  })                  
+                }else {
+                  wx.navigateBack()
                 }
-              },
-              fail: function (error) {
-                console.log(error)
               }
             })
+            // wx.request({
+            //   url: 'https://www.dingdonhuishou.com/AHS/api/areawasteprice/list?areamoreid=' + adcode,
+            //   method: 'POST',
+            //   header: app.globalData.header,
+            //   success: function (res) {
+
+            //     // 2.判断当前上门回收地址所属区域是否在服务范围内
+            //     if (res['data']['listwaste'].length == 0) {
+            //       // 2.1不在服务范围内
+            //       wx.showModal({
+            //         title: '提示',
+            //         content: '当前上门回收地址未查询到相关废品回收信息，点击确定修改地址，点击返回重新选择发单区域',
+            //         cancelText: '返回',
+            //         success: function (rt) {
+            //           if (rt.confirm) {
+            //             // 用户点击确定按钮，跳转到地址栏页面
+            //             wx.navigateTo({
+            //               url: '/pages/addressList/index',
+            //             })
+
+            //           } else {
+            //             // 用户点击取消，返回首页重新选择发单区域
+            //             wx.navigateBack()
+            //           }
+            //         }
+            //       })
+            //     } else {
+            //       // 2.2在服务范围内
+            //       wx.showModal({
+            //         title: '提示',
+            //         content: '当前上门回收地址废品信息与当前发单区域废品信息不一致，将为您获取当前上门回收地址的废品回收信息',
+            //         showCancel: false,
+            //         success: function () {
+            //           var wasteinfo = res['data']['listwaste'][0]['listwastesub']
+            //           var wastetypeinfo = res['data']['listwaste'][0]['wastetypeinfo'].split('<p>').join('').split('</p>').join('')
+            //           var imgWidth = (app.globalData.deviceInfo.windowWidth - 30) / wasteinfo.length - 10
+            //           for (var i = 0; i < wasteinfo.length; ++i) {
+            //             wasteinfo[i]['wasteimg'] = 'https://dingdonhuishou.com/HHSmanager/wasteimg/' + wasteinfo[i]['wasteimg']
+            //           }
+
+            //           inputData.areawastepriceid = wasteinfo[0]['areawastepriceid']
+            //           inputData.category = wasteinfo[0]['wastesubtype']
+            //           inputData.price = wasteinfo[0]['price']
+            //           s.setData({
+            //             wasteinfo: wasteinfo,
+            //             wastetypeinfo: wastetypeinfo,
+            //             imgWidth: imgWidth,
+            //             inputData: inputData
+            //           })
+            //           wx.showModal({
+            //             title: '提示',
+            //             content: '获取当前上门回收地址的废品回收信息成功，继续发布吗？',
+            //             cancelText: '返回',
+            //             success: function(rt) {
+            //               if (rt.confirm) {
+            //                 opt.adcode = adcode
+            //                 s.setData({
+            //                   options: opt
+            //                 })
+            //                 s.bindReleaseTap()
+            //               }else {
+            //                 opt.adcode = adcode
+            //                 s.setData({
+            //                   options: opt
+            //                 })
+            //               }
+            //             }
+            //           })                
+            //         }
+            //       })                  
+            //     }
+            //   },
+            //   fail: function (error) {
+            //     console.log(error)
+            //   }
+            // })
           }
         }
 

@@ -38,7 +38,6 @@ Page({
   },
   getUserNotifications: function(curPage, callback) {
 
-    var notifications = this.data.notifications
     var s = this
     // 获取用户消息通知
     wx.request({
@@ -48,13 +47,11 @@ Page({
       success: function(res) {
         if (res['data']['isSuccess'] == 'TRUE') {
           if (m > 1) {
-            notifications.concat(res['data']['data']['list'])
+            s.notifications.concat(res['data']['data']['list'])
           }else {
-            notifications = res['data']['data']['list']
+            s.notifications = res['data']['data']['list']
           }
-          s.setData({
-            notifications: notifications
-          })
+
           if (res['data']['data']['hasMore'] == true) {
             // 有下一页
             s.getUserNotifications(++m)
@@ -62,7 +59,7 @@ Page({
           }
           // 回调函数
           if (typeof(callback) == 'function') {
-            callback(notifications)
+            callback(s.notifications)
           }
         }
       },

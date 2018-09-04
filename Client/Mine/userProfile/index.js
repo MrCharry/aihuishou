@@ -18,40 +18,58 @@ Page({
   
     this.setData({
       userInfo: app.globalData.userInfo,
-      addressInfo: app.globalData.addressInfo,
       defaultGenderPic: '/Resources/images/check.png',
       selectedGenderPic: '/Resources/images/checked.png'
     })
   },
   onShow: function() {
 
-    var addressInfo = app.globalData.addressInfo
+    // 获取当前默认上门回收地址
+    var s = this
     var userInfo = app.globalData.userInfo
-    var simpleAddress = ''
-    this.setData({
-      phoneNumber: userInfo.phonenum.slice(0, 3) + '****' + userInfo.phonenum.slice(7, 11)
+    wx.request({
+      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
+      method: 'POST',
+      header: app.globalData.header,
+      success: function (res) {
+        console.log(res)
+        var simpleAddress = ''
+        if (res['data']['isSuccess'] == 'TRUE') {
+
+          let addressInfo = res['data']['data']
+          if (addressInfo.address.length + addressInfo.detailaddress.length + 1 > 20) {
+
+            simpleAddress = (addressInfo.address + '-' + addressInfo.detailaddress).slice(0, 20) + '...'
+
+          } else {
+            simpleAddress = addressInfo.address + '-' + addressInfo.detailaddress
+          }
+          s.setData({
+            addressInfo: addressInfo            
+          })
+
+        } else {
+          console.log(res['data']['content'])
+
+          if (userInfo.address.length + userInfo.detailaddress.length + 1 > 20) {
+
+            simpleAddress = (userInfo.address + '-' + userInfo.detailaddress).slice(0, 20) + '...'
+
+          } else {
+            simpleAddress = userInfo.address + '-' + userInfo.detailaddress
+          }
+        }
+        s.setData({
+          simpleAddress: simpleAddress
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      }
     })
 
-    if (addressInfo == '') {
-      
-      if (userInfo.address.length + userInfo.detailaddress.length + 1 > 20) {
-       
-        simpleAddress = (userInfo.address + '-' + userInfo.detailaddress).slice(0, 20) + '...'
-
-      }else {
-        simpleAddress = userInfo.address + '-' + userInfo.detailaddress
-      }
-    } else {
-      if (addressInfo.address.length + addressInfo.detailaddress.length + 1 > 20) {
-
-        simpleAddress = (addressInfo.address + '-' + addressInfo.detailaddress).slice(0, 20) + '...'
-
-      } else {
-        simpleAddress = addressInfo.address + '-' + addressInfo.detailaddress
-      }
-    }
     this.setData({
-      simpleAddress: simpleAddress
+      phoneNumber: userInfo.phonenum.slice(0, 3) + '****' + userInfo.phonenum.slice(7, 11)
     })
   },
   bindUpdatePortrait: function(e) {

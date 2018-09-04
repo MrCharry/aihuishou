@@ -31,7 +31,7 @@
         <text>输入提现金额</text>
         <view class='amount'>
           <image src='/Resources/images/rmb.png' mode='aspectFit' />
-          <input type='number' bindinput='bindInput' />
+          <input type='number' bindinput='bindInput' focus='{{focus}}'/>
         </view>
         <view class='withdrowBtn' bindtap='bindWithdrowMoney' hover-class='hover'>提现</view>
       </view>

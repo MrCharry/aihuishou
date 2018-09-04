@@ -41,7 +41,6 @@ Page({
     wx.showActionSheet({
       itemList: [
         '提现到微信',
-        '提现到支付宝',
         '提现到银行卡'        
       ],
       success: function(res) {
@@ -49,6 +48,7 @@ Page({
         s.paymethod = res.tapIndex
         s.setData({
           showModal: true,
+          focus: true
         })
       }
     })
@@ -67,8 +67,8 @@ Page({
     })
   },
   bindWithdrowMoney: function(e) {
-
-    if (this.data.userInfo.paypassword == '') {
+    let userInfo = this.data.userInfo
+    if (userInfo.paypassword == '') {
       wx.showModal({
         title: '提示',
         content: '请先设置支付密码',
@@ -82,13 +82,24 @@ Page({
       })
       return
     }
+    var s = this
+    if (s.data.bill > userInfo.balance) {
+      wx.showToast({
+        title: '可提现金额必须不大于可提现余额',
+        icon: 'none',
+        success: function() {
+          s.setData({
+            focus: true
+          })
+        }
+      })
+      return
+    }
     var  s = this
     var paylogo = ''
     if (s.paymethod == 0) {
       paylogo = '/Resources/images/weixin.png'
     }else if (s.paymethod == 1) {
-      paylogo = '/Resources/images/alipay.png'
-    }else if (s.paymethod == 2) {
       paylogo = '/Resources/images/card.png'
     }
     s.setData({
@@ -122,17 +133,15 @@ Page({
     console.log(paymethod, bill, password)
 
     var s = this
-    var paylogo = ''
-    if (paymethod == 0) {
-      paylogo = '/Resources/images/weixin.png'
-    } else if (paymethod == 1) {
-      paylogo = '/Resources/images/alipay.png'
-    } else if (paymethod == 2) {
-      paylogo = '/Resources/images/card.png'
-    }
-    s.setData({
-      paylogo: paylogo
-    })
+    // var paylogo = ''
+    // if (paymethod == 0) {
+    //   paylogo = '/Resources/images/weixin.png'
+    // } else if (paymethod == 1) {
+    //   paylogo = '/Resources/images/card.png'
+    // }
+    // s.setData({
+    //   paylogo: paylogo
+    // })
     // 支付动画效果
 
     s.setData({

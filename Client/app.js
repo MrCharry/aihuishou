@@ -23,24 +23,6 @@ App({
       this.globalData.userInfo = this.getUserInfo()
       // this.globalData.userInfo = this.getStorageSync('userInfo')
     }
-    // 获取当前默认上门回收地址
-    var s = this
-    wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
-      method: 'POST',
-      header: s.globalData.header,
-      success: function (res) {
-        console.log(res)
-        if (res['data']['isSuccess'] == 'TRUE') {
-          s.globalData.addressInfo = res['data']['data']
-        }else {
-          s.globalData.addressInfo = ''
-        }
-      },
-      fail: function (error) {
-        console.log(error)
-      }
-    })
     
     // 获取小程序更新机制兼容
     if (wx.canIUse('getUpdateManager')) {
@@ -318,8 +300,9 @@ App({
     }, 1000)
   },
   iflegalphone: function(that) {
-    var pattern = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
-    var phonenum = that.data.inputData.phonenum == undefined ? '' : that.data.inputData.phonenum
+    // var pattern = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+    let pattern = /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$/
+    let phonenum = that.data.inputData.phonenum == undefined ? '' : that.data.inputData.phonenum
 
     if (phonenum.length == 0) {
       wx.showToast({
