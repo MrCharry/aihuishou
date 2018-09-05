@@ -56,7 +56,7 @@ Page({
     var view = this.data.view
     app.adjustDOpacity(this)
     wx.navigateTo({
-      url: '/Mine/orders/index',
+      url: '/Mine/recyclingRecord/index',
       success: function () {
         wx.setNavigationBarTitle({
           title: '回收记录',
@@ -169,7 +169,7 @@ Page({
       return
     }
     // 判断验证码是否合法
-    if (app.ifEmptyInput(this, this.code)) {
+    if (app.ifEmptyInput(this, this.code, 'code')) {
       return
     }
     wx.request({

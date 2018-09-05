@@ -95,7 +95,18 @@ Page({
       })
       return
     }
-    var  s = this
+    if (s.data.bill == 0) {
+      wx.showToast({
+        title: '请输入大于0的金额',
+        icon: 'none',
+        success: function () {
+          s.setData({
+            focus: true
+          })
+        }
+      })
+      return
+    }
     var paylogo = ''
     if (s.paymethod == 0) {
       paylogo = '/Resources/images/weixin.png'

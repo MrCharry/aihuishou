@@ -90,6 +90,7 @@
 }
 .left .row3 text {
   font-size: 28rpx;
+  color: #a0a0a0;
 }
 .left .row3 label {
   margin-left: 30rpx;

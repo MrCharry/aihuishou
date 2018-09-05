@@ -39,4 +39,5 @@
   padding-bottom: 10rpx;
   text-align: right;
   margin-right: 20rpx;
+  color: #a0a0a0;
 }

@@ -3,7 +3,7 @@
     "Home/index",
     "Mine/index",
     "Mine/credits/index",
-    "Mine/orders/index",
+    "Mine/recyclingRecord/index",
     "Mine/wallets/index",
     "Mine/notification/index",
     "Mine/feedback/index",
@@ -27,6 +27,13 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#2dbea7",
     "navigationBarTitleText": "慧回收用户首页",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle":"white",
+    "onReachBottomDistance": 50
+  },
+  "networkTimeout": {
+    "request": 20000,
+    "connectSocket": 20000,
+    "uploadFile": 20000,
+    "downloadFile": 20000
   }
 }

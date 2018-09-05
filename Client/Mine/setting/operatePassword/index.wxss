@@ -22,7 +22,8 @@
 .row {
   display: flex;
   align-items: center;
-  padding-top: 30rpx;
+  margin-top: 30rpx;
+  justify-content: space-between;
 }
 
 .row input {
@@ -32,16 +33,11 @@
 }
 
 .getCodeLabel {
-  background-color: #2dbea7;
-  height: 70rpx;
-  color: #fff;
   margin-left: 20rpx;
-  white-space: nowrap;
-  border-radius: 10rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 28rpx;
+  background-color: #2dbea7;
+  color: #fff;
+  white-space: nowrap;
 }
 
 .confirmBtn {

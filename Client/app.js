@@ -389,7 +389,7 @@ App({
     return true;
   },
   ifEmptyInput: function(that, val, tag) {
-    let warning = (tag=='code' ? '请输入验证码':'请输入旧密码')
+    let warning = (tag=='code' ? '请输入验证码':'请输入密码')
     if (val == undefined) {
       wx.showToast({
         title: warning,

@@ -38,7 +38,7 @@ Page({
   clickOrder: function (e) {
     app.adjustBOpacity(this)
     wx.navigateTo({
-      url: '/Mine/orders/index',
+      url: '/Mine/recyclingRecord/index',
       success: function () {
         wx.setNavigationBarTitle({
           title: '回收记录',

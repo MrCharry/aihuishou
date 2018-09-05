@@ -1,0 +1,15 @@
+<!--Mine/orders/index.wxml-->
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+  <view class='noRecord' wx:if='{{records.length == 0}}'>
+    <image src='/Resources/images/norecycle.png' mode='aspectFit' />
+    <text>暂无回收记录</text>
+  </view>
+  <view wx:if='{{records.length > 0}}' wx:for='{{records}}' wx:key='{{index}}' class='list'>
+    <view class='item'>
+      <label>地址:{{item.detailaddress}}</label>
+      <text>订单号:{{item.inpayid}}</text>
+      <text>收到:{{item.pay}}元</text>
+      <text class='time'>{{item.inpayidtime}}</text>
+    </view>
+  </view>
+</view>
