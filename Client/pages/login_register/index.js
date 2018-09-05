@@ -39,18 +39,7 @@ Page({
     })
   },
   iflegalphone: function (e) {
-
-    var phonenum = this.data.inputData.phonenum
-    if (!app.iflegalphone(this)) {
-      this.setData({
-        focus: true
-      })
-    } else {
-      this.setData({
-        focus: false
-      })
-    }
-
+    app.iflegalphone(this)
   },
   getVerifiedCode: function (e) {
     app.getVerifiedCode(this)
@@ -62,6 +51,7 @@ Page({
     var header = app.globalData.header
     var self = this
     app.adjustBOpacity(this)
+
     if (view.rightLabelText == '验证码登录') {
       //当前为密码登录模式
       var password = this.data.inputData.password
@@ -128,12 +118,17 @@ Page({
       })
     } else if (view.rightLabelText == '密码登录') {
       //当前为验证码登录模式
-      var verifiedCode = this.data.inputData.verifiedCode
+      this.code = this.data.inputData.verifiedCode
+      // 判断验证码是否为空
+      if (app.ifEmptyInput(this)) {
+        return
+      }
+      
       wx.request({
         url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
         data: {
           phonenum: phonenum,
-          code: verifiedCode
+          code: self.code
         },
         method: 'POST',
         header: header,
@@ -273,7 +268,7 @@ Page({
     app.adjustCOpacity(this)
     if (view.leftLabelText == '忘记密码') {
       wx.navigateTo({
-        url: '/Mine/setting/modifyPassword/index?rowlabel=输入手机号&placeholder=输入手机号&name=phonenum',
+        url: '/Mine/setting/modifyPassword/index?tag=' + 'forget',
         success: function (e) {
           wx.setNavigationBarTitle({
             title: '设置',

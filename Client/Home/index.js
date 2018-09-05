@@ -147,15 +147,18 @@ Page({
   clickLogin: function (e) {
 
     var phonenum = this.data.inputData.phonenum
-    var verifiedCode = this.data.inputData.verifiedCode
+    this.code = this.data.inputData.verifiedCode
     var self = this
     var header = app.globalData.header
-    console.log(header)
+    // 判断验证码是否为空
+    if (app.ifEmptyInput(this)) {
+      return
+    }
     wx.request({
       url: 'https://www.dingdonhuishou.com/AHS/api/user/login',
       data: {
         phonenum: phonenum,
-        code: verifiedCode
+        code: self.code
       },
       method: 'POST',
       header: header,

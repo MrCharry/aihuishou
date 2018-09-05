@@ -2,11 +2,11 @@
 <view class='container' style='height:{{deviceInfo.windowHeight}}px'>
   <view class='versionNumber'><text>版本：V1.0.0</text></view>
   <view class='operationZoom'>
-    <view bindtap='modifyPassword' style='opacity:{{view.aOpacity}}'>
+    <view bindtap='operatePassword' hover-class='hover'>
       <text>修改登录密码</text>
       <image src='/Resources/images/arrowRight.png'/>
     </view>
-    <view bindtap='bindPaypasswordTap' style='opacity:{{view.bOpacity}}'>
+    <view bindtap='bindPaypasswordTap' hover-class='hover'>
       <text>设置支付密码</text>
       <image src='/Resources/images/arrowRight.png'/>
     </view>

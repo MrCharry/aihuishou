@@ -301,19 +301,29 @@ App({
   },
   iflegalphone: function(that) {
     // var pattern = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
-    let pattern = /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$/
-    let phonenum = that.data.inputData.phonenum == undefined ? '' : that.data.inputData.phonenum
+    var pattern = /^(13[0-9]|14[5,7]|15[0-3,5-9]|17[0,3,5-8]|18[0-9]|166|198|199|147)\d{8}$/
+    var phonenum = that.data.inputData.phonenum == undefined ? '' : that.data.inputData.phonenum
 
     if (phonenum.length == 0) {
       wx.showToast({
         title: '手机号为空',
-        image: '/Resources/images/error.png'
+        image: '/Resources/images/error.png',
+        success: function() {
+          that.setData({
+            focus: true
+          })
+        }
       })
       return false;
     } else if (!pattern.test(phonenum)) {
       wx.showToast({
-        title: '手机号有误！',
-        image: '/Resources/images/error.png'
+        title: '手机号有误',
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus: true
+          })
+        }
       })
       return false;
     }else {
@@ -328,7 +338,12 @@ App({
     if (newPassword.length < 6 || newPassword.length > 18) {
       wx.showToast({
         title: '密码过短或过长',
-        image: '/Resources/images/error.png'
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus1: true
+          })
+        }
       })
       return false;
     }
@@ -346,10 +361,42 @@ App({
     if (i == newPassword.length - 1 || j == newPassword.length - 1) {
       wx.showToast({
         title: '连续的字符',
-        image: '/Resources/images/error.png'
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus1: true
+          })
+        }
       })
       return false;
     }
     return true;
   },
+  ifEmptyInput: function(that) {
+    var code = that.code
+    if (code == undefined) {
+      wx.showToast({
+        title: '请输入验证码',
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus2: true
+          })
+        }
+      })
+      return true
+    }
+    if (/^[ ]+$/.test(code)) {
+      wx.showToast({
+        title: '请不要输入空格',
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus2: true
+          })
+        }
+      })
+      return true
+    }
+  }
 })

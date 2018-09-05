@@ -41,6 +41,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 28rpx;
 }
 
 .confirmBtn {
@@ -51,4 +52,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.forget {
+  margin-top: 20rpx;
+  text-align: right;
+  color: rgb(44, 158, 235);
+  font-size: 28rpx;
 }

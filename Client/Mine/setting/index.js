@@ -6,8 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    deviceInfo: {},
-    view: {}
+ 
   },
 
   /**
@@ -18,19 +17,19 @@ Page({
       deviceInfo: app.globalData.deviceInfo
     })
   },
-  modifyPassword: function(e) {
-    app.adjustAOpacity(this)
+  operatePassword: function(e) {
+    
     wx.navigateTo({
-      url: '/Mine/setting/modifyPassword/index?rowlabel=输入旧密码&placeholder=输入原密码&name=oldPassword&ifpassword=TRUE',
+      url: '/Mine/setting/operatePassword/index?tag=' + 'modify',
       success: function() {
         wx.setNavigationBarTitle({
-          title: '设置',
+          title: '修改密码',
         })
       }
     })
   },
   bindPaypasswordTap: function(e) {
-    app.adjustBOpacity(this)
+    
     var tag = ''
     if (app.globalData.userInfo.paypassword == '') {
       tag = 'new'
@@ -71,10 +70,7 @@ Page({
             }
           })
 
-        }else if (res['cancel'] == true) {
-
         }
-
       },
       fail: function(error) {
         console.log(error)

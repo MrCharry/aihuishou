@@ -8,7 +8,7 @@
     "Mine/notification/index",
     "Mine/feedback/index",
     "Mine/setting/index",
-    "Mine/setting/modifyPassword/index",
+    "Mine/setting/operatePassword/index",
     "Mine/setting/paypassword/index",
     "Mine/userProfile/index",
     "Component/paySix/index",
