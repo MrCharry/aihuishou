@@ -39,10 +39,25 @@ Page({
     })
   },
   iflegalphone: function (e) {
-    app.iflegalphone(this)
+    app.iflegalphone(this, this.data.inputData.phonenum)
   },
   getVerifiedCode: function (e) {
-    app.getVerifiedCode(this)
+
+    let phonenum = this.data.inputData.phonenum
+
+    if (phonenum == undefined) {
+      wx.showModal({
+        title: '请输入手机号',
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus: true
+          })
+        }
+      })
+      return
+    }
+    app.getVerifiedCode(this, phonenum)
   },
   clickLogin: function (e) {
 
@@ -55,7 +70,10 @@ Page({
     if (view.rightLabelText == '验证码登录') {
       //当前为密码登录模式
       var password = this.data.inputData.password
-      console.log(password)
+      // 判断旧密码是否为空
+      if (app.ifEmptyInput(this, password, 'password')) {
+        return
+      }
       wx.request({
         url: 'https://www.dingdonhuishou.com/AHS/api/user/loginbypassword',
         data: {
@@ -120,7 +138,7 @@ Page({
       //当前为验证码登录模式
       this.code = this.data.inputData.verifiedCode
       // 判断验证码是否为空
-      if (app.ifEmptyInput(this)) {
+      if (app.ifEmptyInput(this, this.code)) {
         return
       }
       

@@ -139,10 +139,24 @@ Page({
     })
   },
   getVerifiedCode: function (e) {
-    app.getVerifiedCode(this)
+    let phonenum = this.data.inputData.phonenum
+
+    if (phonenum == undefined) {
+      wx.showModal({
+        title: '请输入手机号',
+        image: '/Resources/images/error.png',
+        success: function () {
+          that.setData({
+            focus: true
+          })
+        }
+      })
+      return
+    }
+    app.getVerifiedCode(this, phonenum)
   },
   iflegalphone: function (e) {
-    app.iflegalphone(this)
+    app.iflegalphone(this, this.data.inputData.phonenum)
   },
   clickLogin: function (e) {
 
@@ -150,8 +164,12 @@ Page({
     this.code = this.data.inputData.verifiedCode
     var self = this
     var header = app.globalData.header
-    // 判断验证码是否为空
-    if (app.ifEmptyInput(this)) {
+    // 判断手机号码是否合法
+    if (!app.iflegalphone(this, phonenum)) {
+      return
+    }
+    // 判断验证码是否合法
+    if (app.ifEmptyInput(this, this.code)) {
       return
     }
     wx.request({

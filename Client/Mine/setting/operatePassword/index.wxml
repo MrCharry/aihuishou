@@ -3,19 +3,19 @@
   <view class='content'>
     <view class='row'>
       <label>{{opt.tag=='modify' ? '输入旧密码':'输入手机号'}}</label>
-      <input id='{{opt.tag=="modify" ?"phonenum":"oldpassword"}}' bindinput='bindInputTap' bindblur='iflegalphone' focus='{{focus}}' type='{{opt.tag=="modify" ? "text":"number"}}' placeholder='{{opt.tag=="modify" ? "输入原密码":"输入手机号"}}' placeholder-style='font-size:28rpx;' password='{{opt.tag=="modify" ? true:false}}'
+      <input id='{{opt.tag=="forget" ?"phonenum":"oldpassword"}}' bindinput='bindInputTap' bindblur='iflegalphone' focus='{{focus}}' type='{{opt.tag=="modify" ? "text":"number"}}' placeholder='{{opt.tag=="modify" ? "输入原密码":"输入手机号"}}' placeholder-style='font-size:28rpx;' password='{{opt.tag=="modify" ? true:false}}'
         style='width: 100%;' />
     </view>
     <view class='row'>
       <label>输入新密码</label>
-      <input id='newpassword' bindinput='bindInputTap' bindblur='iflegalpassword' focus='{{focus1}}' placeholder='输入6~18位数的新密码' placeholder-style='font-size:28rpx;' password='true' style='width: 100%;' />
+      <input id='newpassword' bindinput='bindInputTap' bindblur='iflegalpassword' focus='{{focus1}}' value='{{passwordval}}' placeholder='输入6~18位数的新密码' placeholder-style='font-size:28rpx;' password='true' style='width: 100%;' />
     </view>
     <view class='row'>
       <label>输入验证码</label>
-      <input id='code' bindinput='bindInputTap' focus='{{focus2}}' type='number' />
+      <input id='code' bindinput='bindInputTap' focus='{{focus2}}' value='{{code}}' type='number' />
       <button bindtap='getVerifiedCode' class='getCodeLabel' disabled='{{disabled}}'>{{time ? time:'获取验证码'}}</button>
     </view>
-    <label class='confirmBtn' bindtap='confirm'>确认修改</label>
-    <view class='forget'>忘记密码</view>
+    <label class='confirmBtn' bindtap='bindConfirmTap'>确认修改</label>
+    <view class='forget' bindtap='bindForgetTap'>忘记密码</view>
   </view>
 </view>

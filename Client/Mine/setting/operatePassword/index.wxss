@@ -56,6 +56,6 @@
 .forget {
   margin-top: 20rpx;
   text-align: right;
-  color: rgb(44, 158, 235);
+  color: #2dbea7;
   font-size: 28rpx;
 }

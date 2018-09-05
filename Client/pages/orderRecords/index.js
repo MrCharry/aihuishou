@@ -45,7 +45,7 @@ Page({
         if (res['data']['isSuccess'] == 'TRUE') {
           s.addressInfo = res['data']['data']          
          
-          s.waitForComment = wx.getStorageSync('waitForComment') ? wx.getStorageSync('waitForComment') : []
+          s.waitForComment = wx.getStorageSync('waitForComment'+app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment') : []
           console.log('waitForComment', s.waitForComment)
           // 获取未完成订单
           s.getUserOperatableOrders(1, function (operatableOrderList) {
@@ -236,7 +236,7 @@ Page({
     })
   },
   getUserOperatabledOrders: function(curPage, callback) {
-    
+
     var s = this
     var addressInfo = s.addressInfo
 
@@ -329,7 +329,7 @@ Page({
           if (btnText == '确认收款') {
             list[index].btnText = '待评论'
             s.waitForComment.push(list[index].id)
-            wx.setStorageSync('waitForComment', s.waitForComment)
+            wx.setStorageSync('waitForComment'+app.globalData.userInfo.id, s.waitForComment)
             s.setData({
               operatableOrderList: list
             })
