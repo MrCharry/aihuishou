@@ -1,14 +1,17 @@
 /* pages/modifyPhone/index.wxss */
+
 label {
   white-space: nowrap;
 }
+
 .form input {
   width: 100%;
   border: 1px solid #2dbea7;
-  height: 80rpx;
   margin-left: 20rpx;
   border-radius: 10rpx;
+  height: 70rpx;
 }
+
 .form {
   padding-top: 60rpx;
   padding-left: 30rpx;
@@ -16,38 +19,31 @@ label {
   display: flex;
   flex-direction: column;
 }
+
 .row {
   margin-top: 30rpx;
   display: flex;
-  height: 80rpx;
   align-items: center;
   margin-bottom: 30rpx;
   justify-content: space-between;
 }
-.row .btn {
-  white-space: nowrap;
+.row .btn button {
   background-color: #2dbea7;
   color: #fff;
-  height: 80rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 10rpx;
-  padding-right: 10rpx;
-  border-radius: 10rpx;
+  font-size: 28rpx;
+  white-space: nowrap;
 }
+
 .code {
   margin-left: 20rpx;
   margin-right: 20rpx;
 }
+
 .countryNumber {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80rpx;
-  width: 120rpx;
+  padding: 10rpx;
   background-color: #2dbea7;
 }
+
 .confirmBtn {
   width: 100%;
   background-color: #2dbea7;

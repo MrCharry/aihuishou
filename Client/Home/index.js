@@ -3,12 +3,9 @@
 const app = getApp()
 Page({
   data: {
-    deviceInfo: {},
     view: {
       showMenu: false
-    },
-    inputData: {},
-    merchants: []
+    }
   },
   onLoad: function () {
 
@@ -128,18 +125,16 @@ Page({
     app.adjustFOpacity(this)
   },
   getInput: function (e) {
-    var inputData = this.data.inputData
+    
     if (e.target.dataset.name == 'phonenum') {
-      inputData.phonenum = e.detail.value
+      this.phonenum = e.detail.value
     } else if (e.target.dataset.name == 'verifiedCode') {
-      inputData.verifiedCode = e.detail.value
+      this.verifiedCode = e.detail.value
     }
-    this.setData({
-      inputData: inputData
-    })
+
   },
   getVerifiedCode: function (e) {
-    let phonenum = this.data.inputData.phonenum
+    let phonenum = this.phonenum
 
     if (phonenum == undefined) {
       wx.showModal({
@@ -156,12 +151,12 @@ Page({
     app.getVerifiedCode(this, phonenum)
   },
   iflegalphone: function (e) {
-    app.iflegalphone(this, this.data.inputData.phonenum)
+    app.iflegalphone(this, this.phonenum)
   },
   clickLogin: function (e) {
 
-    var phonenum = this.data.inputData.phonenum
-    this.code = this.data.inputData.verifiedCode
+    var phonenum =this.phonenum
+    this.code = this.verifiedCode
     var self = this
     var header = app.globalData.header
     // 判断手机号码是否合法
@@ -296,9 +291,9 @@ Page({
                 }
                 s.curadcode = adcode
                 s.curdist = res['data']['result']['addressComponent']['district']
+                s.merchants = merchants
                 s.setData({
                   markers: markers,
-                  merchants: merchants,
                   region: [
                     res['data']['result']['addressComponent']['province'],
                     res['data']['result']['addressComponent']['city'],
@@ -375,9 +370,9 @@ Page({
             }
             s.selectedadcode = adcode
             s.selecteddist = res['data']['result']['addressComponent']['district']
+            s.merchants = merchants
             s.setData({
-              markers: markers,
-              merchants: merchants,
+              markers: markers,             
               region: [
                 res['data']['result']['addressComponent']['province'],
                 res['data']['result']['addressComponent']['city'],
@@ -392,7 +387,7 @@ Page({
   },
   getnearmerchants: function (adcode, i, callback) {
 
-    var merchants = this.data.merchants
+    var merchants = this.merchants
     var location = this.data.curLocation
     var s = this
 

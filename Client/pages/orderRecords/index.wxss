@@ -12,7 +12,7 @@
   position: fixed;
   height: 80rpx;
   line-height: 80rpx;
-  width: 50%;
+  width: 49.5%;
   text-align: center;
   background-color: whitesmoke;
   border-right: 1px solid #fff;
@@ -23,7 +23,7 @@
   height: 80rpx;
   line-height: 80rpx;
   left: 50%;
-  width: 50%;
+  width: 49.5%;
   text-align: center;
   background-color: whitesmoke;
 }

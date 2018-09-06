@@ -4,23 +4,23 @@
     <label>请输入当前绑定号码{{userInfo.phonenum}}</label>
     <view class='row'>
       <label class='countryNumber'>+86</label>
-      <input id='oldnum' type='number' bindinput='getInput' value='{{inputData.oldnum}}'/>
+      <input id='oldnum' type='number' bindinput='getInput' bindblur='bindblurTap'/>
     </view>
     <view class='row'>
       <label>输入验证码</label>
-      <input id='oldcode' type='number' class='code' bindinput='getInput' value='{{inputData.oldcode}}'/>
-      <label class='btn' id='oldcode' bindtap='getVerifiedCode' style='opacity:{{view.aOpacity}}'>获取验证码</label>
+      <input id='oldcode' type='number' class='code' bindinput='getInput' />
+      <view class='btn'><button id='oldcode' bindtap='getVerifiedCode' hover-class='hover'>获取验证码</button></view>
     </view>
     <label style='margin-top: 60rpx;'>输入新的变更号码</label>
     <view class='row'>
       <label class='countryNumber'>+86</label>
-      <input id='newnum' type='number' bindinput='getInput' value='{{inputData.newnum}}'/>
+      <input id='newnum' type='number' bindinput='getInput' bindblur='bindblurTap'/>
     </view>
     <view class='row'>
       <label>输入验证码</label>
-      <input id='newcode' class='code' type='number' bindinput='getInput' value='{{inputData.newcode}}'/>
-      <label class='btn' id='newcode' bindtap='getVerifiedCode' style='opacity:{{view.bOpacity}}'>获取验证码</label>
+      <input id='newcode' class='code' type='number' bindinput='getInput'/>
+      <view class='btn'><button id='newcode' bindtap='getVerifiedCode' hover-class='hover'>获取验证码</button></view>
     </view>
-    <button class='confirmBtn' bindtap='submit' style='opacity:{{view.cOpacity}}'>确认修改</button>
+    <button class='confirmBtn' bindtap='submit' hover-class='hover'>确认修改</button>
   </view>
 </view>

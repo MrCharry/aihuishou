@@ -6,7 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    inputData: {},
     view: {}
   },
 
@@ -25,56 +24,68 @@ Page({
   },
   getInput: function(e) {
     
-    var inputData = this.data.inputData
     var tag = e.currentTarget.id
 
     if (tag == 'oldnum') {
-      inputData.phonenum = e.detail.value
-      inputData.oldnum = e.detail.value
+      this.oldnum = e.detail.value
     } else if (tag == 'newnum') {
-      inputData.phonenum = e.detail.value
-      inputData.newnum = e.detail.value
+      this.newnum = e.detail.value
     }else if (tag == 'oldcode') {
-      inputData.oldcode = e.detail.value
+      this.oldcode = e.detail.value
     }else if (tag == 'newcode') {
-      inputData.newcode = e.detail.value
+      this.newcode = e.detail.value
     }
-    this.setData({
-      inputData: inputData
-    })
-    // console.log(inputData)
+  },
+  bindblurTap: function(e) {
+    if (e.currentTarget.id == 'oldnum') {
+
+      app.iflegalphone(this, this.oldnum)
+     
+    }else if (e.currentTarget.id == 'newnum') {
+
+      app.iflegalphone(this, this.newnum)
+   
+    }
+    
   },
   getVerifiedCode: function(e) {
 
-    var inputData = this.data.inputData
 
     if (e.currentTarget.id == 'oldcode') {
-      // app.adjustAOpacity(this)
-      inputData.phonenum = inputData.oldnum
+
+      app.getVerifiedCode(this, this.oldnum)
 
     }else if (e.currentTarget.id == 'newcode') {
-      inputData.phonenum = inputData.newnum
-      // app.adjustBOpacity(this)
+
+      app.getVerifiedCode(this, this.newnum)
     }
-    this.setData({
-      inputData: inputData
-    })
-    console.log(inputData)
-    // app.getVerifiedCode(this)
+
   },
   submit: function(e) {
 
-    // app.adjustCOpacity(this)
-    var submitText = this.data.inputData
+    // 判断输入是否为空
+    if (e.currentTarget.id == 'oldcode') {
+
+      if (app.ifEmptyInput(this, this.oldcode, 'code')) {
+        return
+      }
+
+    } else if (e.currentTarget.id == 'newcode') {
+
+      if (app.ifEmptyInput(this, this.newcode, 'code')) {
+        return
+      }
+    }
+
     var s = this
-    console.log(submitText)
+    
     wx.request({
       url: 'https://www.dingdonhuishou.com/AHS/api/user/changephonenum',
       data: {
-        oldphonenum: submitText.oldnum,
-        oldcode: submitText.oldcode,
-        newphonenum: submitText.newnum,
-        newcode: submitText.newcode
+        oldphonenum: s.oldnum,
+        oldcode: s.oldcode,
+        newphonenum: s.newnum,
+        newcode: s.newcode
       },
       method: 'POST',
       header: app.globalData.header,
@@ -100,8 +111,8 @@ Page({
             confirmText: '重试',
             confirmColor: '#ff0000',
             success: function() {
-              s.setData({
-                inputData: {}
+              wx.redirectTo({
+                url: '/pages/modifyPhone/index'
               })
             }
           })

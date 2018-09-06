@@ -1,26 +1,23 @@
 <!--pages/orderIssue/index.wxml-->
 <view class='container'>
+
   <view class='top'>
     <view wx:for='{{wasteinfo}}' wx:key='{{index}}'>
-      <!-- <label>{{item['wastesubtype']}}</label> -->
-      <!-- <image id='{{index}}' src="{{item['wasteimg']}}" bindtap='bindImageTap' style='border:{{borderStyle[index]}}; width:{{(deviceInfo.windowWidth-30)/wasteinfo.length-10}}px' /> -->
       <view id='{{index}}' class='wasteimg' bindtap='bindImageTap' style='background: url({{item.wasteimg}}); background-size:{{imgWidth}}px 220rpx; border:{{borderStyle[index]}}; width:{{imgWidth}}px' data-category='{{item.wastesubtype}}' data-price='{{item.price}}'
         data-priceid='{{item.areawastepriceid}}'>
         <text>{{item['wastesubtype']}}</text>
       </view>
     </view>
   </view>
+
   <view class='gap'>
     <text>{{wasteinfo[idx]['wastesubtype']}}类回收价格：{{wasteinfo[idx]['price']}}元</text>
   </view>
-  <view class='middle'>
-    <!-- <text>注意：</text>
-    <text>A级纸类：黄色纸皮、周转箱</text>
-    <text>B类纸类：啤酒纸箱、矿泉水纸箱等</text>
-    <text>低级纸类：鸡蛋托、苹果纸箱、书本、A4纸等</text>
-    <text>完全湿水，有大量油污的不收</text> -->
+
+  <scroll-view scroll-y='true' class='middle'>
     <text>{{wastetypeinfo}}</text>
-  </view>
+  </scroll-view>
+
   <view class='bottom'>
     <view class='row1'>
       <label>预计斤数：</label>
@@ -61,8 +58,9 @@
         <label class='btn' bindtap='bindAddressModify' style='opacity:{{view.aOpacity}};'>修改</label>
       </view>
     </view>
+    <label class='confirmBtn' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.bOpacity}};' bindtap='bindReleaseTap'>确认发布订单</label>
   </view>
-  <label class='confirmBtn' style='width:{{deviceInfo.windowWidth}}px; opacity:{{view.bOpacity}};' bindtap='bindReleaseTap'>确认发布订单</label>
+  
 </view>
 <!-- <view class='container'>
   <view class='top'>

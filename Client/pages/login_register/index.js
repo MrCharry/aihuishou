@@ -13,8 +13,7 @@ Page({
       rightLabelText: "密码登录",
       showOptions: true,
       showRow2: true
-    },
-    inputData: {}
+    }
   },
 
   /**
@@ -26,24 +25,21 @@ Page({
     })
   },
   getInput: function (e) {
-    var inputData = this.data.inputData
+    
     if (e.target.dataset.name == 'phonenum') {
-      inputData.phonenum = e.detail.value
+      this.phonenum = e.detail.value
     } else if (e.target.dataset.name == 'verifiedCode') {
-      inputData.verifiedCode = e.detail.value
+      this.verifiedCode = e.detail.value
     } else if (e.target.dataset.name == 'password') {
-      inputData.password = e.detail.value
+      this.password = e.detail.value
     }
-    this.setData({
-      inputData: inputData
-    })
   },
   iflegalphone: function (e) {
-    app.iflegalphone(this, this.data.inputData.phonenum)
+    app.iflegalphone(this, this.phonenum)
   },
   getVerifiedCode: function (e) {
 
-    let phonenum = this.data.inputData.phonenum
+    let phonenum = this.phonenum
 
     if (phonenum == undefined) {
       wx.showModal({
@@ -62,14 +58,14 @@ Page({
   clickLogin: function (e) {
 
     var view = this.data.view
-    var phonenum = this.data.inputData.phonenum
+    var phonenum = this.phonenum
     var header = app.globalData.header
     var self = this
     app.adjustBOpacity(this)
 
     if (view.rightLabelText == '验证码登录') {
       //当前为密码登录模式
-      var password = this.data.inputData.password
+      var password = this.password
       // 判断旧密码是否为空
       if (app.ifEmptyInput(this, password, 'password')) {
         return
@@ -136,9 +132,9 @@ Page({
       })
     } else if (view.rightLabelText == '密码登录') {
       //当前为验证码登录模式
-      this.code = this.data.inputData.verifiedCode
+      this.code = this.verifiedCode
       // 判断验证码是否为空
-      if (app.ifEmptyInput(this, this.code)) {
+      if (app.ifEmptyInput(this, this.code, 'code')) {
         return
       }
       
@@ -196,8 +192,8 @@ Page({
 
     } else if (view.btnText == '立即注册') {
       //注册页面
-      var password = this.data.inputData.password
-      var verifiedCode = this.data.inputData.verifiedCode
+      var password = this.password
+      var verifiedCode = this.verifiedCode
       wx.request({
         url: 'https://www.dingdonhuishou.com/AHS/api/user/register',
         data: {

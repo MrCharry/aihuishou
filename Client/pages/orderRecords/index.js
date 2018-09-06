@@ -42,7 +42,7 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
-        console.log(res)
+        
         if (res['data']['isSuccess'] == 'TRUE') {
           s.addressInfo = res['data']['data']
 
@@ -221,7 +221,7 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
-        console.log(res)
+        
         // if (n > 1) {
         //   s.operatabledOrderList.concat(res['data']['data'])
         // } else {
