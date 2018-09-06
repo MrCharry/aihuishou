@@ -16,22 +16,14 @@ Page({
    */
   onLoad: function (options) {
     var s = this
-    this.getUserNotifications(1, function (notifications) {
-      
-      for (var i = 0; i < notifications.length; ++i) {
-        notifications[i].time = util.formatTime(new Date(notifications[i].createtime))
-        s.notifications.push(notifications[i])
-      }
-      s.setData({
-        notifications: s.notifications
-      })
-    })
+
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
 
+    wx.startPullDownRefresh()
     this.setData({
       deviceInfo: app.globalData.deviceInfo
     })
@@ -41,29 +33,20 @@ Page({
     var s = this
     // 获取用户消息通知
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/usermsg/list?currentPage=' + curPage + '&page.pageNumber=5',
+      url: 'https://www.dingdonhuishou.com/AHS/api/usermsg/list?currentPage=' + curPage,
       method: 'POST',
       header: app.globalData.header,
       success: function(res) {
         // console.log(res)
         if (res['data']['isSuccess'] == 'TRUE') {
-          // if (m > 1) {
-            // s.notifications.concat(res['data']['data']['list'])
-          // }else {
-          //   s.notifications = res['data']['data']['list']
-          // }
 
           if (res['data']['data']['hasMore'] == true) {
             // 有下一页
-            // s.getUserNotifications(++m)
             s.observer = true
             ++s.count
-            // console.log(s.observer, s.count)
-            // return
           }
           // 回调函数
           if (typeof(callback) == 'function') {
-            // callback(s.notifications)
             callback(res['data']['data']['list'])
           }
         }
@@ -73,21 +56,42 @@ Page({
       }
     })
   },
+  onPullDownRefresh: function(e) {
+    wx.showNavigationBarLoading()
+    var s = this
+    s.count = 1
+    s.observer = false
+    this.getUserNotifications(1, function (notifications) {
+      s.solveNotificationList(notifications)
+    })
+
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
+  },
   onReachBottom: function(e) {
     var s = this
     console.log(s.observer, s.count)
     if (s.observer) {
-      s.getUserNotifications(s.count, function (notifications) {  
-
-        s.observer = false      
-        for (var i = 0; i < notifications.length; ++i) {
-          notifications[i].time = util.formatTime(new Date(notifications[i].createtime))
-          s.notifications.push(notifications[i])
-        }
-        s.setData({
-          notifications: s.notifications
-        })
+      s.observer = false  
+      s.getUserNotifications(s.count, function (notifications) {
+        s.solveNotificationList(notifications)
       })
     }
+  },
+  solveNotificationList: function(list) {
+    var s = this
+
+    for (var i = 0; i < list.length; ++i) {
+      list[i].time = util.formatTime(new Date(list[i].createtime))
+      // s.list.push(list[i])
+    }
+    if (s.notifications.length == 0) {
+      s.notifications = list
+    } else {
+      app.uniqueArr(s.notifications, list)
+    }
+    s.setData({
+      notifications: s.notifications
+    })
   }
 })

@@ -24,7 +24,7 @@
     "pages/logs/logs"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#2dbea7",
     "navigationBarTitleText": "慧回收用户首页",
     "navigationBarTextStyle":"white",

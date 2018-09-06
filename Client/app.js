@@ -416,5 +416,20 @@ App({
       })
       return true
     }
+  },
+  uniqueArr: function (arr1, arr2) {
+    var flag = true
+    for (var i = 0; i < arr2.length; ++i) {
+      for (var j = 0; j < arr1.length; ++j) {
+        if (arr1[j].id == arr2[i].id) {
+          flag = false
+          break
+        }
+        if (j == arr2.length) {
+          arr1.push(arr2[i])
+        }
+      }
+    }
+
   }
 })

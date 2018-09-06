@@ -191,6 +191,21 @@ Page({
                   title: res['data']['content'],
                   icon: 'none',
                   success: function () {
+                    wx.getStorage({
+                      key: 'waitForComment'+app.globalData.userInfo.id,
+                      success: function(res) {
+                        var waitForComment = res['data']
+                        for (var i=0; i<waitForComment.length; ++i) {
+                          if (s.orderid == waitForComment[i]) {
+                            waitForComment.splice(i, 1)
+                          }
+                        }
+                        wx.setStorage({
+                          key: 'waitForComment' + app.globalData.userInfo.id,
+                          data: waitForComment
+                        })
+                      },
+                    })
                     setTimeout(function () {
                       wx.navigateBack()
                     }, 1500)

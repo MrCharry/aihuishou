@@ -12,7 +12,7 @@
   position: fixed;
   height: 80rpx;
   line-height: 80rpx;
-  width: 49.5%;
+  width: 49.8%;
   text-align: center;
   background-color: whitesmoke;
   border-right: 1px solid #fff;
@@ -23,7 +23,7 @@
   height: 80rpx;
   line-height: 80rpx;
   left: 50%;
-  width: 49.5%;
+  width: 49.8%;
   text-align: center;
   background-color: whitesmoke;
 }
@@ -94,6 +94,10 @@
 }
 .left .row3 label {
   margin-left: 30rpx;
+  font-size: 28rpx;
+}
+.left .row3 .bill {
+  color: rgba(175, 175, 10, 0.493);
 }
 .right {
   height: 100%;
@@ -119,6 +123,7 @@
   justify-content: center;
   background-color: #2dbea7;
   color: #fff;
+  
 }
 
 

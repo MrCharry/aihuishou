@@ -27,6 +27,7 @@
           <view class='row3'>
             <text>{{item.createtime}}</text>
             <label id='{{index}}' wx:if='{{item.btnText == "待接单"}}' bindtap='bindDelTap' style='opacity:{{view.cOpacity}}'>取消订单</label>
+            <label wx:if='{{item.btnText == "已完成"}}' class='bill'>金额：{{item.pay}}</label>
           </view>
         </view>
 
