@@ -312,14 +312,13 @@ Page({
             s.setData({
               operatableOrderList: list
             })
-          }
-          let orderid = list[index].id
-          console.log(orderid)
+          }          
 
           if (rt.confirm) {
+            let order = list[index]
             // 进行评论订单操作
             wx.navigateTo({
-              url: '/pages/orderComment/index?orderid=' + orderid,
+              url: '/pages/orderComment/index?orderid='+order.inpayid + '&operatertime='+order.operatertime + '&wasteprice='+order.wasteprice + '&wastename='+order.wastename + '&wasteweight='+order.wasteweight + '&pay='+order.pay,
             })
           }
         }

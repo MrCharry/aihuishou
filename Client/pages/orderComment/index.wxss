@@ -2,15 +2,38 @@
 .container {
   box-sizing: border-box;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #f6f6f6;
+}
+.orderdetail {
+  color: rgba(0, 0, 0, 0.575);
+  display: flex;
+  flex-direction: column;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1px solid gainsboro;
+}
+.orderdetail text {
+  margin-top: 10rpx;
+  font-size: 28rpx;
+}
+.orderdetail .money {
+  color: #efda84;
 }
 .starLine {
   padding-top: 10%;
   display: flex;
 }
-.starAndLabel {
+.starAndLabel {  
   padding-left: 15%;
   display: flex;
   align-items: center;
+}
+.starAndLabel label {
+  white-space: nowrap;
 }
 .starAndLabel image {
   width: 48rpx;
@@ -24,17 +47,34 @@
 }
 .comment-options {
   display: flex;
-  justify-content: space-around;
   font-size: 24rpx;
+  justify-content: space-around;
+  align-items: center;
+}
+.comment-options .row {
+  margin-top: 20rpx;
+}
+.item {
+  color: gray;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  border: 1px solid #a0a0a0;
+  border-radius: 10rpx;
 }
 .detailcomment {
   margin: 30rpx;
   border-top: 1px solid gainsboro;
   border-bottom: 1px solid gainsboro;
 }
+.detailcomment textarea {
+  padding: 20rpx;
+}
 .publish-btn {
-  margin-top: 40rpx;
+  font-size: 28rpx;
   background-color: #2dbea7;
   color: #fff;
   width: 80%;
+  margin-bottom: 20rpx;
 }

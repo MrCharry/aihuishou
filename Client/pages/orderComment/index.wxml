@@ -1,23 +1,39 @@
 <!--pages/orderComment/index.wxml-->
-<view class='container'>
-  <view class='starLine'>
-    <view class='starAndLabel'>
-      <label>服务评价：</label>
-      <view class='star' wx:for="{{[0,1,2,3,4]}}" wx:key='{{index}}'>
-        <image id='{{index}}' src='{{starIcon[index]}}' mode='aspectFit' bindtap='bindStarTap' />
+<view class='container' style='height:{{deviceInfo.windowHeight}}px'>
+
+  <view class='orderdetail'>
+    <text>订单号:{{' '}}{{order.inpayid}}</text>
+    <text>回收日期:{{' '}}{{order.operatertime}}</text>
+    <text>当日废品单价:{{' '}}{{order.wasteprice}}元</text>
+    <text>回收废品数量:{{' '}}{{order.wastename}}{{order.wasteweight}}斤</text>
+    <text class='money'>金额:{{' '}}{{order.pay}}元</text>
+  </view>
+
+  <view class='main'>
+    <view class='starLine'>
+      <view class='starAndLabel'>
+        <label>服务评价：</label>
+        <view class='star' wx:for="{{[0,1,2,3,4]}}" wx:key='{{index}}'>
+          <image id='{{index}}' src='{{starIcon[index]}}' mode='aspectFit' bindtap='bindStarTap' />
+        </view>
+      </view>
+      <label class='starText'>{{starText}}</label>
+    </view>
+    
+    <view class='comment-block'>
+      <view class='comment-options' wx:for='{{list}}' wx:key='name'>
+        <view class='row' wx:for='{{item}}' wx:key='name'>
+          <view id='{{item.id}}' class='item' bindtap='bindSelectTap' hover-class='hover' style='background-color:{{item.bgcolor}}'>
+            {{item.value}}
+          </view>
+        </view>
+      </view>
+
+      <view class='detailcomment'>
+        <textarea bindinput='bindTextareaInput' placeholder='您可以在此输入其他评价' placeholder-style='font-size: 28rpx; color: #a0a0a0;'></textarea>
       </view>
     </view>
-    <label class='starText'>{{starText}}</label>
   </view>
-  <view class='comment-block'>
-    <radio-group class="comment-options" bindchange="bindRadioChange">
-      <label class="radio" wx:for="{{items}}" wx:key='{{index}}'>
-        <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
-      </label>
-    </radio-group>
-    <view class='detailcomment'>
-      <textarea bindinput='bindTextareaInput' placeholder='请输入您对本次服务的评价！' placeholder-style='font-size: 28rpx;'></textarea>
-    </view>
-  </view>
+
   <button class='publish-btn' bindtap='bindCommentTap'>发布评价</button>
 </view>
