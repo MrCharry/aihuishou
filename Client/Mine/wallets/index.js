@@ -83,18 +83,18 @@ Page({
       return
     }
     var s = this
-    if (s.data.bill > userInfo.balance) {
-      wx.showToast({
-        title: '可提现金额必须不大于可提现余额',
-        icon: 'none',
-        success: function() {
-          s.setData({
-            focus: true
-          })
-        }
-      })
-      return
-    }
+    // if (s.data.bill > userInfo.balance) {
+    //   wx.showToast({
+    //     title: '可提现金额必须不大于可提现余额',
+    //     icon: 'none',
+    //     success: function() {
+    //       s.setData({
+    //         focus: true
+    //       })
+    //     }
+    //   })
+    //   return
+    // }
     if (s.data.bill == 0) {
       wx.showToast({
         title: '请输入大于0的金额',

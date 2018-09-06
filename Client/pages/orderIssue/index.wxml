@@ -20,7 +20,7 @@
 
   <view class='bottom'>
     <view class='row1'>
-      <label>预计斤数：</label>
+      <label style='white-space:nowrap;'>预计斤数：</label>
       <view class='rowright'>
         <image src='/Resources/images/minus.png' bindtap='bindMinusTap' />
         <input type='number' bindinput='bindAmountTap' focus='{{focus}}' bindblur='bindAmountBlur' value='{{inputData.amount}}' placeholder='0' placeholder-style='color:#dcdcdc;'/>

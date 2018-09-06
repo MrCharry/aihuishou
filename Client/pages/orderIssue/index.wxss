@@ -61,6 +61,8 @@
 .bottom .row1 .rowright {
   display: flex;
 }
+
+
 .rowright image {
   width: 16rpx;
   height: 16rpx;
