@@ -5,6 +5,7 @@
     "navigationBarTitleText": "Mini Prorgam",
     "backgroundColor": "#eeeeee",
     "backgroundTextStyle": "light",
-    "onReachBottomDistance": 50
+    "onReachBottomDistance": 50,
+    "enablePullDownRefresh": true
   }
 }

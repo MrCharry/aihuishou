@@ -1,5 +1,5 @@
 const app = getApp()
-const util = require('../../utils/util.js')
+var util = require('../../utils/util.js')
 Page({
   data: {
     list: [
@@ -62,15 +62,17 @@ Page({
   selectedOpts: [],
 
   onLoad: function (opt) {
+    
     var starIcon = []
     for (var i = 0; i < 5; ++i) {
       starIcon[i] = '/Resources/images/star_empty.png'
     }
-    opt.operatertime = util.formatTime(new Date(opt.operatertime))
-    opt.pay = parseInt(opt.pay).toFixed(2)
+    opt.operatertime = util.formatTime(new Date(parseInt(opt.operatertime)))
+    opt.pay = parseFloat(opt.pay).toFixed(2)
+    this.orderid = opt.orderid
     this.setData({
       starIcon: starIcon,
-      deviceInfo: app.deviceInfo,
+      deviceInfo: app.globalData.deviceInfo,
       order: opt
     })
   },
@@ -119,6 +121,13 @@ Page({
           if (list[i][j].bgcolor == '#fff') {
             list[i][j].bgcolor = '#43dac0'
             this.selectedOpts.push({ 'x': i, 'y': j })
+          }else if (list[i][j].bgcolor == '#43dac0') {
+            list[i][j].bgcolor = '#fff'
+            for (var k=0; k<this.selectedOpts.length; ++k) {
+              if (this.selectedOpts[k].x==i && this.selectedOpts[k].y==j) {
+                this.selectedOpts.splice(k, 1)
+              }
+            }
           }
         }
       }
@@ -139,6 +148,7 @@ Page({
     let detailcomment = this.data.detailcomment ? this.data.detailcomment : ''
     var comments = ''
     let list = this.data.list
+    let s = this
     // 判断输入是否完成
     if (star == undefined) {
       wx.showToast({
@@ -168,9 +178,9 @@ Page({
           wx.request({
             url: 'https://www.dingdonhuishou.com/AHS/api/userorder/comment',
             data: {
-              orderid: orderid,
+              orderid: s.orderid,
               starnum: star,
-              comment: comment,
+              comment: comments,
               detailcomment: detailcomment
             },
             method: 'POST',

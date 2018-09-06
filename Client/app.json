@@ -28,7 +28,8 @@
     "navigationBarBackgroundColor": "#2dbea7",
     "navigationBarTitleText": "慧回收用户首页",
     "navigationBarTextStyle":"white",
-    "onReachBottomDistance": 50
+    "onReachBottomDistance": 50,
+    "enablePullDownRefresh": true
   },
   "networkTimeout": {
     "request": 20000,

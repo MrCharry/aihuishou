@@ -39,7 +39,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log(options)
     // 检测用户是否设置了默认地址
     if (app.globalData.addressInfo == '') {
       wx.showModal({
@@ -308,7 +308,6 @@ Page({
               let merchantid = opt.bookmerchantid
               let timestamp = s.data.timeSet.date.split('-').join('') + s.data.timeSet.time.split(':').join('')+ '00'
               console.log('主动预约商户上门回收')
-              console.log(timestamp)
               wx.request({
                 url: 'https://www.dingdonhuishou.com/AHS/api/userorder/book/merchant',
                 data: {                
@@ -320,7 +319,7 @@ Page({
                   areawastepriceid: inputData.areawastepriceid,
                   wasteprice: inputData.price,
                   wasteweight: inputData.amount,
-                  recyclingwastestate: 3,
+                  recyclingwastestate: 2,
                   bookingtime: timestamp,
                   areamoreid: adcode
 
@@ -331,7 +330,7 @@ Page({
                   console.log(res)
                   if (res['data']['isSuccess'] == 'TRUE') {
                     wx.showToast({
-                      title: res['data']['content'],
+                      title: '预约成功',
                       success: function() {
                         setTimeout(function () {
                           wx.navigateBack()

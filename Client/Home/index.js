@@ -274,7 +274,7 @@ Page({
                 for (var j = 0; j < merchants.length; ++j) {
                   var merchant = merchants[j]['merchant']
                   markers.push({
-                    id: j+1,
+                    id: j,
                     iconPath: '/Resources/images/location_red.png',
                     latitude: merchant.lat,
                     longitude: merchant.lng,
@@ -353,7 +353,7 @@ Page({
             for (var j = 0; j < merchants.length; ++j) {
               var merchant = merchants[j]['merchant']
               markers.push({
-                id: merchant.id,
+                id: j,
                 iconPath: '/Resources/images/location_red.png',
                 latitude: merchant.lat,
                 longitude: merchant.lng,
@@ -426,9 +426,9 @@ Page({
     })
   },
   callouttap: function (e) {
-    this.setData({
-      bookmerchantid: e.markerId
-    })
+    
+    this.bookmerchantid = this.merchants[e.markerId]['merchant'].id
+    console.log(this.bookmerchantid)
     this.issueOrder('book')
   },
   issueOrder: function (tag) {
@@ -452,7 +452,7 @@ Page({
       })
       return
     }
-    let bookmerchantid = this.data.bookmerchantid
+    let bookmerchantid = this.bookmerchantid
     let adcode = this.selectedadcode ? this.selectedadcode:this.curadcode
     let dist = this.selecteddist ? this.selecteddist:this.curdist
     var url = ''

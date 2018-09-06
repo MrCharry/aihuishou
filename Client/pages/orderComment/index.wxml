@@ -23,7 +23,7 @@
     <view class='comment-block'>
       <view class='comment-options' wx:for='{{list}}' wx:key='name'>
         <view class='row' wx:for='{{item}}' wx:key='name'>
-          <view id='{{item.id}}' class='item' bindtap='bindSelectTap' hover-class='hover' style='background-color:{{item.bgcolor}}'>
+          <view id='{{item.id}}' class='item' bindtap='bindSelectTap' hover-class='hover' hover-stay-time='200' style='background-color:{{item.bgcolor}}'>
             {{item.value}}
           </view>
         </view>

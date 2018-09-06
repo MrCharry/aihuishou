@@ -25,7 +25,7 @@ Page({
       var totalPoint = 0
       for (var i = 0; i < points.length; ++i) {
         totalPoint += points[i].point
-        points[i].time = util.formatTime(new Date(points[i].createtime))
+        // points[i].time = util.formatTime(new Date(points[i].createtime))
       }
       s.setData({
         points: points,

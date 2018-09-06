@@ -11,7 +11,7 @@
   </view>
 
   <block wx:if="{{!view.showLoginModel}}">
-    <map class='map' id='map' longitude='{{curLocation.longitude}}' latitude='{{curLocation.latitude}}' markers='{{markers}}' bindcallouttap='callouttap' show-location='true' circles='{{circles}}' scale='14' style='height:{{deviceInfo.windowHeight-40}}px; top:80rpx; width:{{deviceInfo.windowWidth}}px;'>
+    <map class='map' longitude='{{curLocation.longitude}}' latitude='{{curLocation.latitude}}' markers='{{markers}}' bindcallouttap='callouttap' show-location='true' circles='{{circles}}' scale='14' style='height:{{deviceInfo.windowHeight-40}}px; top:80rpx; width:{{deviceInfo.windowWidth}}px;'>
       <cover-view class='topTitle'>
         <cover-view>废品回收</cover-view>
       </cover-view>

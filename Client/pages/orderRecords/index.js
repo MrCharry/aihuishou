@@ -19,6 +19,7 @@ Page({
   count2: 1,
   operatableOrderList: [],
   operatabledOrderList: [],
+  waitForComment: [],
   // swipeCheckX: 35, //激活检测滑动的阈值
   // swipeCheckState: 0, //0未激活 1激活
   // maxMoveLeft: 80, //消息列表项最大左滑距离
@@ -30,125 +31,31 @@ Page({
   // touchStartState: 0, // 开始触摸时的状态 0 未显示菜单 1 显示菜单
   // swipeDirection: 0, //是否触发水平滑动 0:未触发 1:触发水平滑动 2:触发垂直滑动
 
-  waitForComment: [], //待确认订单集合
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // 获取当前默认上门回收地址
     var s = this
     wx.request({
       url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
       method: 'POST',
       header: app.globalData.header,
-      success: function (res) {
-        
+      success: function(res) {
+
         if (res['data']['isSuccess'] == 'TRUE') {
           s.addressInfo = res['data']['data']
 
           // 获取未完成订单
-          s.getUserOperatableOrders(1, function (operatableOrderList) {
-            s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment') : []
+          s.getUserOperatableOrders(1, function(operatableOrderList) {
+            s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) : []
             console.log('waitForComment', s.waitForComment)
-            for (var i = 0; i < operatableOrderList.length; ++i) {
-              // operatableOrderList[i].idx = i + ''
-              operatableOrderList[i].createtime = util.formatTime(new Date(operatableOrderList[i].createtime))
-              // 判断订单类型
-              switch (operatableOrderList[i].recyclingwastestate) {
-                case 0: //普通订单
-                  operatableOrderList[i].icon = '/Resources/images/orderIcon.png'
-                  break
-                case 1: //加急订单
-                  operatableOrderList[i].icon = '/Resources/images/urgency.png'
-                  break
-                case 3: // 预约订单
-                  operatableOrderList[i].icon = '/Resources/images/booking.png'
-              }
-              // 判断可订单状态
-              switch (operatableOrderList[i].state) {
-                case 1: //用户主动预约商户              
-                case 2: //用户主动发布上门回收的请求                
-                  operatableOrderList[i].btnText = '待接单'
-                  operatableOrderList[i].desc = '等待商户接单...'
-                  operatableOrderList[i].finished = false
-                  operatableOrderList[i].bdcolor = '#2dbea7'
-                  break
-                case 4: //商户抢占用户发布上门回收的请求                
-                case 8: //商户接收用户的预约                
-                  operatableOrderList[i].btnText = '待收货'
-                  operatableOrderList[i].desc = '您的订单已被接受，请耐心等候商户上门回收！'
-                  operatableOrderList[i].finished = false
-                  operatableOrderList[i].bdcolor = '#2dbea7'
-                  break
-                case 32: //商户支付用户费用
-                  for (var j = 0; j < s.waitForComment.length; ++j) {
-                    if (operatableOrderList[i].id == s.waitForComment[j]) {
-                      operatableOrderList[i].btnText = '待评论'
-                      operatableOrderList[i].finished = true
-                      operatableOrderList[i].bdcolor = '#2dbea7'
-                      break
-                    }
-                  }
-                  if (j == s.waitForComment.length) {
-                    operatableOrderList[i].btnText = '确认收款'
-                    operatableOrderList[i].finished = false
-                    operatableOrderList[i].bdcolor = '#2dbea7'
-                  }
-                  operatableOrderList[i].desc = '订单已完成，立即评论吗？'
-              }
-              s.operatableOrderList.push(operatableOrderList[i])
-            }
-            s.setData({
-              operatableOrderList: s.operatableOrderList
-            })
-            console.log(operatableOrderList)
+            s.solveOperatableList(operatableOrderList)
+            
           })
           // 获取已完成订单
-          s.getUserOperatabledOrders(1, function (operatabledOrderList) {
-
-            for (var i = 0; i < operatabledOrderList.length; ++i) {
-              // operatabledOrderList[i].idx = i + ''
-              operatabledOrderList[i].createtime = util.formatTime(new Date(operatabledOrderList[i].createtime))
-              // 判断订单类型
-              switch (operatabledOrderList[i].recyclingwastestate) {
-                case 0: //普通订单
-                  operatabledOrderList[i].icon = '/Resources/images/orderIcon.png'
-                  break
-                case 1: //加急订单
-                  operatabledOrderList[i].icon = '/Resources/images/urgency.png'
-                  break
-                case 3: // 预约订单
-                  operatabledOrderList[i].icon = '/Resources/images/booking.png'
-              }
-              // 判断已完成订单状态
-              operatabledOrderList[i].finished = true
-              switch (operatabledOrderList[i].state) {
-                case 16: //商户拒绝用户的预约
-
-                  operatabledOrderList[i].btnText = '已取消'
-                  operatabledOrderList[i].desc = '原因：暂未有商家接受订单！'
-                  break
-                case 64: // 用户取消订单
-
-                  operatabledOrderList[i].btnText = '已取消'
-                  operatabledOrderList[i].desc = '原因：用户取消订单！'
-                  break
-                case 128: // 商户取消订单
-
-                  operatabledOrderList[i].btnText = '已取消'
-                  operatabledOrderList[i].desc = '原因：商家取消订单！'
-                  break
-                case 256: //用户评论订单
-
-                  operatabledOrderList[i].btnText = '已完成'
-                  operatabledOrderList[i].desc = '当前订单已完成！'
-              }
-              s.operatabledOrderList.push(operatabledOrderList[i])
-            }
-            s.setData({
-              operatabledOrderList: s.operatabledOrderList
-            })
-            console.log(operatabledOrderList)
+          s.getUserOperatabledOrders(1, function(operatabledOrderList) {
+            s.solveOperatabledList(operatabledOrderList)
           })
 
         } else {
@@ -158,7 +65,7 @@ Page({
             content: '请先设置默认收货地址',
             showCancel: false,
             confirmText: '去设置',
-            success: function () {
+            success: function() {
               wx.navigateTo({
                 url: '/pages/addressList/index'
               })
@@ -167,7 +74,7 @@ Page({
           return
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
@@ -176,7 +83,7 @@ Page({
       deviceInfo: app.globalData.deviceInfo
     })
   },
-  getUserOperatableOrders: function (curPage, callback) {
+  getUserOperatableOrders: function(curPage, callback) {
 
     var s = this
     var addressInfo = s.addressInfo
@@ -186,7 +93,7 @@ Page({
       url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/operateringorders?page.currentPage=' + curPage + '&page.pageNumber=5' + '&lng=' + addressInfo.lng + '&lat=' + addressInfo.lat + '&lengthofnear=0',
       method: 'POST',
       header: app.globalData.header,
-      success: function (res) {
+      success: function(res) {
 
         // if (m > 1) {
         //   s.operatableOrderList.concat(res['data']['data'])
@@ -198,19 +105,19 @@ Page({
           // s.getUserOperatableOrders(++m)
           // return
           s.observer1 = true
-          ++s.count1
+            ++s.count1
         }
-        if (typeof (callback) == 'function') {
+        if (typeof(callback) == 'function') {
           // callback(s.operatableOrderList)
           callback(res['data']['data'])
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
   },
-  getUserOperatabledOrders: function (curPage, callback) {
+  getUserOperatabledOrders: function(curPage, callback) {
 
     var s = this
     var addressInfo = s.addressInfo
@@ -220,8 +127,8 @@ Page({
       url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/operateredorders?page.currentPage=' + curPage + '&page.pageNumber=5' + '&lng=' + addressInfo.lng + '&lat=' + addressInfo.lat + '&lengthofnear=0',
       method: 'POST',
       header: app.globalData.header,
-      success: function (res) {
-        
+      success: function(res) {
+
         // if (n > 1) {
         //   s.operatabledOrderList.concat(res['data']['data'])
         // } else {
@@ -234,31 +141,31 @@ Page({
           // s.getUserOperatabledOrders(++n)
           // return
         }
-        if (typeof (callback) == 'function') {
+        if (typeof(callback) == 'function') {
           // callback(s.operatabledOrderList)
           callback(res['data']['data'])
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
   },
-  bindDelTap: function (e) {
+  bindDelTap: function(e) {
     app.adjustCOpacity(this)
     var s = this
     var orderid = e.currentTarget.dataset.orderid
     wx.showModal({
       title: '通知',
       content: '确定取消订单吗？',
-      success: function (rt) {
+      success: function(rt) {
         if (rt.confirm) {
           // 取消订单操作
           wx.request({
             url: 'https://www.dingdonhuishou.com/AHS/api/userorder/cancel/order?id=' + orderid,
             method: 'POST',
             header: app.globalData.header,
-            success: function (res) {
+            success: function(res) {
               if (res['data']['isSuccess'] == 'TRUE') {
 
                 s.deleteItem(e)
@@ -277,7 +184,7 @@ Page({
                 })
               }
             },
-            fail: function (error) {
+            fail: function(error) {
               console.log(error)
             }
           })
@@ -285,9 +192,9 @@ Page({
       }
     })
   },
-  bindConfirmTap: function (e) {
+  bindConfirmTap: function(e) {
 
-    let index = e.currentTarget.id
+    let index = parseInt(e.currentTarget.id)
     let list = this.data.tag == 'operatable' ? this.data.operatableOrderList : this.data.operatabledOrderList
     let btnText = list[index].btnText
     let desc = list[index].desc
@@ -303,7 +210,7 @@ Page({
       wx.showModal({
         title: '提示',
         content: desc,
-        success: function (rt) {
+        success: function(rt) {
 
           if (btnText == '确认收款') {
             list[index].btnText = '待评论'
@@ -312,27 +219,28 @@ Page({
             s.setData({
               operatableOrderList: list
             })
-          }          
+          }
 
           if (rt.confirm) {
             let order = list[index]
+            console.log(order)
             // 进行评论订单操作
             wx.navigateTo({
-              url: '/pages/orderComment/index?orderid='+order.inpayid + '&operatertime='+order.operatertime + '&wasteprice='+order.wasteprice + '&wastename='+order.wastename + '&wasteweight='+order.wasteweight + '&pay='+order.pay,
+              url: '/pages/orderComment/index?inpayid=' + order.inpayid + '&orderid=' + order.id + '&operatertime=' + order.operatertime + '&wasteprice=' + order.wasteprice + '&wastename=' + order.wastename + '&wasteweight=' + order.wasteweight + '&pay=' + order.pay,
             })
           }
         }
       })
     }
   },
-  bindContactTap: function (e) {
+  bindContactTap: function(e) {
     let index = e.currentTarget.id
     let phonenum = this.data.operatableOrderList[index].phonenum
     wx.makePhoneCall({
       phoneNumber: phonenum
     })
   },
-  clickOperatableOrder: function (e) {
+  clickOperatableOrder: function(e) {
     var view = this.data.view
     view.aColor = "#19c4aa"
     view.bColor = "#3e3e3e"
@@ -343,7 +251,7 @@ Page({
     })
 
   },
-  clickOperatabledOrder: function (e) {
+  clickOperatabledOrder: function(e) {
     var view = this.data.view
     view.bColor = "#19c4aa"
     view.aColor = "#3e3e3e"
@@ -353,127 +261,152 @@ Page({
       tag: 'operatabled'
     })
   },
-  onReachBottom: function (e) {
+  onReachBottom: function(e) {
     var s = this
     if (s.data.tag == 'operatable') {
       // 未完成订单
       console('刷新未完成订单')
       if (s.observer1) {
-        s.observer1 = false
+        
         // 获取未完成订单
-        s.getUserOperatableOrders(s.count1, function (operatableOrderList) {
+        s.getUserOperatableOrders(s.count1, function(operatableOrderList) {
+          s.observer1 = false
           s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment') : []
           console.log('waitForComment', s.waitForComment)
-          for (var i = 0; i < operatableOrderList.length; ++i) {
-            // operatableOrderList[i].idx = i + ''
-            operatableOrderList[i].createtime = util.formatTime(new Date(operatableOrderList[i].createtime))
-            // 判断订单类型
-            switch (operatableOrderList[i].recyclingwastestate) {
-              case 0: //普通订单
-                operatableOrderList[i].icon = '/Resources/images/orderIcon.png'
-                break
-              case 1: //加急订单
-                operatableOrderList[i].icon = '/Resources/images/urgency.png'
-                break
-              case 3: // 预约订单
-                operatableOrderList[i].icon = '/Resources/images/booking.png'
-            }
-            // 判断可订单状态
-            switch (operatableOrderList[i].state) {
-              case 1: //用户主动预约商户              
-              case 2: //用户主动发布上门回收的请求                
-                operatableOrderList[i].btnText = '待接单'
-                operatableOrderList[i].desc = '等待商户接单...'
-                operatableOrderList[i].finished = false
-                operatableOrderList[i].bdcolor = '#2dbea7'
-                break
-              case 4: //商户抢占用户发布上门回收的请求                
-              case 8: //商户接收用户的预约                
-                operatableOrderList[i].btnText = '待收货'
-                operatableOrderList[i].desc = '您的订单已被接受，请耐心等候商户上门回收！'
-                operatableOrderList[i].finished = false
-                operatableOrderList[i].bdcolor = '#2dbea7'
-                break
-              case 32: //商户支付用户费用
-                for (var j = 0; j < s.waitForComment.length; ++j) {
-                  if (operatableOrderList[i].id == s.waitForComment[j]) {
-                    operatableOrderList[i].btnText = '待评论'
-                    operatableOrderList[i].finished = true
-                    operatableOrderList[i].bdcolor = '#2dbea7'
-                    break
-                  }
-                }
-                if (j == s.waitForComment.length) {
-                  operatableOrderList[i].btnText = '确认收款'
-                  operatableOrderList[i].finished = false
-                  operatableOrderList[i].bdcolor = '#2dbea7'
-                }
-                operatableOrderList[i].desc = '订单已完成，立即评论吗？'
-            }
-            s.operatableOrderList.push(operatableOrderList[i])
-          }
-          s.setData({
-            operatableOrderList: s.operatableOrderList
-          })
-          console.log(operatableOrderList)
+          s.solveOperatableList(operatableOrderList)
+          
         })
       }
     } else {
       // 已完成订单
       console.log('刷新已完成订单')
       if (s.observer2) {
-
-        s.getUserOperatabledOrders(s.count2, function (operatabledOrderList) {
+        s.getUserOperatabledOrders(s.count2, function(list) {
           s.observer2 = false
-          for (var i = 0; i < operatabledOrderList.length; ++i) {
-            // operatabledOrderList[i].idx = i + ''
-            operatabledOrderList[i].createtime = util.formatTime(new Date(operatabledOrderList[i].createtime))
-            // 判断订单类型
-            switch (operatabledOrderList[i].recyclingwastestate) {
-              case 0: //普通订单
-                operatabledOrderList[i].icon = '/Resources/images/orderIcon.png'
-                break
-              case 1: //加急订单
-                operatabledOrderList[i].icon = '/Resources/images/urgency.png'
-                break
-              case 3: // 预约订单
-                operatabledOrderList[i].icon = '/Resources/images/booking.png'
-            }
-            // 判断已完成订单状态
-            operatabledOrderList[i].finished = true
-            switch (operatabledOrderList[i].state) {
-              case 16: //商户拒绝用户的预约
-
-                operatabledOrderList[i].btnText = '已取消'
-                operatabledOrderList[i].desc = '原因：暂未有商家接受订单！'
-                break
-              case 64: // 用户取消订单
-
-                operatabledOrderList[i].btnText = '已取消'
-                operatabledOrderList[i].desc = '原因：用户取消订单！'
-                break
-              case 128: // 商户取消订单
-
-                operatabledOrderList[i].btnText = '已取消'
-                operatabledOrderList[i].desc = '原因：商家取消订单！'
-                break
-              case 256: //用户评论订单
-
-                operatabledOrderList[i].btnText = '已完成'
-                operatabledOrderList[i].desc = '当前订单已完成！'
-            }
-            s.operatabledOrderList.push(operatabledOrderList[i])
-          }
-
-          s.setData({
-            operatabledOrderList: s.operatabledOrderList
-          })
-          console.log(operatabledOrderList)
-
+          s.solveOperatabledList(list)
         })
       }
     }
+  },
+  onPullDownRefresh: function(e) {
+    var s = this
 
+    if (s.data.tag == 'operatable') {
+      // 未完成订单
+      console('刷新未完成订单')      
+        // 获取未完成订单
+      s.getUserOperatableOrders(1, function (operatableOrderList) {        
+        s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment') : []
+        console.log('waitForComment', s.waitForComment)
+        s.solveOperatableList(operatableOrderList)
+      })
+    }else {
+      // 已完成订单
+      console.log('刷新已完成订单')      
+      s.getUserOperatabledOrders(1, function (operatabledOrderList) {        
+        s.solveOperatabledList(operatabledOrderList)
+      })      
+    }
+  },
+  solveOperatableList: function(list) {
+    var s = this
+    for (var i = 0; i < list.length; ++i) {
+      // list[i].idx = i + ''
+      list[i].createtime = util.formatTime(new Date(list[i].createtime))
+      // 判断订单类型
+      switch (list[i].recyclingwastestate) {
+        case 0: //普通订单
+          list[i].icon = '/Resources/images/orderIcon.png'
+          break
+        case 1: //加急订单
+          list[i].icon = '/Resources/images/urgency.png'
+          break
+        case 2: // 预约订单
+          list[i].icon = '/Resources/images/booking.png'
+      }
+      // 判断可订单状态
+      switch (list[i].state) {
+        case 1: //用户主动预约商户              
+        case 2: //用户主动发布上门回收的请求                
+          list[i].btnText = '待接单'
+          list[i].desc = '等待商户接单...'
+          list[i].finished = false
+          list[i].bdcolor = '#2dbea7'
+          break
+        case 4: //商户抢占用户发布上门回收的请求                
+        case 8: //商户接收用户的预约                
+          list[i].btnText = '待收货'
+          list[i].desc = '您的订单已被接受，请耐心等候商户上门回收！'
+          list[i].finished = false
+          list[i].bdcolor = '#2dbea7'
+          break
+        case 32: //商户支付用户费用
+          for (var j = 0; j < s.waitForComment.length; ++j) {
+            if (list[i].id == s.waitForComment[j]) {
+              list[i].btnText = '待评论'
+              list[i].finished = true
+              list[i].bdcolor = '#2dbea7'
+              break
+            }
+          }
+          if (j == s.waitForComment.length) {
+            list[i].btnText = '确认收款'
+            list[i].finished = false
+            list[i].bdcolor = '#2dbea7'
+          }
+          list[i].desc = '订单已完成，立即评论吗？'
+      }
+      s.operatableOrderList.push(list[i])
+    }
+    s.setData({
+      operatableOrderList: s.operatableOrderList
+    })
+  },
+  solveOperatabledList: function(list) {
+
+    var s = this    
+    for (var i = 0; i < list.length; ++i) {
+
+      list[i].createtime = util.formatTime(new Date(list[i].createtime))
+      // 判断订单类型
+      switch (list[i].recyclingwastestate) {
+        case 0: //普通订单
+          list[i].icon = '/Resources/images/orderIcon.png'
+          break
+        case 1: //加急订单
+          list[i].icon = '/Resources/images/urgency.png'
+          break
+        case 2: // 预约订单
+          list[i].icon = '/Resources/images/booking.png'
+      }
+      // 判断已完成订单状态
+      list[i].finished = true
+      switch (list[i].state) {
+        case 16: //商户拒绝用户的预约
+
+          list[i].btnText = '已取消'
+          list[i].desc = '原因：暂未有商家接受订单！'
+          break
+        case 64: // 用户取消订单
+
+          list[i].btnText = '已取消'
+          list[i].desc = '原因：用户取消订单！'
+          break
+        case 128: // 商户取消订单
+
+          list[i].btnText = '已取消'
+          list[i].desc = '原因：商家取消订单！'
+          break
+        case 256: //用户评论订单
+
+          list[i].btnText = '已完成'
+          list[i].desc = '当前订单已完成！'
+      }
+      s.operatabledOrderList.push(list[i])
+    }      
+    s.setData({
+      operatabledOrderList: s.operatabledOrderList
+    })
   }
   // ontouchstart: function(e) {
 

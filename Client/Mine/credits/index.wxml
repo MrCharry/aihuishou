@@ -14,7 +14,7 @@
         <text>废物循环利用，保护环境，从我做起</text>
       </view>
       <label class='point'>获得：{{item.point}}积分</label>
-      <label class='time'>{{item.time}}</label>
+      <label class='time'>{{item.createdate}}</label>
     </view>
   </view>
 </view>
