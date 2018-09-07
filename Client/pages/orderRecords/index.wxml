@@ -33,10 +33,10 @@
 
         <view class='right'>
 
-          <view id='{{index}}' class='confirm' bindtap='bindConfirmTap' style='height:{{item.finished ? "100%":"60%"}}; background-color:{{item.bdcolor}}' hover-class='hover'>
+          <view id='{{index}}' class='confirm' bindtap='bindConfirmTap' style='height:{{(item.finished || item.btnText=="待接单") ? "100%":"60%"}}; background-color:{{item.bdcolor}}' hover-class='hover'>
             {{item.btnText}}
           </view>
-          <view id='{{index}}' wx:if='{{!item.finished}}' class='contact' bindtap='bindContactTap' hover-class='hover'>
+          <view id='{{index}}' wx:if='{{!item.finished && item.btnText!="待接单"}}' class='contact' bindtap='bindContactTap' hover-class='hover'>
             联系对方
           </view>
 

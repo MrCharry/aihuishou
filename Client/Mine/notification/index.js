@@ -33,11 +33,11 @@ Page({
     var s = this
     // 获取用户消息通知
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/usermsg/list?currentPage=' + curPage,
+      url: 'https://www.dingdonhuishou.com/AHS/api/usermsg/list?page.currentPage=' + curPage + '&page.pageNumber=5',
       method: 'POST',
       header: app.globalData.header,
       success: function(res) {
-        // console.log(res)
+        
         if (res['data']['isSuccess'] == 'TRUE') {
 
           if (res['data']['data']['hasMore'] == true) {
@@ -45,10 +45,10 @@ Page({
             s.observer = true
             ++s.count
           }
-          // 回调函数
-          if (typeof(callback) == 'function') {
-            callback(res['data']['data']['list'])
-          }
+        }
+        // 回调函数
+        if (typeof (callback) == 'function') {
+          callback(res['data']['data']['list'])
         }
       },
       fail: function(error) {
@@ -61,12 +61,14 @@ Page({
     var s = this
     s.count = 1
     s.observer = false
+    s.notifications = []
     this.getUserNotifications(1, function (notifications) {
       s.solveNotificationList(notifications)
     })
-
-    wx.hideNavigationBarLoading()
-    wx.stopPullDownRefresh()
+    setTimeout(function () {
+      wx.hideNavigationBarLoading()
+      wx.stopPullDownRefresh()
+    }, 1000)
   },
   onReachBottom: function(e) {
     var s = this
@@ -83,13 +85,13 @@ Page({
 
     for (var i = 0; i < list.length; ++i) {
       list[i].time = util.formatTime(new Date(list[i].createtime))
-      // s.list.push(list[i])
+      s.notifications.push(list[i])
     }
-    if (s.notifications.length == 0) {
-      s.notifications = list
-    } else {
-      app.uniqueArr(s.notifications, list)
-    }
+    // if (s.notifications.length == 0) {
+    //   s.notifications = list
+    // } else {
+    //   app.uniqueArr(s.notifications, list)
+    // }
     s.setData({
       notifications: s.notifications
     })

@@ -188,8 +188,7 @@ Page({
             success: function (res) {
               if (res['data']['isSuccess'] == 'TRUE') {
                 wx.showToast({
-                  title: res['data']['content'],
-                  icon: 'none',
+                  title: res['data']['content'],                  
                   success: function () {
                     wx.getStorage({
                       key: 'waitForComment'+app.globalData.userInfo.id,

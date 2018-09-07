@@ -50,12 +50,15 @@ Page({
     var s = this
     s.count = 1
     s.observer = false
+    s.records = []
     this.getRecyclingRecord(1, function (records) {
       s.solveRecyingRecordList(records)
 
     })
-    wx.hideNavigationBarLoading()
-    wx.stopPullDownRefresh()
+    setTimeout(function () {
+      wx.hideNavigationBarLoading()
+      wx.stopPullDownRefresh()
+    }, 1000)
   },
   onReachBottom: function(e) {
     var s = this
@@ -70,13 +73,13 @@ Page({
     var s = this
     for (var i=0; i<list.length; ++i) {
       list[i].inpayidtime = util.formatTime(new Date(list[i].inpayidtime))
-      // s.records.push(records[i])
+      s.records.push(list[i])
     }
-    if (s.records.length == 0) {
-      s.records = list
-    }else {
-      app.uniqueArr(s.records, list)
-    }
+    // if (s.records.length == 0) {
+    //   s.records = list
+    // }else {
+    //   app.uniqueArr(s.records, list)
+    // }
     s.setData({
       records: s.records
     })

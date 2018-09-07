@@ -19,7 +19,6 @@ Page({
   count2: 1,
   operatableOrderList: [],
   operatabledOrderList: [],
-  waitForComment: [],
   // swipeCheckX: 35, //激活检测滑动的阈值
   // swipeCheckState: 0, //0未激活 1激活
   // maxMoveLeft: 80, //消息列表项最大左滑距离
@@ -42,9 +41,10 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
-
+        
         if (res['data']['isSuccess'] == 'TRUE') {
           s.addressInfo = res['data']['data']
+          console.log('获取默认地址')                
           wx.startPullDownRefresh()
         } else {
           console.log(res['data']['content'])
@@ -188,6 +188,8 @@ Page({
 
           if (btnText == '确认收款') {
             list[index].btnText = '待评论'
+            list[index].finished = true
+            s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) : []
             s.waitForComment.push(list[index].id)
             wx.setStorageSync('waitForComment' + app.globalData.userInfo.id, s.waitForComment)
             s.setData({
@@ -197,7 +199,8 @@ Page({
 
           if (rt.confirm) {
             let order = list[index]
-            console.log(order)
+            s.operatableOrderList = []
+            s.operatabledOrderList = []
             // 进行评论订单操作
             wx.navigateTo({
               url: '/pages/orderComment/index?inpayid=' + order.inpayid + '&orderid=' + order.id + '&operatertime=' + order.operatertime + '&wasteprice=' + order.wasteprice + '&wastename=' + order.wastename + '&wasteweight=' + order.wasteweight + '&pay=' + order.pay,
@@ -246,7 +249,7 @@ Page({
         s.observer1 = false
         // 获取未完成订单
         s.getUserOperatableOrders(s.count1, function (operatableOrderList) {
-          s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment') : []
+          s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) : []
           console.log('waitForComment', s.waitForComment)
           s.solveOperatableList(operatableOrderList)
 
@@ -264,20 +267,22 @@ Page({
     }
   },
   onPullDownRefresh: function (e) {
-
+    console.log('loading')
     wx.showNavigationBarLoading()
 
     var s = this
     if (s.data.tag == 'operatable') {
+      s.operatableOrderList = []
       s.count1 = 1
       s.observer1 = false
       // 获取未完成订单
       s.getUserOperatableOrders(1, function (operatableOrderList) {
-        s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment') : []
+        s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) : []
         console.log('waitForComment', s.waitForComment)
         s.solveOperatableList(operatableOrderList)
       })
     } else {
+      s.operatabledOrderList = []
       s.count2 = 1
       s.observer2 = false
       // 已完成订单
@@ -285,8 +290,10 @@ Page({
         s.solveOperatabledList(operatabledOrderList)
       })
     }
-    wx.hideNavigationBarLoading()
-    wx.stopPullDownRefresh()
+    setTimeout(function() {
+      wx.hideNavigationBarLoading()
+      wx.stopPullDownRefresh()
+    }, 1000)
   },
   solveOperatableList: function (list) {
     var s = this
@@ -336,17 +343,17 @@ Page({
           }
           list[i].desc = '订单已完成，立即评论吗？'
       }
-      // s.operatableOrderList.push(list[i])
+      s.operatableOrderList.push(list[i])
     }
-    if (s.operatableOrderList.length == 0) {
-      s.operatableOrderList = list
-    } else {
-      app.uniqueArr(s.operatableOrderList, list)
-    }
-
+    // if (s.operatableOrderList.length == 0) {
+    // s.operatableOrderList = list
+    // } else {
+    //   app.uniqueArr(s.operatableOrderList, list)
+    // }
     s.setData({
       operatableOrderList: s.operatableOrderList
     })
+    console.log(s.operatableOrderList)
   },
   solveOperatabledList: function (list) {
 
@@ -388,16 +395,17 @@ Page({
           list[i].btnText = '已完成'
           list[i].desc = '当前订单已完成！'
       }
-      // s.operatabledOrderList.push(list[i])
+      s.operatabledOrderList.push(list[i])
     }
-    if (s.operatabledOrderList.length == 0) {
-      s.operatabledOrderList = list
-    } else {
-      app.uniqueArr(s.operatabledOrderList, list)
-    }
+    // if (s.operatabledOrderList.length == 0) {
+    // s.operatabledOrderList = list
+    // } else {
+    //   app.uniqueArr(s.operatabledOrderList, list)
+    // }
     s.setData({
       operatabledOrderList: s.operatabledOrderList
     })
+    console.log(s.operatabledOrderList)
   }
   // ontouchstart: function(e) {
 

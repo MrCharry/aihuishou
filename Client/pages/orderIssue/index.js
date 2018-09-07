@@ -297,16 +297,15 @@ Page({
         if (res['data']['status'] == 0) {
 
           let adcode = res['data']['result']['addressComponent']['adcode']
-          console.log(adcode, opt.adcode)
-
+          console.log(adcode, opt.adcode)          
           // 当前上门回收地址属于当前所选区域
           if (adcode == opt.adcode) {
 
             // 进行发单操作: 1.主动预约商户上门回收  2.用户发布上门回收
-            if (opt.tag == 'book' || inputData.degree == 'book') {
+            if (opt.tag == 'book' && inputData.degree == 'book') {
               // 1.主动预约商户上门回收
-              let merchantid = opt.bookmerchantid
-              let timestamp = s.data.timeSet.date.split('-').join('') + s.data.timeSet.time.split(':').join('')+ '00'
+              let timestamp = s.data.timeSet.date.split('-').join('') + s.data.timeSet.time.split(':').join('') + '00'
+              let merchantid = opt.bookmerchantid              
               console.log('主动预约商户上门回收')
               wx.request({
                 url: 'https://www.dingdonhuishou.com/AHS/api/userorder/book/merchant',
@@ -356,6 +355,18 @@ Page({
               // 2.用户发布上门回收
               console.log('用户发布上门回收')
               
+              var recyclingwastestate = 0
+              var bookingtime = ''
+              if (inputData.degree == 'normal') {
+                recyclingwastestate = 0
+                bookingtime = util.formatTime(new Date(new Date().getTime() + 2 * 24 * 3600 * 1000))
+              }else if (inputData.degree == 'emergency') {
+                recyclingwastestate = 1
+                bookingtime = util.formatTime(new Date(new Date().getTime() + 0.5 * 24 * 3600 * 1000))
+              }else if (inputData.degree == 'book') {
+                bookingtime = s.data.timeSet.date.split('-').join('') + s.data.timeSet.time.split(':').join('') + '00'
+                recyclingwastestate = 2                
+              }
               wx.request({
                 url: 'https://www.dingdonhuishou.com/AHS/api/userorder/postorder',
                 data: {
@@ -366,8 +377,8 @@ Page({
                   areawastepriceid: inputData.areawastepriceid,
                   wasteprice: inputData.price,
                   wasteweight: inputData.amount,
-                  recyclingwastestate: inputData.degree == 'normal' ? 0 : 1,
-                  bookingtime: inputData.degree == 'normal' ? util.formatTime(new Date(new Date().getTime() + 2 * 24 * 3600 * 1000)) : util.formatTime(new Date(new Date().getTime() + 0.5 * 24 * 3600 * 1000)),
+                  recyclingwastestate: recyclingwastestate,
+                  bookingtime: bookingtime,
                   areamoreid: adcode
 
                 },
