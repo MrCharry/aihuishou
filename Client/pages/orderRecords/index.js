@@ -112,20 +112,11 @@ Page({
       header: app.globalData.header,
       success: function (res) {
 
-        // if (n > 1) {
-        //   s.operatabledOrderList.concat(res['data']['data'])
-        // } else {
-        //   s.operatabledOrderList = res['data']['data']
-        // }
-
         if (res['data']['hasMore']) {
           ++s.count2
           s.observer2 = true
-          // s.getUserOperatabledOrders(++n)
-          // return
         }
-        if (typeof (callback) == 'function') {
-          // callback(s.operatabledOrderList)
+        if (typeof (callback) == 'function') {          
           callback(res['data']['data'])
         }
       },

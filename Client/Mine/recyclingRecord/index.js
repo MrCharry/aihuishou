@@ -15,22 +15,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    var s = this
-    this.getRecyclingRecord(1, function(records) {
-      console.log(records)
-
-      for (var i in records) {
-        records[i].inpayidtime = util.formatTime(new Date(records[i].inpayidtime))
-        s.records.push(records[i])
-      }
-      s.setData({
-        records: s.records
-      })
-    })
     this.setData({
       deviceInfo: app.globalData.deviceInfo
     })
+  },
+  onShow: function() {
+    wx.startPullDownRefresh()
   },
   getRecyclingRecord: function(curPage, callback) {
 
@@ -55,19 +45,40 @@ Page({
       }
     })
   },
+  onPullDownRefresh: function(e) {
+    wx.showNavigationBarLoading()
+    var s = this
+    s.count = 1
+    s.observer = false
+    this.getRecyclingRecord(1, function (records) {
+      s.solveRecyingRecordList(records)
+
+    })
+    wx.hideNavigationBarLoading()
+    wx.stopPullDownRefresh()
+  },
   onReachBottom: function(e) {
     var s = this
     if (s.observer) {
+      s.observer = false
       s.getRecyclingRecord(s.count, function(records) {
-        s.observer = false
-        for (var i in records) {
-          records[i].inpayidtime = util.formatTime(new Date(records[i].inpayidtime))
-          s.records.push(records[i])
-        }
-        s.setData({
-          records: s.records
-        })
+        s.solveRecyingRecordList(records)
       })
     }
+  },
+  solveRecyingRecordList: function(list) {
+    var s = this
+    for (var i=0; i<list.length; ++i) {
+      list[i].inpayidtime = util.formatTime(new Date(list[i].inpayidtime))
+      // s.records.push(records[i])
+    }
+    if (s.records.length == 0) {
+      s.records = list
+    }else {
+      app.uniqueArr(s.records, list)
+    }
+    s.setData({
+      records: s.records
+    })
   }
 })
