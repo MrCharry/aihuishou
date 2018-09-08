@@ -7,6 +7,8 @@ Page({
       showMenu: false
     }
   },
+  merchants: [],
+  markers: [],
   onLoad: function () {
 
     this.setData({
@@ -243,7 +245,7 @@ Page({
                 content: '当前位置',
                 fontSize: 20,
                 borderRadius: 10,
-                bgColor: "#fff",
+                bgColor: "#ffffff",
                 padding: 10,
                 display: 'BYCLICK',
                 textAlign: 'center'
@@ -261,7 +263,7 @@ Page({
           //获取当前经纬度的行政区划代码
           var ak = app.globalData.ak
           var location = s.data.curLocation
-          var markers = s.data.markers
+          s.markers = s.data.markers
 
           wx.request({
             url: 'http://api.map.baidu.com/geocoder/v2/?location=' + location.latitude + ',' + location.longitude + '&output=json&ak=' + ak,
@@ -273,7 +275,7 @@ Page({
                 console.log(merchants)
                 for (var j = 0; j < merchants.length; ++j) {
                   var merchant = merchants[j]['merchant']
-                  markers.push({
+                  s.markers.push({
                     id: j,
                     iconPath: '/Resources/images/location_red.png',
                     latitude: merchant.lat,
@@ -293,13 +295,15 @@ Page({
                 s.curdist = res['data']['result']['addressComponent']['district']
                 s.merchants = merchants
                 s.setData({
-                  markers: markers,
+                  markers: s.markers,
                   region: [
                     res['data']['result']['addressComponent']['province'],
                     res['data']['result']['addressComponent']['city'],
                     res['data']['result']['addressComponent']['district']
                   ]
                 })
+                s.markers = []
+                s.merchants = []
                 console.log(s.data.region)
               })
             }
@@ -340,19 +344,20 @@ Page({
       //获取选择区域的行政区划代码
       var ak = app.globalData.ak
       var location = s.data.curLocation
-      var markers = s.data.markers
+      s.markers = s.data.markers
 
       wx.request({
         url: 'http://api.map.baidu.com/geocoder/v2/?location=' + location.latitude + ',' + location.longitude + '&output=json&ak=' + ak,
         method: 'GET',
         success: function (res) {
-          console.log(res)
+          
           var adcode = res['data']['result']['addressComponent']['adcode']
           s.getnearmerchants(adcode, 1, function (merchants) {
             console.log(merchants)
+
             for (var j = 0; j < merchants.length; ++j) {
-              var merchant = merchants[j]['merchant']
-              markers.push({
+              let merchant = merchants[j]['merchant']
+              s.markers.push({
                 id: j,
                 iconPath: '/Resources/images/location_red.png',
                 latitude: merchant.lat,
@@ -361,7 +366,7 @@ Page({
                   content: merchant.name + '\n' + '预约',
                   fontSize: 20,
                   borderRadius: 10,
-                  bgColor: "#2dbea7",
+                  bgColor: "#43dac0",
                   padding: 10,
                   display: 'BYCLICK',
                   textAlign: 'center'
@@ -370,47 +375,52 @@ Page({
             }
             s.selectedadcode = adcode
             s.selecteddist = res['data']['result']['addressComponent']['district']
-            s.merchants = merchants
             s.setData({
-              markers: markers,             
+              markers: s.markers,             
               region: [
                 res['data']['result']['addressComponent']['province'],
                 res['data']['result']['addressComponent']['city'],
                 res['data']['result']['addressComponent']['district']
               ]
             })
+            s.markers = []
+            s.merchants = []
             console.log(s.data.region)
           })
         }
       })
     }
   },
-  getnearmerchants: function (adcode, i, callback) {
+  getnearmerchants: function (adcode, page, callback) {
 
-    var merchants = this.merchants
     var location = this.data.curLocation
     var s = this
-
     wx.request({
-      url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/nearmerchants?page.currentPage=' + i + '&lng=' + location.longitude + '&lat=' + location.latitude + '&areamoreid=' + adcode + '&lengthofnear=0',
+      url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/nearmerchants?page.currentPage=' + page + '&lng=' + location.longitude + '&lat=' + location.latitude + '&lengthofnear=0' + '&areamoreid=' + adcode,
       method: 'POST',
       header: app.globalData.header,
+      dataType: 'json',
       success: function (res) {
+
         //汇总回收商地址
-        if (i > 1) {
-          merchants = merchants.concat(res['data']['data'])
-        } else {
-          merchants = res['data']['data']
+        // if (page > 1) {
+        //   merchants = merchants.concat(res['data']['data'])
+        // } else {
+        //   merchants = res['data']['data']
+        // }
+        // s.setData({
+        //   merchants: merchants
+        // })
+        let list = res['data']['data']
+        for (var i=0; i<list.length; ++i) {
+          s.merchants.push(list[i])
         }
-        s.setData({
-          merchants: merchants
-        })
         if (res['data']['hasMore'] == true) {
-          s.getnearmerchants(adcode, ++i)
-          return
+          s.getnearmerchants(adcode, ++page)
+          return      
         }
         if (typeof (callback) == 'function') {
-          callback(merchants)
+          callback(s.merchants)
         }
       },
       fail: function (error) {

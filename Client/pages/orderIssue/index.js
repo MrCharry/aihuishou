@@ -91,7 +91,7 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
-        console.log(res)
+
         if (res['data']['isSuccess'] == 'TRUE') {
           s.setData({
             addressInfo: res['data']['data']
@@ -128,7 +128,6 @@ Page({
       method: 'POST',
       header: app.globalData.header,
       success: function (res) {
-        console.log(res)
         if (res['data']['listwaste'].length == 0) {
           wx.showModal({
             title: '提示',
