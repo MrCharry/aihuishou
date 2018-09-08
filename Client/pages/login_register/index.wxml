@@ -1,7 +1,7 @@
 <!--pages/login_regisiter/index.wxml-->
 <view class='container' style='height:{{deviceInfo.windowHeight}}px'>
   <view class='logoIcon'>
-    <image src='/Resources/images/logoIcon.png' />
+    <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/logoIcon.png' />
   </view>
   <view class='modal'>
     <view class='loginModel' style='width:{{deviceInfo.windowWidth*0.95}}px'>

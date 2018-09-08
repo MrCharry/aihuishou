@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    checkIcon: '/Resources/images/check.png',
-    checkedIcon: '/Resources/images/checked.png'    
+    checkIcon: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/check.png',
+    checkedIcon: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/checked.png'    
   },
 
   /**

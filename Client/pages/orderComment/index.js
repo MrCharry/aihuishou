@@ -65,7 +65,7 @@ Page({
     
     var starIcon = []
     for (var i = 0; i < 5; ++i) {
-      starIcon[i] = '/Resources/images/star_empty.png'
+      starIcon[i] = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/star_empty.png'
     }
     opt.operatertime = util.formatTime(new Date(parseInt(opt.operatertime)))
     opt.pay = parseFloat(opt.pay).toFixed(2)
@@ -81,9 +81,9 @@ Page({
     var index = e.currentTarget.id
     for (var i = 0; i < 5; ++i) {
       if (i <= index) {
-        starIcon[i] = '/Resources/images/star_fill.png'
+        starIcon[i] = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/star_fill.png'
       } else {
-        starIcon[i] = '/Resources/images/star_empty.png'
+        starIcon[i] = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/star_empty.png'
       }
     }
     var starText = ''

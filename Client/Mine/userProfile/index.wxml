@@ -3,13 +3,13 @@
   <view class='profile'>
     <view class='row'>
       <label>头像</label>
-      <image bindtap='bindUpdatePortrait' class='icon' src='{{userInfo.imgpath ? userInfo.imgpath:"/Resources/images/userDefault.png"}}' style='opacity:{{view.aOpacity}}' />
+      <image bindtap='bindUpdatePortrait' class='icon' src='{{userInfo.imgpath ? userInfo.imgpath:"https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/userDefault.png"}}' style='opacity:{{view.aOpacity}}' />
     </view>
     <view class='row'>
       <label>昵称</label>
       <view>
         <label bindtap='clickModifyName' hidden='{{view.editNickname}}'>{{userInfo.nickname ? userInfo.nickname:userInfo.name}}</label>
-        <!-- <image src='/Resources/images/arrowRight.png' /> -->
+        <!-- <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png' /> -->
         <input class='nickname' value='{{userInfo.nickname ? userInfo.nickname:userInfo.name}}' bindconfirm='editNicknameDone' hidden='{{!view.editNickname}}' />
       </view>
     </view>
@@ -17,7 +17,7 @@
       <label>绑定手机号</label>
       <view bindtap='bindPhone' style='opacity:{{view.bOpacity}}'>
         <label>{{phoneNumber}}</label>
-        <image src='/Resources/images/arrowRight.png' />
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png' />
       </view>
     </view>
 
@@ -25,7 +25,7 @@
       <label>提现方式绑定</label>
       <view style='opacity:{{view.cOpacity}}'>
         <!-- <label>***********</label> -->
-        <image src='/Resources/images/arrowRight.png' />
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png' />
       </view>
     </view>
 
@@ -45,7 +45,7 @@
       <view class='address'>
         <view bindtap='bindAddressList' style='opacity:{{view.dOpacity}}'>
           <label style='font-size: 28rpx;'>{{simpleAddress}}</label>
-          <image src='/Resources/images/arrowRight.png' />
+          <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png' />
         </view>
       </view>
     </view>

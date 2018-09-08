@@ -33,18 +33,18 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // 获取当前默认上门回收地址
     var s = this
     wx.request({
       url: 'https://www.dingdonhuishou.com/AHS/api/useraddress/getdefault',
       method: 'POST',
       header: app.globalData.header,
-      success: function (res) {
-        
+      success: function(res) {
+
         if (res['data']['isSuccess'] == 'TRUE') {
           s.addressInfo = res['data']['data']
-          console.log('获取默认地址')                
+          console.log('获取默认地址')
           wx.startPullDownRefresh()
         } else {
           console.log(res['data']['content'])
@@ -53,7 +53,7 @@ Page({
             content: '请先设置默认收货地址',
             showCancel: false,
             confirmText: '去设置',
-            success: function () {
+            success: function() {
               wx.navigateTo({
                 url: '/pages/addressList/index'
               })
@@ -62,7 +62,7 @@ Page({
           return
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
@@ -75,7 +75,7 @@ Page({
       wx.startPullDownRefresh()
     }
   },
-  getUserOperatableOrders: function (curPage, callback) {
+  getUserOperatableOrders: function(curPage, callback) {
 
     var s = this
     var addressInfo = s.addressInfo
@@ -85,22 +85,22 @@ Page({
       url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/operateringorders?page.currentPage=' + curPage + '&page.pageNumber=5' + '&lng=' + addressInfo.lng + '&lat=' + addressInfo.lat + '&lengthofnear=0',
       method: 'POST',
       header: app.globalData.header,
-      success: function (res) {
+      success: function(res) {
 
         if (res['data']['hasMore']) {
           s.observer1 = true
-          ++s.count1
+            ++s.count1
         }
-        if (typeof (callback) == 'function') {
+        if (typeof(callback) == 'function') {
           callback(res['data']['data'])
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
   },
-  getUserOperatabledOrders: function (curPage, callback) {
+  getUserOperatabledOrders: function(curPage, callback) {
 
     var s = this
     var addressInfo = s.addressInfo
@@ -110,36 +110,36 @@ Page({
       url: 'https://www.dingdonhuishou.com/AHS/api/userorder/get/operateredorders?page.currentPage=' + curPage + '&page.pageNumber=5' + '&lng=' + addressInfo.lng + '&lat=' + addressInfo.lat + '&lengthofnear=0',
       method: 'POST',
       header: app.globalData.header,
-      success: function (res) {
+      success: function(res) {
 
         if (res['data']['hasMore']) {
           ++s.count2
           s.observer2 = true
         }
-        if (typeof (callback) == 'function') {          
+        if (typeof(callback) == 'function') {
           callback(res['data']['data'])
         }
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log(error)
       }
     })
   },
-  bindDelTap: function (e) {
+  bindDelTap: function(e) {
     app.adjustCOpacity(this)
     var s = this
     var orderid = e.currentTarget.dataset.orderid
     wx.showModal({
       title: '通知',
       content: '确定取消订单吗？',
-      success: function (rt) {
+      success: function(rt) {
         if (rt.confirm) {
           // 取消订单操作
           wx.request({
             url: 'https://www.dingdonhuishou.com/AHS/api/userorder/cancel/order?id=' + orderid,
             method: 'POST',
             header: app.globalData.header,
-            success: function (res) {
+            success: function(res) {
               if (res['data']['isSuccess'] == 'TRUE') {
 
                 s.deleteItem(e)
@@ -158,7 +158,7 @@ Page({
                 })
               }
             },
-            fail: function (error) {
+            fail: function(error) {
               console.log(error)
             }
           })
@@ -166,7 +166,7 @@ Page({
       }
     })
   },
-  bindConfirmTap: function (e) {
+  bindConfirmTap: function(e) {
 
     let index = parseInt(e.currentTarget.id)
     let list = this.data.tag == 'operatable' ? this.data.operatableOrderList : this.data.operatabledOrderList
@@ -184,7 +184,7 @@ Page({
       wx.showModal({
         title: '提示',
         content: desc,
-        success: function (rt) {
+        success: function(rt) {
 
           if (btnText == '确认收款') {
             list[index].btnText = '待评论'
@@ -210,14 +210,14 @@ Page({
       })
     }
   },
-  bindContactTap: function (e) {
+  bindContactTap: function(e) {
     let index = e.currentTarget.id
     let phonenum = this.data.operatableOrderList[index].phonenum
     wx.makePhoneCall({
       phoneNumber: phonenum
     })
   },
-  clickOperatableOrder: function (e) {
+  clickOperatableOrder: function(e) {
     var view = this.data.view
     view.aColor = "#19c4aa"
     view.bColor = "#3e3e3e"
@@ -229,7 +229,7 @@ Page({
     wx.startPullDownRefresh()
 
   },
-  clickOperatabledOrder: function (e) {
+  clickOperatabledOrder: function(e) {
     var view = this.data.view
     view.bColor = "#19c4aa"
     view.aColor = "#3e3e3e"
@@ -240,7 +240,7 @@ Page({
     })
     wx.startPullDownRefresh()
   },
-  onReachBottom: function (e) {
+  onReachBottom: function(e) {
     var s = this
     if (s.data.tag == 'operatable') {
       // 未完成订单
@@ -248,7 +248,7 @@ Page({
       if (s.observer1) {
         s.observer1 = false
         // 获取未完成订单
-        s.getUserOperatableOrders(s.count1, function (operatableOrderList) {
+        s.getUserOperatableOrders(s.count1, function(operatableOrderList) {
           s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) : []
           console.log('waitForComment', s.waitForComment)
           s.solveOperatableList(operatableOrderList)
@@ -260,13 +260,13 @@ Page({
       console.log('刷新已完成订单', s.count2, s.observer2)
       if (s.observer2) {
         s.observer2 = false
-        s.getUserOperatabledOrders(s.count2, function (list) {
+        s.getUserOperatabledOrders(s.count2, function(list) {
           s.solveOperatabledList(list)
         })
       }
     }
   },
-  onPullDownRefresh: function (e) {
+  onPullDownRefresh: function(e) {
     console.log('loading')
     wx.showNavigationBarLoading()
 
@@ -276,7 +276,7 @@ Page({
       s.count1 = 1
       s.observer1 = false
       // 获取未完成订单
-      s.getUserOperatableOrders(1, function (operatableOrderList) {
+      s.getUserOperatableOrders(1, function(operatableOrderList) {
         s.waitForComment = wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) ? wx.getStorageSync('waitForComment' + app.globalData.userInfo.id) : []
         console.log('waitForComment', s.waitForComment)
         s.solveOperatableList(operatableOrderList)
@@ -286,7 +286,7 @@ Page({
       s.count2 = 1
       s.observer2 = false
       // 已完成订单
-      s.getUserOperatabledOrders(1, function (operatabledOrderList) {
+      s.getUserOperatabledOrders(1, function(operatabledOrderList) {
         s.solveOperatabledList(operatabledOrderList)
       })
     }
@@ -295,7 +295,7 @@ Page({
       wx.stopPullDownRefresh()
     }, 1000)
   },
-  solveOperatableList: function (list) {
+  solveOperatableList: function(list) {
     var s = this
     for (var i = 0; i < list.length; ++i) {
       // list[i].idx = i + ''
@@ -303,13 +303,13 @@ Page({
       // 判断订单类型
       switch (list[i].recyclingwastestate) {
         case 0: //普通订单
-          list[i].icon = '/Resources/images/orderIcon.png'
+          list[i].icon = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/orderIcon.png'
           break
         case 1: //加急订单
-          list[i].icon = '/Resources/images/urgency.png'
+          list[i].icon = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/urgency.png'
           break
         case 2: // 预约订单
-          list[i].icon = '/Resources/images/booking.png'
+          list[i].icon = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/booking.png'
       }
       // 判断可订单状态
       switch (list[i].state) {
@@ -355,7 +355,7 @@ Page({
     })
     console.log(s.operatableOrderList)
   },
-  solveOperatabledList: function (list) {
+  solveOperatabledList: function(list) {
 
     var s = this
     for (var i = 0; i < list.length; ++i) {
@@ -364,13 +364,13 @@ Page({
       // 判断订单类型
       switch (list[i].recyclingwastestate) {
         case 0: //普通订单
-          list[i].icon = '/Resources/images/orderIcon.png'
+          list[i].icon = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/orderIcon.png'
           break
         case 1: //加急订单
-          list[i].icon = '/Resources/images/urgency.png'
+          list[i].icon = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/urgency.png'
           break
         case 2: // 预约订单
-          list[i].icon = '/Resources/images/booking.png'
+          list[i].icon = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/booking.png'
       }
       // 判断已完成订单状态
       list[i].finished = true

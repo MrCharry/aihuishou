@@ -12,11 +12,11 @@
     <label>收货地址：</label>
     <view class='address' bindtap='bindLocateTap' style='opacity:{{view.aOpacity}}'>
       <view class='left'>
-        <image src='/Resources/images/locateIcon.png' style='width:32rpx; height:32rpx;'/>
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/locateIcon.png' style='width:32rpx; height:32rpx;'/>
         <label wx:if='{{addressInfo.address}}'>{{addressInfo.address}}</label>
         <!-- <label wx:else>{{userInfo.address}}</label> -->
       </view>
-      <image src='/Resources/images/arrowRight.png'/>
+      <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png'/>
     </view>
   </view>
   <view class='row2'>

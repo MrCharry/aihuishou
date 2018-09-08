@@ -296,7 +296,7 @@ App({
     if (phonenum==undefined || phonenum.length==0) {
       wx.showToast({
         title: '手机号为空',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function() {
           that.setData({
             focus: true
@@ -308,7 +308,7 @@ App({
     } else if (!pattern.test(phonenum)) {
       wx.showToast({
         title: '手机号有误',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus: true
@@ -325,7 +325,7 @@ App({
     if (val == undefined) {
       wx.showToast({
         title: '密码为空',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus1: true,
@@ -338,7 +338,7 @@ App({
     if (/^\s+$/.test(val)) {
       wx.showToast({
         title: '请不要输入空格',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus1: true,
@@ -352,7 +352,7 @@ App({
     if (val.length < 6 || val.length > 18) {
       wx.showToast({
         title: '密码过短或过长',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus1: true,
@@ -376,7 +376,7 @@ App({
     if (i == val.length - 1 || j == val.length - 1) {
       wx.showToast({
         title: '连续的字符',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus1: true,
@@ -393,7 +393,7 @@ App({
     if (val == undefined) {
       wx.showToast({
         title: warning,
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus2: true,
@@ -406,7 +406,7 @@ App({
     if (/^[ ]+$/.test(val)) {
       wx.showToast({
         title: '请不要输入空格',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus2: true,

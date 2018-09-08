@@ -44,7 +44,7 @@ Page({
     if (phonenum == undefined) {
       wx.showModal({
         title: '请输入手机号',
-        image: '/Resources/images/error.png',
+        image: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/error.png',
         success: function () {
           that.setData({
             focus: true

@@ -17,8 +17,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       deviceInfo: app.globalData.deviceInfo,
-      defaultIcon: '/Resources/images/checked.png',
-      icon: '/Resources/images/check.png'
+      defaultIcon: '/https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/checked.png',
+      icon: '/https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/check.png'
     })
   },
   onShow: function () {

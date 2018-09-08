@@ -4,11 +4,11 @@
   <view class='operationZoom'>
     <view bindtap='operatePassword' hover-class='hover'>
       <text>修改登录密码</text>
-      <image src='/Resources/images/arrowRight.png'/>
+      <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png'/>
     </view>
     <view bindtap='bindPaypasswordTap' hover-class='hover'>
       <text>设置支付密码</text>
-      <image src='/Resources/images/arrowRight.png'/>
+      <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/arrowRight.png'/>
     </view>
     <view bindtap='clickLogout'>
       <text>退出</text>

@@ -22,10 +22,10 @@
     <view class='row1'>
       <label style='white-space:nowrap;'>预计斤数：</label>
       <view class='rowright'>
-        <image src='/Resources/images/minus.png' bindtap='bindMinusTap' />
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/minus.png' bindtap='bindMinusTap' />
         <input type='number' bindinput='bindAmountTap' focus='{{focus}}' bindblur='bindAmountBlur' value='{{inputData.amount}}' placeholder='0' placeholder-style='color:#dcdcdc;'/>
         <label>斤</label>
-        <image src='/Resources/images/plus.png' bindtap='bindPlusTap' />
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/plus.png' bindtap='bindPlusTap' />
       </view>
     </view>
     <view class='row2'>
@@ -75,12 +75,12 @@
   <view class='middle'>
     <view class='content'>
       <view class='row1'>
-        <image src='/Resources/images/classify_08.png' />
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/classify_08.png' />
       </view>
       <view class='row2'>
-        <view><image src='/Resources/images/minus.png' /></view>
+        <view><image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/minus.png' /></view>
         <input type='number' placeholder='请输入重量' placeholder-style='color: #d5d3d7;     align-item: center;'/>
-        <view><image src='/Resources/images/plus.png' /></view>
+        <view><image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/plus.png' /></view>
       </view>
     </view>
   </view>

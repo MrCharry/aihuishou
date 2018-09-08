@@ -8,7 +8,7 @@ Page({
     view: {
       editNickname: false
     },
-    genderPic: '/Resources/images/check.png'
+    genderPic: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/check.png'
   },
 
   /**
@@ -18,8 +18,8 @@ Page({
   
     this.setData({
       userInfo: app.globalData.userInfo,
-      defaultGenderPic: '/Resources/images/check.png',
-      selectedGenderPic: '/Resources/images/checked.png'
+      defaultGenderPic: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/check.png',
+      selectedGenderPic: 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/checked.png'
     })
   },
   onShow: function() {

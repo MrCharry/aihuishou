@@ -2,7 +2,7 @@
 <view class='container'>
 
   <view wx:if='{{notifications.length == 0}}' class='noNotification' style='height:{{deviceInfo.windowHeight}}px'>
-    <image src='/Resources/images/noNotification.png' mode='aspectFit' />
+    <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/noNotification.png' mode='aspectFit' />
     <text>暂无消息</text>
   </view>
 

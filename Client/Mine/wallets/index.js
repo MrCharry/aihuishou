@@ -109,9 +109,9 @@ Page({
     }
     var paylogo = ''
     if (s.paymethod == 0) {
-      paylogo = '/Resources/images/weixin.png'
+      paylogo = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/weixin.png'
     }else if (s.paymethod == 1) {
-      paylogo = '/Resources/images/card.png'
+      paylogo = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/card.png'
     }
     s.setData({
       paylogo: paylogo
@@ -146,9 +146,9 @@ Page({
     var s = this
     // var paylogo = ''
     // if (paymethod == 0) {
-    //   paylogo = '/Resources/images/weixin.png'
+    //   paylogo = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/weixin.png'
     // } else if (paymethod == 1) {
-    //   paylogo = '/Resources/images/card.png'
+    //   paylogo = 'https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/card.png'
     // }
     // s.setData({
     //   paylogo: paylogo

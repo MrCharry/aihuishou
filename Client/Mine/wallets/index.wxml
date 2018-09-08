@@ -25,12 +25,12 @@
   <view class='modal' style='width:{{deviceInfo.windowWidth}}px; height:{{deviceInfo.windowHeight}}px'>
     <view class='withdrow-modal'>
       <view class='closeIcon' hover-class='hover'>
-        <image src='/Resources/images/closeIcon_01.png' bindtap='bindCloseTap' mode='aspectFit' />
+        <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/closeIcon_01.png' bindtap='bindCloseTap' mode='aspectFit' />
       </view>
       <view class='withdrow-block'>
         <text>输入提现金额</text>
         <view class='amount'>
-          <image src='/Resources/images/rmb.png' mode='aspectFit' />
+          <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/rmb.png' mode='aspectFit' />
           <input type='number' bindinput='bindInput' focus='{{focus}}'/>
         </view>
         <view class='withdrowBtn' bindtap='bindWithdrowMoney' hover-class='hover'>提现</view>
@@ -46,13 +46,13 @@
       <view class='closeIconRow'>
         <label>输入支付密码</label>
         <view hover-class='hover'>
-          <image src='/Resources/images/closeIcon_01.png' bindtap='bindCloseTap' mode='aspectFit' />
+          <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/closeIcon_01.png' bindtap='bindCloseTap' mode='aspectFit' />
         </view>
       </view>
       <view class='middle'>
         <label>提现</label>
         <view class='bill'>
-          <image src='/Resources/images/rmb.png' mode='aspectFit' />
+          <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/rmb.png' mode='aspectFit' />
           <text>{{bill}}</text>
         </view>
       </view>

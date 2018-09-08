@@ -8,7 +8,7 @@
   </view>
 
   <view class='noOrder' wx:if='{{tag=="operatable"&&operatableOrderList.length==0 || tag=="operatabled"&&operatabledOrderList.length==0}}' style='width:{{deviceInfo.windowWidth}}px'>
-    <image src='/Resources/images/noOrder.png' mode='aspectFit' />
+    <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/noOrder.png' mode='aspectFit' />
     <text>暂无订单记录</text>
   </view>
   
@@ -53,7 +53,7 @@
     <label class='operatabled' bindtap='clickOperatabledOrder' style='opacity:{{view.bOpacity}}; color:{{view.bColor}}'>已完成订单</label>
   </view>
   <view class='noOrder' wx:if='{{tag=="operatable"&&operatableOrderList.length==0 || tag=="operatabled"&&operatabledOrderList.length==0}}' style='width:{{deviceInfo.windowWidth}}px'>
-    <image src='/Resources/images/noOrder.png' mode='aspectFit' />
+    <image src='https://lg-gwh53phk-1252040173.cos.ap-shanghai.myqcloud.com/noOrder.png' mode='aspectFit' />
     <text>暂无订单记录</text>
   </view>
   <view wx:for="{{tag=='operatable' ? operatableOrderList:operatabledOrderList}}" wx:key="{{index}}" class='list' animation='{{item.wrapAnimation}}'>
